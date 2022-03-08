@@ -2,17 +2,23 @@
 
 namespace Database\Seeders;
 
+use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder {
     /**
      * Seed the application's database.
      *
      * @return void
      */
-    public function run()
-    {
-        // User::factory(10)->create();
+    public function run(){
+      User::factory()->times(1)->create([
+        'name' => "John",
+        'email' => "dev@dev.com",
+        'password' => bcrypt("password"),
+      ]);
+
+      Project::factory()->times(40)->create();
     }
 }
