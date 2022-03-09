@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
-{
-    /**
+class ProjectController extends Controller {
+
+  public function __construct(){
+    //middleware para acceso a las rutas.
+    $this->middleware('auth');
+  }
+
+  /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+      $projects = Project::with("user")->paginate(10);
+      return view('projects.index', compact('projects'));
     }
 
     /**
