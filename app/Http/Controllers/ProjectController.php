@@ -25,11 +25,14 @@ class ProjectController extends Controller {
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+      $project = new Project;
+      $title = __("Crear proyecto");
+      $textButton = __("Crear");
+      $route = route("projects.store");
+      return view('projects.create', compact('title', 'textButton', 'route', 'project'));
     }
 
     /**
