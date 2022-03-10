@@ -21,8 +21,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('home');
+    public function index(){
+      $demo = [
+        [
+          'title' => "Titulo a usar 1",
+          'content' => "Contenido del post 1"
+        ],
+        [
+          'title' => "Titulo a usar 2",
+          'content' => "Contenido del post 2"
+        ],
+      ];
+
+        return view('home')->with('demo',$demo);
     }
 }
