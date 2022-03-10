@@ -23,3 +23,6 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 //Generando una ruto tipo resource para el modelo Project.
 Route::resource('projects', ProjectController::class);
 
+/* ruta para uso de livewire */
+Route::view('contacts','users.contacts');
+
