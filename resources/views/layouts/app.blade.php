@@ -38,6 +38,14 @@
 							</a>
 						</div>
 					</div>
+
+					<div class="w-full block flex-grow-lg:flex lg:items-center lg:w-auto">
+						<div class="text-sm lg:flex-grow ml3">
+							<a href="/contacts" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+								{{ __("Contactos") }}
+							</a>
+						</div>
+					</div>
 				@endauth
 
 
