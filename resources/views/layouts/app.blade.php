@@ -14,6 +14,10 @@
 
   <!-- Styles -->
   <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+	<!-- LIVEWIRE -->
+	@livewireStyles
+
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
 	<div id="app">
@@ -77,7 +81,8 @@
 		<div class="container mx-auto px4">
 			@yield('content')
 		</div>
-
 	</div>
+	<!-- Scripts LIVEWIRE --->
+	@livewireScripts
 </body>
 </html>
