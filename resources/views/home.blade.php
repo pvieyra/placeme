@@ -22,6 +22,10 @@
                 </p>
             </div>
         </section>
+        <!-- Creacion de un componente nativo -->
+        <x-demo class="text-center" name="informacion">
+            <label for="informacion">Esta es una etiqueta para el componente</label>
+        </x-demo>
     </div>
 </main>
 @endsection
