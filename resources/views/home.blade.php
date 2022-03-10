@@ -24,7 +24,24 @@
         </section>
         <!-- Creacion de un componente nativo -->
         <x-demo class="text-center" name="informacion">
-            <label for="informacion">Esta es una etiqueta para el componente</label>
+            <div class="columns-3">
+                <div>
+                    <p>
+                        Nunc a nibh nec justo vulputate dapibus at nec dolor. Orci varius natoque penatibus
+                        et magnis dis parturient montes, nascetur ridiculus mus. Phasellus finibus congue semper.
+                        Donec dolor velit,
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        Nunc a nibh nec justo vulputate dapibus at nec dolor. Orci varius natoque penatibus et
+                        magnis dis parturient montes, nascetur ridiculus mus. Phasellus finibus congue semper.
+                        Donec dolor velit, bibendum vitae metus in, rutrum mattis eros. Pellentesque aliquet dui
+                        quis orci bibendum fermentum.
+                    </p>
+                </div>
+
+            </div>
         </x-demo>
     </div>
 </main>
