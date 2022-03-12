@@ -21,6 +21,11 @@
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
 	<div id="app">
+	<!-- Nava bar layout -->
+	<header>
+
+	</header>
+
 		<header class="bg-blue-900 py-6">
 			<div class="container mx-auto flex justify-between items-center px-6">
 				<div>
@@ -30,6 +35,7 @@
 				</div>
 
 				{{-- ADD THIS NAVIGATION OPTION --}}
+
 				@auth
 					<div class="w-full block flex-grow-lg:flex lg:items-center lg:w-auto">
 						<div class="text-sm lg:flex-grow ml3">
