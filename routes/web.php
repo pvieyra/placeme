@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,6 @@ Route::resource('projects', ProjectController::class);
 
 /* ruta para uso de livewire */
 Route::view('contacts','users.contacts');
+//ruta para verificar los permisos de las cuentas.
+Route::get('/crear-usuario-roles', [UserController::class, 'crearRoles'])->name('roles');
 
