@@ -1,84 +1,126 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<!-- Title -->
+		<title>Place Me | Login </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta charset="UTF-8">
+		<meta name="description" content="Responsive Admin Place Me"/>
+		<meta name="keywords" content="admin,dashboard"/>
+		<meta name="author" content="giganube"/>
 
-@section('content')
-<main class="sm:container sm:mx-auto sm:max-w-lg sm:mt-10">
-    <div class="flex">
-        <div class="w-full">
-            <section class="flex flex-col break-words bg-white sm:border-1 sm:rounded-md sm:shadow-sm sm:shadow-lg">
+		<!-- Styles -->
+		<link type="text/css" rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.min.css') }}"/>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="{{ asset('plugins/metrojs/MetroJs.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('plugins/weather-icons-master/css/weather-icons.min.css')}}" rel="stylesheet">
 
-                <header class="font-semibold bg-gray-200 text-gray-700 py-5 px-6 sm:py-6 sm:px-8 sm:rounded-t-md">
-                    {{ __('Login') }}
-                </header>
+		<!-- Theme Styles -->
+		<link href="{{ asset('css/alpha.min.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
 
-                <form class="w-full px-6 space-y-6 sm:px-10 sm:space-y-8" method="POST" action="{{ route('login') }}">
-                    @csrf
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
 
-                    <div class="flex flex-wrap">
-                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('E-Mail Address') }}:
-                        </label>
+	</head>
+<body class="signin-page">
+	<div class="loader-bg"></div>
+		<div class="loader">
+	<div class="preloader-wrapper big active">
+		<div class="spinner-layer spinner-blue">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+		<div class="spinner-layer spinner-red">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+		<div class="spinner-layer spinner-yellow">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+		<div class="spinner-layer spinner-green">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="mn-content valign-wrapper">
+	<main class="mn-inner container">
+		<div class="valign">
+			<div class="row">
+				<div class="col s12 m6 l4 offset-l4 offset-m3">
+					<div class="card white darken-1">
+						<div class="card-content ">
+							<span class="card-title">{{ __('Inicia Sesion') }}</span>
+							<div class="row">
+								<form class="col s12" method="POST" action="{{ route('login') }}">
+									@csrf
+									<div class="input-field col s12">
+										<input id="email" type="email" name="email" class="validate @error('email') invalid @enderror" value="{{ old('email') }}">
+										<label for="email">{{ __('Correo Electronico')}}</label>
+										@error('email')
+											<label id="firstName-error" class="error" for="firstName">{{ $message }}</label>
+										@enderror
+									</div>
+									<div class="input-field col s12">
+										<input id="password" type="password" name="password" class="validate @error('password') invalid @enderror">
+										<label for="password">Contraseña</label>
+										@error('password')
+										<label id="firstName-error" class="error" for="firstName">{{ $message }}</label>
+										@enderror
+									</div>
+									<div class="col s12 right-align m-t-sm">
+										<button type="submit"  class="waves-effect waves-light btn teal">Iniciar sesión</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
 
-                        <input id="email" type="email"
-                            class="form-input w-full @error('email') border-red-500 @enderror" name="email"
-                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+		<!-- Javascripts -->
+		<script src="{{ asset('plugins/jquery/jquery-2.2.0.min.js')}}"></script>
+		<script src="{{ asset('plugins/materialize/js/materialize.min.js')}}"></script>
+		<script src="{{ asset('plugins/material-preloader/js/materialPreloader.min.js')}}"></script>
+		<script src="{{ asset('plugins/jquery-blockui/jquery.blockui.js')}}"></script>
+		<script src="{{ asset('js/alpha.min.js')}}"></script>
 
-                        @error('email')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
-                            {{ __('Password') }}:
-                        </label>
-
-                        <input id="password" type="password"
-                            class="form-input w-full @error('password') border-red-500 @enderror" name="password"
-                            required>
-
-                        @error('password')
-                        <p class="text-red-500 text-xs italic mt-4">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-
-                    <div class="flex items-center">
-                        <label class="inline-flex items-center text-sm text-gray-700" for="remember">
-                            <input type="checkbox" name="remember" id="remember" class="form-checkbox"
-                                {{ old('remember') ? 'checked' : '' }}>
-                            <span class="ml-2">{{ __('Remember Me') }}</span>
-                        </label>
-
-                        @if (Route::has('password.request'))
-                        <a class="text-sm text-blue-500 hover:text-blue-700 whitespace-no-wrap no-underline hover:underline ml-auto"
-                            href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                        @endif
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <button type="submit"
-                        class="w-full select-none font-bold whitespace-no-wrap p-3 rounded-lg text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700 sm:py-4">
-                            {{ __('Login') }}
-                        </button>
-
-                        @if (Route::has('register'))
-                        <p class="w-full text-xs text-center text-gray-700 my-6 sm:text-sm sm:my-8">
-                            {{ __("Don't have an account?") }}
-                            <a class="text-blue-500 hover:text-blue-700 no-underline hover:underline" href="{{ route('register') }}">
-                                {{ __('Register') }}
-                            </a>
-                        </p>
-                        @endif
-                    </div>
-                </form>
-
-            </section>
-        </div>
-    </div>
-</main>
-@endsection
+	</body>
+</html>

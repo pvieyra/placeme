@@ -24,7 +24,7 @@ Route::get('/alpha', function(){
 });
 
 Auth::routes();
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 //Generando una ruto tipo resource para el modelo Project.
 Route::resource('projects', ProjectController::class);
 

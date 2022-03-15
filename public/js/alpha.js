@@ -176,8 +176,8 @@ $( document ).ready(function() {
         col_2: '#da4733',
         col_3: '#3b78e7',
         col_4: '#fdba2c',
-        fadeIn: 200,
-        fadeOut: 200
+        fadeIn: 100,
+        fadeOut: 100
     });
     preloader.on();
     $(window).load(function() {
