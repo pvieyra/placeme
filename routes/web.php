@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/alpha', function(){
+  return view('alpha');
+});
+
 Auth::routes();
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //Generando una ruto tipo resource para el modelo Project.
