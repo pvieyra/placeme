@@ -217,12 +217,11 @@
 		</div>
 		</aside>
 		<!-- ./ End Right Menu -->
-
-		<main class="mn-inner inner-active-sidebar">
-			<div class="middle-content">
-				<div class="row bg-gray-200 no-m-t no-m-b">
-					<div class="col s12 m12 l4">
-						contenido revision
+		<main class="mn-inner">
+			<div class="row">
+				<div class="col s12">
+					<div class="page-title">
+						@yield('content')
 					</div>
 				</div>
 			</div>
