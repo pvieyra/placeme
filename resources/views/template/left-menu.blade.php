@@ -33,17 +33,19 @@
       </ul>
     </div>
     <ul class="sidebar-menu collapsible collapsible-accordion" data-collapsible="accordion">
-      <li class="no-padding active"><a class="waves-effect waves-grey active" href="index.html">
+      <li class="no-padding active"><a class="waves-effect waves-grey active" href="{{ route('index') }}">
           <i class="material-icons">settings_input_svideo</i>
           Inicio
         </a>
       </li>
       <li class="no-padding">
-        <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">apps</i>Aplicaciones<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <a class="collapsible-header waves-effect waves-grey">
+          <i class="material-icons">apps</i>Usuarios<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>
+        </a>
         <div class="collapsible-body">
           <ul>
-            <li><a href="{{ route('projects.index') }}">Proyectos</a></li>
-            <li><a href="/contacts">Contactos</a></li>
+            <li><a href="{{ route('users.create') }}"> Crear </a></li>
+            <li><a href="/contacts"> Listado </a></li>
           </ul>
         </div>
       </li>

@@ -11,8 +11,7 @@ class CreateAdditionalsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('additionals', function (Blueprint $table) {
           $table->id();
           $table->unsignedBigInteger('user_id');

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<!-- Title -->
-	<title>Place Me! | {{ Route::currentRouteName() }} </title>
+	<title>Place Me! | {{ Request::route()->uri  }} </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<meta charset="UTF-8">
 	<meta name="description" content="Portal operativo para Place Me!" />
@@ -31,53 +31,15 @@
 
 </head>
 <body id="app">
-	<div class="loader-bg"></div>
-	<div class="loader">
-	<div class="preloader-wrapper big active">
-		<div class="spinner-layer spinner-blue">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div><div class="gap-patch">
-				<div class="circle"></div>
-			</div><div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
-		<div class="spinner-layer spinner-teal lighten-1">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div><div class="gap-patch">
-				<div class="circle"></div>
-			</div><div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
-		<div class="spinner-layer spinner-yellow">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div><div class="gap-patch">
-				<div class="circle"></div>
-			</div><div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
-		<div class="spinner-layer spinner-green">
-			<div class="circle-clipper left">
-				<div class="circle"></div>
-			</div><div class="gap-patch">
-				<div class="circle"></div>
-			</div><div class="circle-clipper right">
-				<div class="circle"></div>
-			</div>
-		</div>
-	</div>
-</div>
+	{{-- carga de loader--}}
+	@include('template.loader')
+
 	<div class="mn-content fixed-sidebar">
 
 		<!-- Header -->
 		@include('template.header')
 		<!-- Right Menu -->
-		@include('template.right-menu')
+		@include('template.left-menu')
 		<!-- ./ End Right Menu -->
 
 		<main class="mn-inner">
@@ -105,24 +67,9 @@
 	</div>
 	<div class="left-sidebar-hover"></div>
 	<!-- Javascripts -->
-	<script src="{{ asset('plugins/jquery/jquery-2.2.0.min.js')}}"></script>
-	<script src="{{ asset('plugins/materialize/js/materialize.min.js')}}"></script>
-	<script src="{{ asset('plugins/material-preloader/js/materialPreloader.min.js')}}"></script>
-	<script src="{{ asset('plugins/jquery-blockui/jquery.blockui.js')}}"></script>
-	<script src="{{ asset('plugins/waypoints/jquery.waypoints.min.js')}}"></script>
-	<script src="{{ asset('plugins/counter-up-master/jquery.counterup.min.js')}}"></script>
-	<script src="{{ asset('plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
-	<script src="{{ asset('plugins/chart.js/chart.min.js')}}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.min.js')}}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.time.min.js')}}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.symbol.min.js')}}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.resize.min.js')}}"></script>
-	<script src="{{ asset('plugins/flot/jquery.flot.tooltip.min.js')}}"></script>
-	<script src="{{ asset('plugins/curvedlines/curvedLines.js')}}"></script>
-	<script src="{{ asset('plugins/peity/jquery.peity.min.js')}}"></script>
-	<script src="{{ asset('js/alpha.min.js')}}"></script>
 
-	@livewireScripts
+		@yield('native-scripts')
+		@livewireScripts
 
 	</body>
 </html>

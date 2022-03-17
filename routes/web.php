@@ -24,12 +24,14 @@ Route::get('/alpha', function(){
 });
 
 Auth::routes();
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
+Route::get('/inicio', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
 //Generando una ruto tipo resource para el modelo Project.
 Route::resource('projects', ProjectController::class);
 
 /* ruta para uso de livewire */
 Route::view('contacts','users.contacts');
+
+Route::view('crear-usuarios', 'users.create')->name('users.create');
 //ruta para verificar los permisos de las cuentas.
 Route::get('/crear-usuario-roles', [UserController::class, 'crearRoles'])->name('roles');
 
