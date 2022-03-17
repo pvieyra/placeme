@@ -31,6 +31,7 @@ Route::resource('projects', ProjectController::class);
 /* ruta para uso de livewire */
 Route::view('contacts','users.contacts');
 
+/* USERS */
 Route::view('crear-usuarios', 'users.create')->name('users.create');
 //ruta para verificar los permisos de las cuentas.
 Route::get('/crear-usuario-roles', [UserController::class, 'crearRoles'])->name('roles');

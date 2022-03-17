@@ -43,13 +43,7 @@
 		<!-- ./ End Right Menu -->
 
 		<main class="mn-inner">
-			<div class="row">
-				<div class="col s12">
-					<div class="page-title">
-						@yield('content')
-					</div>
-				</div>
-			</div>
+			@yield('content')
 		</main>
 		<!-- footer -->
 		<div class="page-footer">
