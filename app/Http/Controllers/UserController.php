@@ -21,7 +21,14 @@ class UserController extends Controller{
     } catch ( Throwable $e){
       return $e->getMessage();
     }
+  }
 
+  /**
+   * Show the form for creating a new resource.
+   *
+   */
+  public function create(){
 
   }
+
 }
