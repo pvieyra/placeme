@@ -9,17 +9,7 @@
 	<meta name="keywords" content="admin,dashboard, place me" />
 	<meta name="author" content="giganube" />
 
-	<!-- Styles -->
-	<link type="text/css" rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.min.css') }}"/>
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="{{ asset('plugins/metrojs/MetroJs.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('plugins/weather-icons-master/css/weather-icons.min.css')}}" rel="stylesheet">
-
-	<!-- Styles -->
-	<link href="{{ mix('css/app.css') }}" rel="stylesheet">
-	<!-- Theme Styles -->
-	<link href="{{ asset('css/alpha.min.css')}}" rel="stylesheet" type="text/css"/>
-	<link href="{{ asset('css/custom.css')}}" rel="stylesheet" type="text/css"/>
+	@yield('native-styles')
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,6 +56,5 @@
 
 		@yield('native-scripts')
 		@livewireScripts
-
 	</body>
 </html>
