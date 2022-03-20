@@ -44,7 +44,7 @@
               <div class="row">
                 <div class="col s12">
                   <label for="phone">Teléfono</label>
-                  <input id="phone" wire:model="phone" type="text" class="masked @error('phone') invalid @enderror" placeholder="Campo obligatorio">
+                  <input id="phone" wire:model="phone" type="text" class="masked @error('phone') invalid @enderror" placeholder="Campo opcional">
                   @error('phone')
                     <label class="error text-red-500">{{ $message }}</label>
                   @enderror

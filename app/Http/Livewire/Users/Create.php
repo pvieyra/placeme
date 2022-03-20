@@ -4,8 +4,12 @@ namespace App\Http\Livewire\Users;
 
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Manny\Manny;
 
 class Create extends Component{
+  //trait para subir imagenes.
+  use WithFileUploads;
 
   public $name;
   public $email;
@@ -48,13 +52,15 @@ class Create extends Component{
         'string',
         'min:8',
       ],
+      'phone' => [
+        Rule::when($this->phone, ['min:10']),
+      ],
       'role' => [
         'required'
       ],
       'photo_profile' => [
-        'image',
-        'max:2048',
-        'mimes:jpeg,png,jpg,svg,gif'
+        Rule::when($this->photo_profile,['image']),
+        //'image',
       ],
     ];
   }
@@ -71,6 +77,8 @@ class Create extends Component{
     'password.required' => "La contraseña es obligatoria",
     'password.min' => "La contraseña debe de contener minimo 8 caracteres",
     'role.required' => "Debes seleccionar un rol para el usuario",
+    'phone.min' => "El telefono debe contener 10 digitos",
+    'photo_profile.image' => "Solo se permiten subir imagenes",
     'photo_profile.max' => "El tamaño maximo de la imagen es 2mb",
     'photo_profile.mimes' => "El archivo debe ser de tipo imagen",
   ];
@@ -78,6 +86,10 @@ class Create extends Component{
 
   public function updated($propertyName){
     $this->validateOnly($propertyName);
+
+    if($propertyName == 'phone' ){
+      $this->phone = Manny::mask($this->phone, "(11) 1111-1111");
+    }
   }
 
   public function submit(){
