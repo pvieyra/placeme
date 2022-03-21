@@ -35,7 +35,7 @@
                 </div>
                 <div class="col s12">
                   <label for="password">Contraseña</label>
-                  <input id="password" wire:model="password" type="password" class="validate @error('password') invalid @enderror" placeholder="Campo obligatorio">
+                  <input id="password" wire:model="password" type="password" class="validate @error('password') invalid @enderror" placeholder="Campo obligatorio (password)">
                   @error('password')
                     <label class="error text-red-500">{{ $message }}</label>
                   @enderror

@@ -87,6 +87,7 @@ class Create extends Component{
   public function updated($propertyName){
     $this->validateOnly($propertyName);
 
+    /* manny mask */
     if($propertyName == 'phone' ){
       $this->phone = Manny::mask($this->phone, "(11) 1111-1111");
     }
@@ -95,8 +96,5 @@ class Create extends Component{
   public function submit(){
     // Validacion
     $validateData = $this->validate();
-   /* $this->validate([
-      'name' => 'required|string',
-    ]);*/
   }
 }
