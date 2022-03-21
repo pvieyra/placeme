@@ -15,8 +15,6 @@ class User extends Authenticatable {
     use HasRoles;
     use HasFactory, Notifiable;
     /** spatie permissions */
-
-
     /**
      * The attributes that are mass assignable.
      *
@@ -43,4 +41,8 @@ class User extends Authenticatable {
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function additional(){
+      return $this->hasOne(Additional::class);
+    }
 }

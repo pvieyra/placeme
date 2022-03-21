@@ -47,6 +47,13 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+        /* Se crea un nuevo folder para guardar los archivos */
+        'photo-profile' => [
+          'driver' => 'local',
+          'root' => storage_path('app/photo-profile'),
+          'url' => env('APP_URL').'/photo-profile',
+          'visibility' => 'public',
+        ],
 
         'public' => [
             'driver' => 'local',

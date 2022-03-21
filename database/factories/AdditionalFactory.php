@@ -11,10 +11,14 @@ class AdditionalFactory extends Factory
      *
      * @return array
      */
-    public function definition()
-    {
+    public function definition() {
         return [
-            //
+          'user_id' => 2,
+          'last_name' => 'Vega',
+          'second_lastname' => "Thompson",
+          'phone' => '3318548115',
+          'photo_profile' => 'user.png',
+          'change_password' => 0
         ];
     }
 }
