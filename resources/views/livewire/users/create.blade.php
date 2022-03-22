@@ -65,7 +65,34 @@
                   @enderror
                 </div>
                 <div class="col s12 m6">
+                  @if ($photo_profile)
+                    @php
+                      try {
+                         $url = $photo_profile->temporaryUrl();
+                         $photoStatus = true;
+                      }catch (RuntimeException $exception){
+                          $photoStatus =  false;
+                      }
+                    @endphp
+                    @if($photoStatus)
+                      <div class="flex flex-col mb-5 items-center md:flex-row lg:flex-row">
+                        <img class="rounded-full mb-5 scale-50 basis-1/2" src="{{ $photo_profile->temporaryUrl() }}" alt="Foto del perfil">
+                        <button class="btn h-10 w-10 basis-1/2 bg-red-500 hover:bg-red-400" wire:click="resetImage">Eliminar</button>
+                      </div>
+                    @else
+                      <div class="flex flex-col mb-5 items-center">
+                        <label class="error text-red-500">El archivo seleccionado no es valido. Solo puede subir archivos tipo imagen: jpeg, png, gif, jpg</label>
+                        <a class="h-10 w-10 basis-1/2 text-red-500 cursor-pointer" wire:click="resetImage">Eliminar</a>
+                      </div>
+                    @endif
+                  @endif
                   <div class="file-field input-field">
+
+                   {{-- @if( $photo_profile )
+                      <div>
+                        <img class="rounded-full mb-5 scale-50" src="{{ $photo_profile->temporaryUrl() }}" alt="Foto del perfil">
+                      </div>
+                    @endif--}}
                     <div class="btn orange lighten-1">
                       <span>Foto</span>
                       <input type="file" wire:model="photo_profile">

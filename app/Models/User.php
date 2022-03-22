@@ -45,4 +45,9 @@ class User extends Authenticatable {
     public function additional(){
       return $this->hasOne(Additional::class);
     }
+
+  //getters
+  public function getAllNameAttribute(){
+    return $this->name." ".$this->additional->last_name;
+  }
 }

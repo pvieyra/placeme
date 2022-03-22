@@ -2,11 +2,12 @@
   <div class="side-nav-wrapper">
     <div class="sidebar-profile">
       <div class="sidebar-profile-image">
-        <img src="{{ asset('images/profile-image.png')}}" class="circle" alt="">
+        {{--<img src="{{ Auth::user()->additional->photo_profile  }}" alt="">--}}
+        <img src="{{ Auth::user()->additional->photo_profile  }}" class="circle" alt="">
       </div>
       <div class="sidebar-profile-info">
         <a href="javascript:void(0);" class="account-settings-link">
-          <p>{{ Auth::user()->name }}</p>
+          <p>{{ Auth::user()->all_name }}</p>
           <span>{{ Auth::user()->email }}<i class="material-icons right">arrow_drop_down</i></span>
         </a>
       </div>
@@ -38,17 +39,19 @@
           Inicio
         </a>
       </li>
-      <li class="no-padding">
-        <a class="collapsible-header waves-effect waves-grey">
-          <i class="material-icons">apps</i>Usuarios<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>
-        </a>
-        <div class="collapsible-body">
-          <ul>
-            <li><a href="{{ route('users.create') }}"> Crear </a></li>
-            <li><a href="/contacts"> Listado </a></li>
-          </ul>
-        </div>
-      </li>
+      @role('administrador')
+        <li class="no-padding">
+          <a class="collapsible-header waves-effect waves-grey">
+            <i class="material-icons">apps</i>Usuarios<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>
+          </a>
+          <div class="collapsible-body">
+            <ul>
+              <li><a href="{{ route('users.create') }}"> Crear </a></li>
+              <li><a href="/contacts"> Listado </a></li>
+            </ul>
+          </div>
+        </li>
+      @endrole
       <li class="no-padding">
         <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">

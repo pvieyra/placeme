@@ -27,6 +27,12 @@ class DatabaseSeeder extends Seeder {
       Permission::create(['name' => 'publicar seguimiento']);
       Permission::create(['name' => 'suspender seguimiento']);
 
+      //CRUD users
+      Permission::create(['name' => 'crear usuarios']);
+      Permission::create(['name' => 'editar usuarios']);
+      Permission::create(['name' => 'suspender usuarios']);
+
+
       // Crear un Role para administrador y darle permisos.
       $role1 = Role::create(['name' => 'administrador']);
       $role1->givePermissionTo('editar seguimiento');
@@ -46,6 +52,13 @@ class DatabaseSeeder extends Seeder {
         'name' => "John",
         'email' => "dev@dev.com",
         'password' => bcrypt("password"),
+      ]);
+      $userAdmin->additional()->create([
+        'last_name' => 'Bonachon',
+        'second_lastname' => "Smith",
+        'phone' => "3318548115",
+        'photo_profile' => "photo-profile/user_profile_a.png",
+        'change_password' => 1
       ]);
       $userAdmin->assignRole( $role1 );
 

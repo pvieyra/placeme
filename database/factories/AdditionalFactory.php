@@ -14,10 +14,10 @@ class AdditionalFactory extends Factory
     public function definition() {
         return [
           'user_id' => 2,
-          'last_name' => 'Vega',
+          'last_name' => "Vega",
           'second_lastname' => "Thompson",
-          'phone' => '3318548115',
-          'photo_profile' => 'user.png',
+          'phone' => "3318548115",
+          'photo_profile' => "photo-profile/user_profile_a.png",
           'change_password' => 0
         ];
     }

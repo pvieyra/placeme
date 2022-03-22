@@ -10,6 +10,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Manny\Manny;
 use Throwable;
+use Spatie\Permission\Models\Role;
 
 class Create extends Component{
   //trait para subir imagenes.
@@ -103,12 +104,17 @@ class Create extends Component{
     if($propertyName == 'second_lastname'){
       $this->second_lastname = Manny::stripper($this->second_lastname,['alpha']);
     }
+  }
 
+  public function resetImage(){
+    $this->photo_profile = null;
   }
 
   public function submit(){
     // Validacion
     $this->validate();
+
+
     try {
       DB::transaction( function(){
         $user = User::create([
@@ -116,12 +122,23 @@ class Create extends Component{
           'email' => $this->email,
           'password' => Hash::make($this->password),
         ]);
+
+        if($this->photo_profile){
+          $photo = $this->photo_profile->store('photo-profile');
+        }else {
+          $photo = "photo-profile/user_profile_a.png";
+        }
+
         $user->additional()->create([
           'last_name' => $this->last_name,
           'second_lastname' => $this->second_lastname,
           'phone' => $this->phone,
-          'photo_profile' => 'user1.png',
+          'photo_profile' => $photo,
         ]);
+
+        //asignar permisos
+        $user->assignRole($this->role);
+
       });
     } catch (Throwable $exception){
       dd($exception);
