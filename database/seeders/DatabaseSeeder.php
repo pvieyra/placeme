@@ -76,7 +76,10 @@ class DatabaseSeeder extends Seeder {
       ]);
       $userAdvisor->assignRole( $role2 );
 
-      User::factory()->count(50)->hasAdditional()->create();
+      User::factory()->count(500)->hasAdditional()->create()->each( function ( $user ){
+        $user->assignRole('asesor');
+      });
+
       Project::factory()->times(40)->create();
       Contact::factory(40)->create();
       //Additional::factory()->create();
