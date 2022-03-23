@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder {
       Permission::create(['name' => 'editar usuarios']);
       Permission::create(['name' => 'suspender usuarios']);
 
-
       // Crear un Role para administrador y darle permisos.
       $role1 = Role::create(['name' => 'administrador']);
       $role1->givePermissionTo('editar seguimiento');

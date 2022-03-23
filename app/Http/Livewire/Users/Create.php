@@ -111,9 +111,7 @@ class Create extends Component{
   }
 
   public function submit(){
-    // Validacion
     $this->validate();
-
 
     try {
       DB::transaction( function(){
@@ -145,7 +143,7 @@ class Create extends Component{
     }
 
 
-
+    session()->flash('message', __('Usuario guardado correctamente.'));
     $this->reset();
   }
 }
