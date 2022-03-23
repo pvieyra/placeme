@@ -67,11 +67,18 @@ class DatabaseSeeder extends Seeder {
         'email' => "vega@dev.com",
         'password' => bcrypt("password"),
       ]);
+      $userAdvisor->additional()->create([
+        'last_name' => 'Vega',
+        'second_lastname' => "Luke",
+        'phone' => "3336748029",
+        'photo_profile' => "photo-profile/user_profile_a.png",
+        'change_password' => 1
+      ]);
       $userAdvisor->assignRole( $role2 );
 
-
+      User::factory()->count(50)->hasAdditional()->create();
       Project::factory()->times(40)->create();
       Contact::factory(40)->create();
-      Additional::factory()->create();
+      //Additional::factory()->create();
     }
 }
