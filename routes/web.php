@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::group(['middleware' => ['role:administrador']],function(){
     /* USERS */
     Route::view('crear-usuarios', 'users.create')->name('users.create');
+    Route::view('ver-usuarios', 'users.index')->name('users.index');
     //Generando una ruto tipo resource para el modelo Project.
       Route::resource('projects', ProjectController::class);
       /* ruta para uso de livewire */
