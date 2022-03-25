@@ -22,7 +22,6 @@ class UserController extends Controller{
   }
 
   public function changePassword(ChangePasswordForm $request, User $user){
-
     try {
       DB::transaction(function() use( $request, $user){
         $user->update([
@@ -36,9 +35,15 @@ class UserController extends Controller{
     } catch (Exception $e){
       return $e->getMessage();
     }
-
-
-
   }
 
+  public function datatableUsers(){
+    $users = User::select('id','name','email')->get();
+    //dd($users);
+    return  datatables()->of($users)->addColumn('action',function( $user ){
+      $acciones = '<a href="#edit-'. $user->id .'"> <i class="material-icons">create</i></a>';
+//      /**/$acciones .= '<a href="" class="btn" > <i class="material-icons"></i> </a>';
+      return $acciones;
+    })->make();
+  }
 }

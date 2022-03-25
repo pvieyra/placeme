@@ -46,6 +46,7 @@
           </a>
           <div class="collapsible-body">
             <ul>
+              <li><a href="{{ route('users.index') }}"> Ver </a></li>
               <li><a href="{{ route('users.create') }}"> Crear </a></li>
               <li><a href="/contacts"> Listado </a></li>
             </ul>
