@@ -17,7 +17,7 @@
     <div class="card-content">
       <span class="card-title">Creación de usuarios</span><br>
       <div class="row">
-        <table id="example" class="table table-striped table-bordered  mt-4">
+        <table id="example" class="table table-striped table-bordered  mt-4 responsive-table">
           <thead>
           <tr>
             <th>ID </th>
@@ -48,7 +48,12 @@
               serverSide: true,
               responsive:true,
               buttons: [
-                  'copy', 'excel', 'pdf'
+                  {
+                      extend: 'copy',
+                      text: 'Copiado a portapapeles',
+                  },
+                  'excel',
+                  'pdf'
               ],
               "language": {
                   "searchPlaceholder": 'Nombre, Correo',
