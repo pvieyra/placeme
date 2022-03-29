@@ -9,9 +9,14 @@ class Additional extends Model{
     use HasFactory;
 
     protected $fillable = [
+      'user_id',
       'last_name',
       'second_lastname',
       'phone',
       'photo_profile'
     ];
+
+  public function user(){
+    return $this->belongsTo(User::class,'user_id');
+  }
 }

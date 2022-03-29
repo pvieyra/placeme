@@ -13,25 +13,25 @@
   <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.11.5/css/dataTables.jqueryui.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.jqueryui.min.css" rel="stylesheet">
-
-
-
 @endsection
 
 @section('content')
   <div class="card hoverable">
     <div class="card-content">
-      <span class="card-title">Creación de usuarios</span><br>
+      <span class="card-title">Ver usuarios</span><br>
       <div class="row">
-        <table id="example" class="display responsive-table" style="width: 100%">
+        <table id="example" class="display cell-border stripe	" style="width: 100%">
           <thead>
           <tr>
-            <th>ID </th>
             <th>Nombre  </th>
-            <th>Correo  </th>
-            <th>Acciones  </th>
+            <th>Apellido  </th>
+            <th>Email  </th>
+            <th>Telefono  </th>
+            <th>  </th>
           </tr>
           </thead>
+          <tbody></tbody>
+
         </table>
         <div/>
       </div>
@@ -84,8 +84,14 @@
                       text:'Imprimir',
                   }
               ],
+              columnDefs: [
+                  {
+                      targets: -1,
+                      className: 'dt-body-center'
+                  }
+              ],
               "language": {
-                  "searchPlaceholder": 'Nombre, Correo',
+                  "searchPlaceholder": 'Nombre, Correo, Email, Telefono',
                   "search": "Buscar",
                   "lengthMenu": 'Mostrar _MENU_',
                   "zeroRecords" : "No se encontro informacion",
@@ -93,24 +99,20 @@
                   "infoEmpty": "Sin registros disponibles",
                   "infoFiltered" : "(filtrado de _MAX_ registros totales)",
                   sLength: 'dataTables_length',
-                  // oPaginate: {
-                  //     sFirst: '<i class="material-icons">chevron_left</i>',
-                  //     sPrevious: '<i class="material-icons">chevron_left</i>',
-                  //     sNext: '<i class="material-icons">chevron_right</i>',
-                  //     sLast: '<i class="material-icons">chevron_right</i>'
-                  // }
               },
               //mandar ruta de laravel
-              "ajax":"{{ route('datatable.users')}}",
+              "ajax": "{{ route('datatable.users')}}",
+              "initComplete": function(settings, json){
+                console.log(json);
+              },
               "columns": [
-                  { data:'id'},
-                  { data:'name'},
-                  { data:'email'},
-                  { data:'action',orderable: false, searchable: false},
+                  { data:'name', name:'users.name'},
+                  { data:'additional.last_name', name:'additional.last_name'},
+                  { data:'email', name:'email'},
+                  { data:'additional.phone', name:'additional.phone'},
+                  { data:'action', orderable:false ,searchable: false},
               ]
           });
-
-
           $('.dataTables_length select').addClass('browser-default');
       });
   </script>

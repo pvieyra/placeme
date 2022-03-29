@@ -74,11 +74,9 @@ class DatabaseSeeder extends Seeder {
         'change_password' => 1
       ]);
       $userAdvisor->assignRole( $role2 );
-
-      User::factory()->count(1500)->hasAdditional()->create()->each( function ( $user ){
+      User::factory()->count(100)->hasAdditional()->create()->each( function ( $user ){
         $user->assignRole('asesor');
       });
-
       Project::factory()->times(40)->create();
       Contact::factory(40)->create();
       //Additional::factory()->create();

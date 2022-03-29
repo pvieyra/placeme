@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,10 +36,8 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
       /* ruta para uso de livewire */
       Route::view('contacts','users.contacts');
     });
-
   //ruta para verificar los permisos de las cuentas.
   //Route::get('/crear-usuario-roles', [UserController::class, 'crearRoles'])->name('roles');
-
   Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
 });
 
@@ -46,3 +45,4 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
 Route::get('cambiar-contrasena', [UserController::class, 'changePasswordForm'])->name('users.change.password.form')->middleware('auth');
 //Route::post('cambiar-contrasena', [UserController::class, 'changePassword'])->name('users.change.password');
 Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'])->name('users.change.password');
+Route::get('pruebas',[ UserController::class, 'demo'])->name('datatable.users.demo');
