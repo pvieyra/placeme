@@ -3,9 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Additional;
+use App\Models\Building;
 use App\Models\Contact;
+use App\Models\Customer;
 use App\Models\Project;
 use App\Models\User;
+use Database\Factories\ContactFactory;
 use Illuminate\Database\Seeder;
 
 use Spatie\Permission\Models\Role;
@@ -74,11 +77,17 @@ class DatabaseSeeder extends Seeder {
         'change_password' => 1
       ]);
       $userAdvisor->assignRole( $role2 );
-      User::factory()->count(100)->hasAdditional()->create()->each( function ( $user ){
+      User::factory()->count(1000)->hasAdditional()->create()->each( function ( $user ){
         $user->assignRole('asesor');
       });
-      Project::factory()->times(40)->create();
-      Contact::factory(40)->create();
+      Customer::factory(  5000)->create();
+      Building::factory(1500)->create();
+
+      $this->call(
+        OperationsTableSeeder::class,
+      );
+      //Project::factory()->times(40)->create();
+      //Contact::factory(40)->create();
       //Additional::factory()->create();
     }
 }

@@ -27,6 +27,7 @@
             <th>Apellido  </th>
             <th>Email  </th>
             <th>Telefono  </th>
+            <th>Rol  </th>
             <th>  </th>
           </tr>
           </thead>
@@ -110,6 +111,7 @@
                   { data:'additional.last_name', name:'additional.last_name'},
                   { data:'email', name:'email'},
                   { data:'additional.phone', name:'additional.phone'},
+                  { data:'roles.0.name', name:'roles.name'},
                   { data:'action', orderable:false ,searchable: false},
               ]
           });

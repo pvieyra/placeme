@@ -67,7 +67,6 @@ class UserController extends Controller{
         $acciones = '<a href="home"> <i class="material-icons">create</i></a>';
         return $acciones;
       })
-
       ->rawColumns(['action'])
       ->make( true );
   }
@@ -79,7 +78,15 @@ class UserController extends Controller{
         $acciones = '<a href="home"> <i class="material-icons">create</i></a>';
         return $acciones;
       })
-
+      ->addColumn('role', function(User $user){
+        return $user->getRoleNames()->first();
+      })
+      ->editColumn('additional.active',function(User $user){
+        return DB::table('additionals')
+          ->addSelect('active')
+          ->selectRaw("IF (active = 0 ,REPLACE(active, 0,'Inactivo') ,REPLACE(active, 1,'Activo') )")
+          ->where('user_id','=',$user->id)->get();
+      })
       ->rawColumns(['action'])
       ->make( true );
   }

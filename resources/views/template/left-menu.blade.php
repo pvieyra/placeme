@@ -54,11 +54,12 @@
         </li>
       @endrole
       <li class="no-padding">
-        <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <a class="collapsible-header waves-effect waves-grey">Clientes<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
-            <li><a href="{{ route('projects.index') }}">Proyectos</a></li>
-            <li><a href="/contacts">Contactos</a></li>
+            <li><a href="{{ route('projects.index') }}">Mis clientes</a></li>
+            <li><a href="/contacts">Seguimientos</a></li>
+            <li><a href="/contacts">Propiedades</a></li>
           </ul>
         </div>
       </li>
