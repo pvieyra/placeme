@@ -16,4 +16,8 @@ class Customer extends Model
     'email',
     'phone',
   ];
+
+  public function trackings(){
+    return $this->hasMany(Tracking::class);
+  }
 }

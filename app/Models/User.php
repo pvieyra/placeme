@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Models\Role;
@@ -48,5 +49,9 @@ class User extends Authenticatable {
   //getters
   public function getAllNameAttribute(){
     return $this->name." ".$this->additional->last_name;
+  }
+
+  public function trackings(): HasMany{
+    return $this->hasMany(Tracking::class);
   }
 }

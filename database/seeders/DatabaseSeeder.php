@@ -7,6 +7,7 @@ use App\Models\Building;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Project;
+use App\Models\Tracking;
 use App\Models\User;
 use Database\Factories\ContactFactory;
 use Illuminate\Database\Seeder;
@@ -83,11 +84,21 @@ class DatabaseSeeder extends Seeder {
       Customer::factory(  5000)->create();
       Building::factory(1500)->create();
 
-      $this->call(
+      $this->call([
         OperationsTableSeeder::class,
-      );
+        StateTableSeeder::class,
+      ]);
       //Project::factory()->times(40)->create();
       //Contact::factory(40)->create();
       //Additional::factory()->create();
+
+      $userAdmin = Tracking::create([
+        'user_id' => 2,
+        'customer_id' => 3,
+        'building_id' => 10,
+        'state_id' => 1,
+        'contact_type' => "Directo",
+      ]);
+
     }
 }

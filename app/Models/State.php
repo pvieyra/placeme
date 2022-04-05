@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Operation extends Model{
+class State extends Model
+{
     use HasFactory;
 
     protected $fillable = [
       'name',
+      'hierarchy',
     ];
 
-    public function trackings(){
+    public function trackings(): HasMany{
       return $this->hasMany(Tracking::class);
     }
 }

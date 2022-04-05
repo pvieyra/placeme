@@ -9,6 +9,13 @@ $( document ).ready(function() {
         }
     });
     form.children("div").steps({
+        /* Labels */
+        labels: {
+            cancel: "Cancelar",
+            finish: "Guardar",
+            next: "Siguiente",
+            previous: "Anterior",
+        },
         headerTag: "h3",
         bodyTag: "section",
         transitionEffect: "fade",
@@ -25,10 +32,10 @@ $( document ).ready(function() {
         onFinished: function (event, currentIndex)
         {
             alert("Submitted!");
-        }
+        },
     });
-    
-    $(".wizard .actions ul li a").addClass("waves-effect waves-blue btn-flat");
+
+    $(".wizard .actions ul li a").addClass("waves-effect waves-orange btn-flat m-b-xs");
     $(".wizard .steps ul").addClass("tabs z-depth-1");
     $(".wizard .steps ul li").addClass("tab");
     $('ul.tabs').tabs();

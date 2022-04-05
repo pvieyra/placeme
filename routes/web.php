@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +40,10 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
     });
   //ruta para verificar los permisos de las cuentas.
   //Route::get('/crear-usuario-roles', [UserController::class, 'crearRoles'])->name('roles');
-  Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('index');
+  Route::get('/home', [HomeController::class, 'index'])->name('index');
+
+  // ### Seguimientos ###
+  Route::view('crear-seguimiento', 'trackings.create')->name('trackings.create');
 });
 
 //ruta para verificar el cambio de contraseña.

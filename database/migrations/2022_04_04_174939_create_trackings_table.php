@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrackingsTable extends Migration
-{
+class CreateTrackingsTable extends Migration {
     /**
      * Run the migrations.
      *
@@ -20,8 +19,13 @@ class CreateTrackingsTable extends Migration
         $table->foreign('customer_id')->references('id')->on('customers');
         $table->unsignedBigInteger('building_id');
         $table->foreign('building_id')->references('id')->on('buildings');
-        $table->unsignedBigInteger('status_id');
-        $table->foreign('status_id')->references('id')->on('status');
+        $table->unsignedBigInteger('state_id');
+        $table->foreign('state_id')->references('id')->on('states');
+        $table->string('numero_interior_unidad')->nullable();
+        $table->string('contact_type');
+        $table->string('inmobiliaria_name')->nullable();
+        $table->string('nombre_asesor')->nullable();
+        $table->string('celular_asesor')->nullable();
         $table->timestamps();
       });
     }
