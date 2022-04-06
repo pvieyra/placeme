@@ -25,23 +25,23 @@
                       <div class="row">
                         <div class="input-field col m6 s12">
                           <label for="name">Nombre</label>
-                          <input id="name" name="name" type="text" class="">
+                          <input id="name" wire:model="name" type="text" class="">
                         </div>
                         <div class="input-field col m6 s12">
                           <label for="lastName">Apellido paterno</label>
-                          <input id="lastName" name="last_name" type="text" class="">
+                          <input id="lastName" wire:model="last_name" type="text" class="">
                         </div>
                         <div class="input-field col m6 s12">
                           <label for="secondLastName">Apellido materno</label>
-                          <input id="secondLastName" name="second_last_name" type="text" class="">
+                          <input id="secondLastName" wire:model="second_last_name" type="text" class="">
                         </div>
                         <div class="input-field col s12">
                           <label for="email">Email</label>
-                          <input id="email" name="email" type="email" class="">
+                          <input id="email" wire:model="email" type="email" class="">
                         </div>
                         <div class="input-field col s12">
                           <label for="phone">Celular</label>
-                          <input id="phone" name="phone"  class="">
+                          <input id="phone" wire:model="phone"  class="">
                         </div>
                       </div>
                     </div>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="input-field col m6 s12">
                           <label for="numeroInteriorUnidad">Numero interior o Unidad</label>
-                          <input id="numeroInteriorUnidad" name="numero_interior_unidad" type="text" class="">
+                          <input id="numeroInteriorUnidad" wire:model="numero_interior_unidad" type="text" class="">
                         </div>
                         <div class="input-field col m6 s12">
                           <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-1f0be149-fa5a-868b-03db-35fcf3d818b2" value="Choose your option">
