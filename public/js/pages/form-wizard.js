@@ -29,9 +29,9 @@ $( document ).ready(function() {
             form.validate().settings.ignore = ":disabled";
             return form.valid();
         },
-        onFinished: function (event, currentIndex)
-        {
-            alert("Submitted!");
+        onFinished: function (event, currentIndex) {
+            //mandar submit del formulario
+
         },
     });
 

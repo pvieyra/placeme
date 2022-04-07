@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Buildings\BuildingSelect;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +46,8 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
 
   // ### Seguimientos ###
   Route::view('crear-seguimiento', 'trackings.create')->name('trackings.create');
+  // ## Buildings select2 component ## //
+  Route::post('/getBuildings',[BuildingController::class, 'selectBuildings'])->name('buildings.select');
 });
 
 //ruta para verificar el cambio de contraseña.

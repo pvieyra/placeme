@@ -5,6 +5,7 @@
 	<title>Place Me! | {{ Request::route()->uri  }} </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<meta charset="UTF-8">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta name="description" content="Portal operativo para Place Me!" />
 	<meta name="keywords" content="admin,dashboard, place me" />
 	<meta name="author" content="giganube" />
@@ -55,6 +56,7 @@
 	<!-- Javascripts -->
 
 		@yield('native-scripts')
+		@stack('scripts')
 		@livewireScripts
 	</body>
 </html>

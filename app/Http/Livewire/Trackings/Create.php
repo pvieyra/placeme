@@ -24,4 +24,9 @@ class Create extends Component {
   public function render() {
     return view('livewire.trackings.create');
   }
+
+  public function submit(){
+
+  }
+
 }

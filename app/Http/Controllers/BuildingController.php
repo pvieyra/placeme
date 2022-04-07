@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Building;
 use Illuminate\Http\Request;
 
-class BuildingController extends Controller
-{
+class BuildingController extends Controller {
     /**
      * Display a listing of the resource.
      *
@@ -78,8 +77,37 @@ class BuildingController extends Controller
      * @param  \App\Models\Building  $building
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Building $building)
-    {
+    public function destroy(Building $building){
         //
+    }
+
+    public function selectBuildings(Request $request){
+      $search = $request->search;
+
+      if($search == ""){
+        $buildings = Building::orderBy('id','desc')
+          ->select('id','building_code','address','suburb')
+          ->limit(10)
+          ->get();
+
+      } else {
+        $buildings = Building::orderBy('id','desc')
+          ->select('id','building_code','address','suburb')
+          ->where('address', 'like', '%'.$search.'%')
+          ->orWhere('building_code', 'like', '%'.$search.'%')
+          ->orWhere('suburb', 'like', '%'.$search.'%')
+          ->limit(10)
+          ->get();
+      }
+      $response = array();
+      foreach ($buildings as $building){
+        $response[] = array(
+          'id' => $building->id,
+          'building_code' => $building->building_code,
+          'address' => $building->address,
+          'suburb' => $building->suburb,
+        );
+      }
+      return response()->json($response);
     }
 }

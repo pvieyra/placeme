@@ -12,6 +12,7 @@
         </div>
       @endif
     </div>
+
     <div class="card hoverable">
       <div class="card-content">
         <div class="row">
@@ -23,23 +24,23 @@
                   <div class="row">
                     <div class="col m12">
                       <div class="row">
-                        <div class="input-field col m6 s12">
+                        <div class="col m6 s12">
                           <label for="name">Nombre</label>
-                          <input id="name" wire:model="name" type="text" class="">
+                          <input id="name"  wire:model.defer="name"  type="text" class="">
                         </div>
-                        <div class="input-field col m6 s12">
+                        <div class="col m6 s12">
                           <label for="lastName">Apellido paterno</label>
                           <input id="lastName" wire:model="last_name" type="text" class="">
                         </div>
-                        <div class="input-field col m6 s12">
+                        <div class=" col m6 s12">
                           <label for="secondLastName">Apellido materno</label>
                           <input id="secondLastName" wire:model="second_last_name" type="text" class="">
                         </div>
-                        <div class="input-field col s12">
+                        <div class=" col s12">
                           <label for="email">Email</label>
                           <input id="email" wire:model="email" type="email" class="">
                         </div>
-                        <div class="input-field col s12">
+                        <div class=" col s12">
                           <label for="phone">Celular</label>
                           <input id="phone" wire:model="phone"  class="">
                         </div>
@@ -55,15 +56,12 @@
                   <div class="row">
                     <div class="col m12">
                       <div class="row">
-                        <div class="input-field col m6 s12">
-                          <label for="building_code">Propiedad</label>
-                          <input id="building_code" name="building_code" type="text" class="">
-                        </div>
-                        <div class="input-field col m6 s12">
+                        <livewire:buildings.building-select />
+                        <div class=" col m6 s12 m-t-md">
                           <label for="numeroInteriorUnidad">Numero interior o Unidad</label>
                           <input id="numeroInteriorUnidad" wire:model="numero_interior_unidad" type="text" class="">
                         </div>
-                        <div class="input-field col m6 s12">
+                        <div class="col m6 s12">
                           <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-1f0be149-fa5a-868b-03db-35fcf3d818b2" value="Choose your option">
                             <ul id="select-options-1f0be149-fa5a-868b-03db-35fcf3d818b2" class="dropdown-content select-dropdown" style="width: 496px; position: absolute; top: 0px; left: 0px; opacity: 1; display: none;">
                               <li class="disabled"><span>Choose your option</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
@@ -73,17 +71,16 @@
                               <option value="3">Option 3</option>
                             </select>
                           </div>
-                          <label>Tipo de operación</label>
-                        </div>
 
+                        </div>
                         <div class="col m12">
-                          <div class="input-field col m3 s12">
+                          <div class="col m3 s12">
                             <p class="p-v-xs">
                               <input name="contact_type" value="Directo" type="radio" id="directo">
                               <label for="directo">Directo</label>
                             </p>
                           </div>
-                          <div class="input-field col m3 s12">
+                          <div class=" col m3 s12">
                             <p class="p-v-xs">
                               <input name="contact_type" value="Otra Inmobiliaria" type="radio" id="otra">
                               <label for="otra">Otra Inmobiliaria</label>
@@ -91,21 +88,21 @@
                           </div>
                         </div>
                         <div class="col m12 m-t-md">
-                          <div class="input-field col m12 s12">
+                          <div class=" col m12 s12">
                             <label for="inmobiliariaName">Nombre de la inmobiliaria</label>
-                            <input id="inmobiliariaName" name="inmobiliaria_name" type="text" class="">
+                            <input id="inmobiliariaName" name="inmobiliaria_name" type="text">
                           </div>
-                          <div class="input-field col m12 s12">
+                          <div class=" col m12 s12">
                             <label for="nombreAsesor">Nombre del asesor</label>
                             <input id="nombreAsesor" name="nombre_asesor" type="text" class="">
                           </div>
-                          <div class="input-field col m12 s12">
+                          <div class=" col m12 s12">
                             <label for="celularAsesor">Celular del asesor</label>
                             <input id="celularAsesor" name="celular_asesor" type="text" class="">
                           </div>
                         </div>
                         <div class="col m12 m-t-md">
-                          <div class="input-field col s12">
+                          <div class=" col s12">
                             <textarea id="textarea1" class="materialize-textarea" length="120"></textarea>
                             <label for="textarea1" class="">Comentarios</label>
                             <span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span></div>
@@ -118,7 +115,11 @@
               <h3>Crear</h3>
               <section>
                 <div class="wizard-content">
-                  Congratulations! You got the last step.
+                  <div class="flex mt-15">
+                    <div>
+                      <button type="submit" class="waves-effect waves-light btn m-b-xs orange"><i class="material-icons left">save</i>Crear</button>
+                    </div>
+                  </div>
                 </div>
               </section>
             </div>
