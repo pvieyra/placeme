@@ -7,6 +7,7 @@
             <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
             <div>
               <p class="font-bold">{{ session('message') }}</p>
+
             </div>
           </div>
         </div>
@@ -26,23 +27,23 @@
                       <div class="row">
                         <div class="col m6 s12">
                           <label for="name">Nombre</label>
-                          <input id="name"  wire:model.defer="name"  type="text" class="">
+                          <input id="name"  name="name"  type="text" class="">
                         </div>
                         <div class="col m6 s12">
                           <label for="lastName">Apellido paterno</label>
-                          <input id="lastName" wire:model="last_name" type="text" class="">
+                          <input id="lastName" name="last_name" type="text" class="">
                         </div>
-                        <div class=" col m6 s12">
+                        <div class="col m6 s12">
                           <label for="secondLastName">Apellido materno</label>
-                          <input id="secondLastName" wire:model="second_last_name" type="text" class="">
+                          <input id="secondLastName" name="second_last_name" type="text" class="">
                         </div>
-                        <div class=" col s12">
+                        <div class="col s12">
                           <label for="email">Email</label>
-                          <input id="email" wire:model="email" type="email" class="">
+                          <input id="email" name="email" type="email" class="">
                         </div>
-                        <div class=" col s12">
+                        <div class="col s12">
                           <label for="phone">Celular</label>
-                          <input id="phone" wire:model="phone"  class="">
+                          <input id="phone" name="phone"  class="">
                         </div>
                       </div>
                     </div>
@@ -57,19 +58,29 @@
                     <div class="col m12">
                       <div class="row">
                         <livewire:buildings.building-select />
-                        <div class=" col m6 s12 m-t-md">
+                        <div class=" col m12 s12 m-t-md">
                           <label for="numeroInteriorUnidad">Numero interior o Unidad</label>
-                          <input id="numeroInteriorUnidad" wire:model="numero_interior_unidad" type="text" class="">
+                          <input id="numeroInteriorUnidad" name="numero_interior_unidad" type="text" class="">
                         </div>
-                        <div class="col m6 s12">
+                        <div class="col m12 s12 m-t-md">
                           <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-1f0be149-fa5a-868b-03db-35fcf3d818b2" value="Choose your option">
                             <ul id="select-options-1f0be149-fa5a-868b-03db-35fcf3d818b2" class="dropdown-content select-dropdown" style="width: 496px; position: absolute; top: 0px; left: 0px; opacity: 1; display: none;">
-                              <li class="disabled"><span>Choose your option</span></li><li class=""><span>Option 1</span></li><li class=""><span>Option 2</span></li><li class=""><span>Option 3</span></li></ul><select class="initialized">
+                              <li class="disabled">
+                                <span>Elige una opción</span>
+                              </li>
+                              @foreach($operations as $operation)
+                                <li class="">
+                                  <span>{{ $operation->name }}</span>
+                                </li>
+                              @endforeach
+                            </ul>
+                            <select class="initialized">
                               <option value="" disabled="" selected="">Elige una opcion</option>
-                              <option value="1">Hola</option>
-                              <option value="2">Option 2</option>
-                              <option value="3">Option 3</option>
+                              @foreach($operations as $operation)
+                                <option value="{{ $operation->id }}">{{ $operation->name }}</option>
+                              @endforeach
                             </select>
+                            <label> Tipo de operación</label>
                           </div>
 
                         </div>

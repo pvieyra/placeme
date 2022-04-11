@@ -1,7 +1,7 @@
 <div>
     <div class="col m12 s12 m-b-md">
         <label for="building_code">Propiedad</label>
-        <select class="js-states browser-default" tabindex="-1" style="width: 100%" id="buildings-data" wire:model="building_id"></select>
+        <select class="js-states browser-default" tabindex="-1" style="width: 100%" id="buildings-data" name="building_id"></select>
     </div>
 </div>
 
@@ -10,6 +10,7 @@
       const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
       $(document).ready(function() {
           $('#buildings-data').select2({
+              placeholder: "Selecciona una propiedad",
               ajax: {
                   url: '{{ route('buildings.select')}}',
                   type: 'POST',

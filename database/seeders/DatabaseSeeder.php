@@ -96,6 +96,7 @@ class DatabaseSeeder extends Seeder {
         'user_id' => 2,
         'customer_id' => 3,
         'building_id' => 10,
+        'operation_id'=> 1,
         'state_id' => 1,
         'contact_type' => "Directo",
       ]);

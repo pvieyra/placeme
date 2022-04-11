@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tracking;
+use App\Models\Operation;
 use Illuminate\Http\Request;
 
-class TrackingController extends Controller
-{
+class TrackingController extends Controller {
     /**
      * Display a listing of the resource.
      *
@@ -19,11 +19,11 @@ class TrackingController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+      $operations = Operation::all();
+      return view('trackings.create', compact('operations'));
     }
 
     /**
@@ -34,6 +34,9 @@ class TrackingController extends Controller
      */
     public function store(Request $request){
       //guardar los datos del tracking.
+      //dd($request);
+      //return back();
+      return back()->with('store', 'Seguimiento creado');
     }
 
     /**

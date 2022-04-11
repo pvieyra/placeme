@@ -19,6 +19,8 @@ class CreateTrackingsTable extends Migration {
         $table->foreign('customer_id')->references('id')->on('customers');
         $table->unsignedBigInteger('building_id');
         $table->foreign('building_id')->references('id')->on('buildings');
+        $table->unsignedBigInteger('operation_id');
+        $table->foreign('operation_id')->references('id')->on('operations');
         $table->unsignedBigInteger('state_id');
         $table->foreign('state_id')->references('id')->on('states');
         $table->string('numero_interior_unidad')->nullable();
