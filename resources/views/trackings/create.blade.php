@@ -10,22 +10,6 @@
 @section('content')
   <div>
     <div class="row">
-      <div>
-        @if (session()->has('message'))
-          <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
-            <div class="flex">
-              <div class="py-1">
-                <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-                </svg>
-              </div>
-              <div>
-                <p class="font-bold">{{ session('message') }}</p>
-              </div>
-            </div>
-          </div>
-        @endif
-      </div>
       <div class="card hoverable">
         <div class="card-content">
           <div class="row">
@@ -40,11 +24,11 @@
                         <div class="row">
                           <div class="input-field  col m6 s12">
                             <label for="name">Nombre</label>
-                            <input id="name"  name="name"  type="text" class=" ">
+                            <input id="name"  name="name"  type="text" value="{{ old('name') }}">
                           </div>
                           <div class="input-field col m6 s12">
-                            <label for="lastName">Apellido paterno</label>
-                            <input id="lastName" name="last_name" type="text" class=" ">
+                            <label for="last_name">Apellido paterno</label>
+                            <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}">
                           </div>
                           <div class="input-field col m6 s12">
                             <label for="secondLastName">Apellido materno</label>
@@ -143,12 +127,15 @@
                     </div>
                   </div>
                 </section>
-                <h3>Crear</h3>
+                <h3>Crear Seguimiento</h3>
                 <section>
                   <div class="wizard-content">
-                    <div class="flex mt-15">
-                      <div>
-                        <button type="submit" class="waves-effect waves-light btn m-b-xs orange"><i class="material-icons left">save</i>Crear</button>
+                    <blockquote class="info-validation">
+                      Da click en <span class="green-text">"GUARDAR"</span> para crear el seguimiento o <span class="orange-text">"ANTERIOR"</span> para revisar la información del seguimiento.
+                    </blockquote>
+                    <div class="card card-validation hide">
+                      <div class="card-content white-text">
+                        <span class="card-title white-text"></span>
                       </div>
                     </div>
                   </div>
@@ -205,6 +192,7 @@
                 cache: true
               }
           });
+
       });
   </script>
 @endpush

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tracking;
 use App\Models\Operation;
 use Illuminate\Http\Request;
+use Validator;
+use App\Http\Requests\TrackingRequest;
 
 class TrackingController extends Controller {
     /**
@@ -30,13 +32,24 @@ class TrackingController extends Controller {
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request){
-      //guardar los datos del tracking.
-      //dd($request);
-      //return back();
-      return back()->with('store', 'Seguimiento creado');
+      $messages = [
+        'operation_id.required' => "El campo tipo de operacion es obligatorio",
+      ];
+      $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'operation_id' => 'required',
+        'last_name' => 'required'
+      ],$messages);
+
+      if ($validator->passes()) {
+        return response()->json(['success'=>'Added new records.']);
+      }
+
+      return response()->json(['error'=>$validator->errors()->all()]);
+      //return response()->json(['success' => "Nuevo seguimiento creado"]);
     }
 
     /**

@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var form = $("#tracking-form");
-    var validator = $("#tracking-form").validate({
+    let form = $("#tracking-form");
+    form.validate({
         rules: {
             name: {
               required:true,
@@ -64,18 +64,54 @@ $(document).ready(function () {
         bodyTag: "section",
         transitionEffect: "fade",
       onStepChanging: function (event, currentIndex, newIndex) {
-            //console.log(form.validate().settings);
+            //Quitar los errores mostrar nuevaente los mensajes.
+            console.log('cambio de pestaña');
+            $('.info-validation').show(1000, 'linear');
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
-        }, /*
-        onFinishing: function (event, currentIndex) {
-            //form.validate().settings.ignore = ":disabled";
-            //return form.valid();
-        },*/
-        onFinished: function (event, currentIndex) {
-            //mandar submit del formulario
-            //console.log("envio del formulario");
-            form.submit();
+        },
+        onFinished: function () {
+            form.submit(function(e){
+                e.preventDefault();
+            });
+            const _token = $("input[name='_token']").val();
+            const name = $("#name").val();
+            const last_name = $("#last_name").val();
+            const  operation_id = "";
+
+            $.ajax({
+               url:'/seguimiento',
+               type: "POST",
+                dataType: 'json',
+               data : {
+                   _token: _token,
+                   name: name,
+                   last_name: last_name,
+                   operation_id: operation_id,
+               },
+               success: function( data ){
+                 if($.isEmptyObject( data.error )){
+                     let $toastContent = $('<span class="">El seguimiento ha sido creado correctamente.</span>');
+                     Materialize.toast($toastContent, 7000,'green accent-3');
+                 }else {
+                     const card = $('.card-validation');
+                     let errorHtml = '';
+                     $('.info-validation').fadeOut(500, 'linear');
+                     card.removeClass('hide').addClass('deep-orange lighten-2');
+                     card.find('span').append('Hay campos por llenar para continuar');
+                     $.each( data.error, function( key, value){
+                        errorHtml += "<p class='text-black'>"+ value +"</p>";
+                     });
+                     card.find('.card-title').after(errorHtml);
+                     let $toastContent = $('<span class="bold italic">Revisa de nuevamente el formulario, hay campos obligatorios por llenar.</span>');
+                     Materialize.toast($toastContent, 8000,'red lighten-1');
+                 }
+               },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    let $toastContent = $('<span class="">Hay ocurrido un error inesperado.'+ errorThrown +'</span>');
+                    Materialize.toast($toastContent, 7000,'red accent-3');
+                }
+            });
         },
     });
 
@@ -87,8 +123,4 @@ $(document).ready(function () {
     $('.select-wrapper.initialized').prev("ul").remove();
     $('.select-wrapper.initialized').prev("input").remove();
     $('.select-wrapper.initialized').prev("span").remove();
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
-    });
 });
