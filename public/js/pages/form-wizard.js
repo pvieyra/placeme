@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $.validator.addMethod('domainEmailEqualTo', function(value, element){
+        //console.log(/@dev.com/.test(value))
+        return !/@dev.com/.test(value)
+    },"No puedes utilizar un correo con dominio dev.com");
+
     let form = $("#tracking-form");
     form.validate({
         rules: {
@@ -12,6 +17,7 @@ $(document).ready(function () {
             email: {
                 required: true,
                 email: true,
+                domainEmailEqualTo:true
             },
             phone: {
                 required:true,
@@ -27,7 +33,16 @@ $(document).ready(function () {
             },
             contact_type: {
                 required:true,
+            },
+            celular_asesor: {
+                number:true,
+                minlength: 10,
+                maxlength:10,
+            },
+            comments: {
+                required:true
             }
+
         },
         messages: {
             name:{
@@ -47,6 +62,17 @@ $(document).ready(function () {
                 minlength:"El numero telefonico debe ser minimo a 10 digitos",
                 maxlength:"El numero telefonico no puede ser mayor a 10 digitos",
             },
+            building_id:{
+                required:"Debes seleccionar una propiedad",
+            },
+            celular_asesor:{
+                number: "Debes colocar solo numeros",
+                minlength:"El numero telefonico debe ser minimo a 10 digitos",
+                maxlength:"El numero telefonico no puede ser mayor a 10 digitos",
+            },
+            comments:{
+                required: "Debes colocar los primeros comentarios del seguimiento."
+            }
         },
         errorPlacement: function errorPlacement(error, element) {
             element.after(error);
@@ -77,7 +103,17 @@ $(document).ready(function () {
             const _token = $("input[name='_token']").val();
             const name = $("#name").val();
             const last_name = $("#last_name").val();
-            const  operation_id = "";
+            const second_last_name = $("#second_last_name").val();
+            const email = $("#email").val();
+            const phone = $("#phone").val();
+            const building_id = $("#buildings-data").val();
+            const numero_interior_unidad = $("#numero_interior_unidad").val();
+            const operation_id = $("#operation_id").val();
+            const contact_type = $("input[name*='contact_type']").val();
+            const inmobiliaria_name = $("#inmobiliaria_name").val();
+            const nombre_asesor = $("#nombre_asesor").val();
+            const celular_asesor = $("#celular_asesor").val();
+            const comments = $("#comments").val();
 
             $.ajax({
                url:'/seguimiento',
@@ -87,7 +123,17 @@ $(document).ready(function () {
                    _token: _token,
                    name: name,
                    last_name: last_name,
+                   second_last_name: second_last_name,
+                   email: email,
+                   phone: phone,
+                   building_id:building_id,
+                   numero_interior_unidad: numero_interior_unidad,
                    operation_id: operation_id,
+                   contact_type: contact_type,
+                   inmobiliaria_name: inmobiliaria_name,
+                   nombre_asesor: nombre_asesor,
+                   celular_asesor: celular_asesor,
+                   comments: comments
                },
                success: function( data ){
                  if($.isEmptyObject( data.error )){

@@ -31,8 +31,8 @@
                             <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}">
                           </div>
                           <div class="input-field col m6 s12">
-                            <label for="secondLastName">Apellido materno</label>
-                            <input id="secondLastName" name="second_last_name" type="text">
+                            <label for="second_last_name">Apellido materno</label>
+                            <input id="second_last_name" name="second_last_name" type="text">
                           </div>
                           <div class="input-field col m6 s12">
                             <label for="email">Email</label>
@@ -63,8 +63,8 @@
                             </div>
                           </div>
                           <div class="input-field col m12 s12 m-t-md">
-                            <label for="numeroInteriorUnidad">Numero interior o Unidad</label>
-                            <input id="numeroInteriorUnidad" name="numero_interior_unidad" type="text">
+                            <label for="numero_interior_unidad">Numero interior o Unidad</label>
+                            <input id="numero_interior_unidad" name="numero_interior_unidad" type="text">
                           </div>
                           <div class="input-field col m12 s12 m-t-md m-b-lg">
                             <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-1f0be149-fa5a-868b-03db-35fcf3d818b2" value="Choose your option">
@@ -78,7 +78,7 @@
                                   </li>
                                 @endforeach
                               </ul>
-                              <select class="initialized required" name="operation_id">
+                              <select class="initialized required" id="operation_id"  name="operation_id">
                                 <option value="" disabled="" selected="">Elige una opcion</option>
                                 @foreach($operations as $operation)
                                   <option value="{{ $operation->id }}">{{ $operation->name }}</option>
@@ -104,21 +104,21 @@
 
                           <div class="input-field col m12 m-t-md">
                             <div class=" col m12 s12">
-                              <label for="inmobiliariaName">Nombre de la inmobiliaria</label>
-                              <input id="inmobiliariaName" name="inmobiliaria_name" type="text">
+                              <label for="inmobiliaria_name">Nombre de la inmobiliaria</label>
+                              <input id="inmobiliaria_name" name="inmobiliaria_name" type="text">
                             </div>
                             <div class="input-field col m12 s12">
-                              <label for="nombreAsesor">Nombre del asesor</label>
-                              <input id="nombreAsesor" name="nombre_asesor" type="text" class="">
+                              <label for="nombre_asesor">Nombre del asesor</label>
+                              <input id="nombre_asesor" name="nombre_asesor" type="text" class="">
                             </div>
                             <div class="input-field col m12 s12">
-                              <label for="celularAsesor">Celular del asesor</label>
-                              <input id="celularAsesor" name="celular_asesor" type="text" class="">
+                              <label for="celular_asesor">Celular del asesor</label>
+                              <input id="celular_asesor" name="celular_asesor" type="text" class="">
                             </div>
                           </div>
                           <div class="input-field col m12 m-t-md">
                             <div class=" col s12">
-                              <textarea id="textarea1" class="materialize-textarea" length="120"></textarea>
+                              <textarea id="comments" class="materialize-textarea" name="comments" length="120"></textarea>
                               <label for="textarea1" class="">Comentarios</label>
                               <span class="character-counter" style="float: right; font-size: 12px; height: 1px;"></span></div>
                           </div>
