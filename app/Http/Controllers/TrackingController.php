@@ -36,20 +36,34 @@ class TrackingController extends Controller {
      */
     public function store(Request $request){
       $messages = [
-        'operation_id.required' => "El campo tipo de operacion es obligatorio",
+        'name.required' => "El nombre del cliente es obligatorio.",
+        'last_name.required' => "El apellido paterno es obligatorio.",
+        'email.email' => "Este campo debe ser un correo valido.",
+        'phone.required' => "El telefono del cliente es obligatorio.",
+        'building_id.required' => "La propiedad es un campo obligatorio.",
+        'operation_id.required' => "El campo tipo de operacion es obligatorio.",
+        'contact_type.required' => "El tipo de contacto es un campo obligatorio.",
+        'comments.required' => "Los comentarios son obligatorios.",
       ];
+
       $validator = Validator::make($request->all(), [
         'name' => 'required',
+        'last_name' => 'required',
+        'email' => 'email',
+        'phone' => 'required',
+        'building_id' => 'required',
         'operation_id' => 'required',
-        'last_name' => 'required'
+        'contact_type' => 'required',
+        'comments' => 'required',
       ],$messages);
 
       if ($validator->passes()) {
-        return response()->json(['success'=>'Added new records.']);
+        return $request;
+        //return response()->json(['success'=>'Added new records.']);
       }
 
       return response()->json(['error'=>$validator->errors()->all()]);
-      //return response()->json(['success' => "Nuevo seguimiento creado"]);
+
     }
 
     /**

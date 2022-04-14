@@ -1,6 +1,8 @@
 $(document).ready(function () {
-    $.validator.addMethod('domainEmailEqualTo', function(value, element){
-        //console.log(/@dev.com/.test(value))
+
+
+
+    $.validator.addMethod('domainEmailEqualTo', function(value){
         return !/@dev.com/.test(value)
     },"No puedes utilizar un correo con dominio dev.com");
 
@@ -15,7 +17,7 @@ $(document).ready(function () {
               required:true
             },
             email: {
-                required: true,
+                //required: true,
                 email: true,
                 domainEmailEqualTo:true
             },
@@ -53,7 +55,7 @@ $(document).ready(function () {
                 required: "Debes ingresar el apellido paterno."
             },
             email: {
-                required: "El correo es obligatorio.",
+                //required: "El correo es obligatorio.",
                 email: "Debes colocar un correo valido.",
             },
             phone:{
@@ -91,8 +93,8 @@ $(document).ready(function () {
         transitionEffect: "fade",
       onStepChanging: function (event, currentIndex, newIndex) {
             //Quitar los errores mostrar nuevaente los mensajes.
-            console.log('cambio de pestaña');
             $('.info-validation').show(1000, 'linear');
+            $('.card-validation').addClass('hide');
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
         },
@@ -100,6 +102,7 @@ $(document).ready(function () {
             form.submit(function(e){
                 e.preventDefault();
             });
+            console.log(form.serialize());
             const _token = $("input[name='_token']").val();
             const name = $("#name").val();
             const last_name = $("#last_name").val();
@@ -109,7 +112,7 @@ $(document).ready(function () {
             const building_id = $("#buildings-data").val();
             const numero_interior_unidad = $("#numero_interior_unidad").val();
             const operation_id = $("#operation_id").val();
-            const contact_type = $("input[name*='contact_type']").val();
+            const contact_type = $("input[name*='contact_type']:checked").val();
             const inmobiliaria_name = $("#inmobiliaria_name").val();
             const nombre_asesor = $("#nombre_asesor").val();
             const celular_asesor = $("#celular_asesor").val();
@@ -144,11 +147,12 @@ $(document).ready(function () {
                      let errorHtml = '';
                      $('.info-validation').fadeOut(500, 'linear');
                      card.removeClass('hide').addClass('deep-orange lighten-2');
-                     card.find('span').append('Hay campos por llenar para continuar');
+                     //card.find('span').append('Hay campos por llenar para continuar');
                      $.each( data.error, function( key, value){
                         errorHtml += "<p class='text-black'>"+ value +"</p>";
                      });
                      card.find('.card-title').after(errorHtml);
+
                      let $toastContent = $('<span class="bold italic">Revisa de nuevamente el formulario, hay campos obligatorios por llenar.</span>');
                      Materialize.toast($toastContent, 8000,'red lighten-1');
                  }
@@ -161,6 +165,16 @@ $(document).ready(function () {
         },
     });
 
+    $("input:radio[name=contact_type]").click(function(){
+        if($("input[name='contact_type']:checked").val() === 'Directo'){
+            msgInputDisabled();
+            fieldsDisabled(true);
+        }
+        if($("input[name='contact_type']:checked").val() === 'Otra Inmobiliaria'){
+            fieldsDisabled(false);
+        }
+    });
+
     $(".wizard .actions ul li a").addClass("waves-effect waves-orange btn-flat m-b-xs");
     $(".wizard .steps ul").addClass("tabs z-depth-1");
     $(".wizard .steps ul li").addClass("tab");
@@ -170,3 +184,14 @@ $(document).ready(function () {
     $('.select-wrapper.initialized').prev("input").remove();
     $('.select-wrapper.initialized').prev("span").remove();
 });
+
+function fieldsDisabled( value ){
+    $('#inmobiliaria_name').prop('disabled', value);
+    $('#nombre_asesor').prop('disabled', value);
+    $('#celular_asesor').prop('disabled', value);
+}
+function msgInputDisabled(){
+    $('#inmobiliaria_name').val('');
+    $('#nombre_asesor').val('');
+    $('#celular_asesor').val('');
+}

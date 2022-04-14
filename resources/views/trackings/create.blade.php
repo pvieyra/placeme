@@ -92,28 +92,28 @@
                               <div class="col m3 s12">
                                 <p class="p-v-xs m-t-n-lg">
                                   <input name="contact_type" value="Directo" type="radio" id="directo" checked>
-                                  <label for="directo">Directo</label>
+                                  <label class="tipo-contacto" for="directo">Directo</label>
                                 </p>
                                 <p class="p-v-xs m-t-n-lg">
-                                  <input name="contact_type" value="Otra Inmobiliaria" type="radio" id="otra" >
-                                  <label for="otra">Otra Inmobiliaria</label>
+                                  <input name="contact_type" value="Otra Inmobiliaria" type="radio" id="otra">
+                                  <label class="tipo-contacto" for="otra">Otra Inmobiliaria</label>
                                 </p>
                               </div>
                             </div>
                           </div>
 
                           <div class="input-field col m12 m-t-md">
-                            <div class=" col m12 s12">
+                            <div class="input-field col m12 s12">
                               <label for="inmobiliaria_name">Nombre de la inmobiliaria</label>
-                              <input id="inmobiliaria_name" name="inmobiliaria_name" type="text">
+                              <input id="inmobiliaria_name" name="inmobiliaria_name" type="text" disabled>
                             </div>
                             <div class="input-field col m12 s12">
                               <label for="nombre_asesor">Nombre del asesor</label>
-                              <input id="nombre_asesor" name="nombre_asesor" type="text" class="">
+                              <input id="nombre_asesor" name="nombre_asesor" type="text"  disabled>
                             </div>
                             <div class="input-field col m12 s12">
                               <label for="celular_asesor">Celular del asesor</label>
-                              <input id="celular_asesor" name="celular_asesor" type="text" class="">
+                              <input id="celular_asesor" name="celular_asesor" type="text"  disabled>
                             </div>
                           </div>
                           <div class="input-field col m12 m-t-md">
@@ -135,7 +135,7 @@
                     </blockquote>
                     <div class="card card-validation hide">
                       <div class="card-content white-text">
-                        <span class="card-title white-text"></span>
+                        <span class="card-title white-text">Hay campos por llenar para continuar</span>
                       </div>
                     </div>
                   </div>
