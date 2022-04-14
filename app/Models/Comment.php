@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model {
     use HasFactory;
 
+    protected $fillable = [
+      'tracking_id',
+      'state_id',
+      'comments',
+      'tracking_date'
+    ];
+
     public function tracking(){
       return $this->belongsTo(Tracking::class);
     }

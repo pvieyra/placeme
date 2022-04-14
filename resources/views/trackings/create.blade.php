@@ -136,6 +136,9 @@
                     <div class="card card-validation hide">
                       <div class="card-content white-text">
                         <span class="card-title white-text">Hay campos por llenar para continuar</span>
+                        <div class="card-content-errors">
+
+                        </div>
                       </div>
                     </div>
                   </div>

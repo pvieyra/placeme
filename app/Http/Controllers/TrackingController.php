@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Customer;
 use App\Models\Tracking;
 use App\Models\Operation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Http\Requests\TrackingRequest;
 
@@ -58,8 +62,48 @@ class TrackingController extends Controller {
       ],$messages);
 
       if ($validator->passes()) {
+        //Guardar el seguimiento.
+        try {
+          DB::beginTransaction();
+          //Primero se crea al cliente
+          //Se guarda seguimiento
+          //se guarda commentario
+          $customer = Customer::create([
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'second_last_name' => $request->second_last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+          ]);
+          $tracking = Tracking::create([
+            'user_id' => auth()->user()->id,
+            'customer_id' => $customer->id,
+            'building_id' => $request->building_id,
+            'operation_id' => $request->operation_id,
+            'state_id'=> 1,
+            'numero_interior_unidad' => $request->numero_interior_unidad,
+            'contact_type' => $request->contact_type,
+            'inmobiliaria_name' => $request->inmobiliaria_name,
+            'nombre_asesor' => $request->nombre_asesor,
+            'celular_asesor' => $request->celular_asesor,
+          ]);
+          $comment = Comment::create([
+            'tracking_id' => $tracking->id,
+            'state_id'=> 1,
+            'comments'=> $request->comments,
+            'tracking_date' => Carbon::now(),
+          ]);
+
+          DB::commit();
+          return $tracking->id;
+        } catch(  Exception $exception ){
+          DB::rollback();
+          return $exception->getMessage();
+        }
+
+        //dd($request->name);
         return $request;
-        //return response()->json(['success'=>'Added new records.']);
+
       }
 
       return response()->json(['error'=>$validator->errors()->all()]);

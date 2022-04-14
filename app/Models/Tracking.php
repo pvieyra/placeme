@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Tracking extends Model{
     use HasFactory;
 
+    protected $fillable = [
+      'user_id',
+      'customer_id',
+      'building_id',
+      'operation_id',
+      'state_id',
+      'numero_interior_unidad',
+      'contact_type',
+      'inmobiliaria_name',
+      'nombre_asesor',
+      'celular_asesor'
+    ];
+
     public function state(){
       return $this->belongsTo(State::class);
     }

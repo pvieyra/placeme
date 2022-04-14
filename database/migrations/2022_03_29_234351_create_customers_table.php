@@ -10,17 +10,16 @@ class CreateCustomersTable extends Migration {
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name',120);
-            $table->string('last_name',120);
-            $table->string('second_last_name',120);
-            $table->string('email');
-            $table->string('phone',50);
-            $table->timestamps();
-        });
+    public function up() {
+      Schema::create('customers', function (Blueprint $table) {
+        $table->id();
+        $table->string('name',120);
+        $table->string('last_name',120);
+        $table->string('second_last_name',120)->nullable();
+        $table->string('email')->nullable();
+        $table->string('phone',50);
+        $table->timestamps();
+      });
     }
 
     /**

@@ -95,6 +95,7 @@ $(document).ready(function () {
             //Quitar los errores mostrar nuevaente los mensajes.
             $('.info-validation').show(1000, 'linear');
             $('.card-validation').addClass('hide');
+            $('.card-validation').find('.card-content-errors').empty();
             form.validate().settings.ignore = ":disabled,:hidden";
             return form.valid();
         },
@@ -147,12 +148,10 @@ $(document).ready(function () {
                      let errorHtml = '';
                      $('.info-validation').fadeOut(500, 'linear');
                      card.removeClass('hide').addClass('deep-orange lighten-2');
-                     //card.find('span').append('Hay campos por llenar para continuar');
                      $.each( data.error, function( key, value){
                         errorHtml += "<p class='text-black'>"+ value +"</p>";
                      });
-                     card.find('.card-title').after(errorHtml);
-
+                     card.find('.card-content-errors').append(errorHtml);
                      let $toastContent = $('<span class="bold italic">Revisa de nuevamente el formulario, hay campos obligatorios por llenar.</span>');
                      Materialize.toast($toastContent, 8000,'red lighten-1');
                  }
