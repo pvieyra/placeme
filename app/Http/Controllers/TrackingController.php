@@ -93,17 +93,16 @@ class TrackingController extends Controller {
             'comments'=> $request->comments,
             'tracking_date' => Carbon::now(),
           ]);
-
           DB::commit();
-          return $tracking->id;
+
+          return response()->json([
+            'success'=> "El seguimiento ha sido creado",
+            'tracking' => $tracking->id
+          ]);
         } catch(  Exception $exception ){
           DB::rollback();
           return $exception->getMessage();
         }
-
-        //dd($request->name);
-        return $request;
-
       }
 
       return response()->json(['error'=>$validator->errors()->all()]);

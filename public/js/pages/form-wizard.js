@@ -1,7 +1,4 @@
 $(document).ready(function () {
-
-
-
     $.validator.addMethod('domainEmailEqualTo', function(value){
         return !/@dev.com/.test(value)
     },"No puedes utilizar un correo con dominio dev.com");
@@ -103,7 +100,7 @@ $(document).ready(function () {
             form.submit(function(e){
                 e.preventDefault();
             });
-            console.log(form.serialize());
+
             const _token = $("input[name='_token']").val();
             const name = $("#name").val();
             const last_name = $("#last_name").val();
@@ -141,8 +138,14 @@ $(document).ready(function () {
                },
                success: function( data ){
                  if($.isEmptyObject( data.error )){
+                     document.getElementById('tracking-form').reset();
+                     $('.info-validation').fadeOut(500, 'linear');
+                     $('.actions-tracking').remove();
+                     $('.message-success-tracking').append('<div class="card-panel teal lighten-2">Se ha creado correctamente el seguimiento. Ahora lo puedes encontrar en el menu de tus seguimientos. Da click <a href="/seguimiento">aqui</a> para ir. <p>En 10 segundos se cargara la nueva pagina</p></div>');
                      let $toastContent = $('<span class="">El seguimiento ha sido creado correctamente.</span>');
-                     Materialize.toast($toastContent, 7000,'green accent-3');
+                     Materialize.toast($toastContent, 7000,'teal lighten-2');
+                     //ir a este seguimiento
+                     setTimeout( "location.href='/seguimiento'", 10000);
                  }else {
                      const card = $('.card-validation');
                      let errorHtml = '';
@@ -174,7 +177,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".wizard .actions ul li a").addClass("waves-effect waves-orange btn-flat m-b-xs");
+    $(".wizard .actions ul li a").addClass("waves-effect waves-orange btn-flat m-b-xs actions-tracking");
     $(".wizard .steps ul").addClass("tabs z-depth-1");
     $(".wizard .steps ul li").addClass("tab");
     $('ul.tabs').tabs();

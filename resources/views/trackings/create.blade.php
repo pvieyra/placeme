@@ -133,6 +133,9 @@
                     <blockquote class="info-validation">
                       Da click en <span class="green-text">"GUARDAR"</span> para crear el seguimiento o <span class="orange-text">"ANTERIOR"</span> para revisar la información del seguimiento.
                     </blockquote>
+                    <div class="message-success-tracking">
+
+                    </div>
                     <div class="card card-validation hide">
                       <div class="card-content white-text">
                         <span class="card-title white-text">Hay campos por llenar para continuar</span>
