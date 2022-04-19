@@ -42,10 +42,10 @@
                     <span class="badge blue">{{ $tracking->state->name }} </span>
                   </td>
                   <td>
-                    {{ $tracking->created_at }}
+                    {{ $tracking->created_at->format('d/m/Y') }}
                   </td>
                   <td>
-                    {{ $tracking->created_at }}
+                     {{ $tracking->comments->last()->created_at->format('d/m/Y') }}
                   </td>
                   <td>
                     <a href="#" class="btn">Ver</a>

@@ -4,11 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\Additional;
 use App\Models\Building;
+use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Project;
 use App\Models\Tracking;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Factories\ContactFactory;
 use Illuminate\Database\Seeder;
 
@@ -89,17 +91,26 @@ class DatabaseSeeder extends Seeder {
         StateTableSeeder::class,
       ]);
       //Project::factory()->times(40)->create();
-      //Contact::factory(40)->create();
+      //Contact::factory(40)->create();9
       //Additional::factory()->create();
-
-      $userAdmin = Tracking::create([
+      $trackings = Tracking::factory(1000)->create();
+      $trackings->each( function ( $tracking){
+        Comment::create([
+          'tracking_id' => $tracking->id,
+          'state_id' => 1,
+          'tracking_date' => Carbon::now(),
+          'comments' => "Esos son los comentarios de prueba para los comentarios de cada seguimiento",
+        ]);
+      });
+      //Tracking::factory(100)->create();
+      /*$userAdmin = Tracking::create([
         'user_id' => 2,
         'customer_id' => 3,
         'building_id' => 10,
         'operation_id'=> 1,
         'state_id' => 1,
         'contact_type' => "Directo",
-      ]);
+      ]);*/
 
     }
 }

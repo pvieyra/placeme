@@ -20,7 +20,7 @@ class TrackingController extends Controller {
      */
     public function index(){
         //si el usuario es asesor se muestran solo los trackings del asesor
-        $trackings = auth()->user()->trackings()->paginate(1);
+        $trackings = auth()->user()->trackings()->paginate(10);
         // si el usuario es admin, mostrar todos los trackings de todos los asesores.
         return view('trackings.index', compact('trackings'));
     }

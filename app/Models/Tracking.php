@@ -21,6 +21,10 @@ class Tracking extends Model{
       'celular_asesor'
     ];
 
+
+//  public function getCompleteAddressAttribute(){
+//    return $this->address." ".$this->suburb." ".$this->municipality;
+//  }
     public function state(){
       return $this->belongsTo(State::class);
     }
@@ -33,7 +37,8 @@ class Tracking extends Model{
     public function customer(){
       return $this->belongsTo(Customer::class);
     }
-    public function commments(){
+
+    public function comments(){
       return $this->hasMany(Comment::class);
     }
 

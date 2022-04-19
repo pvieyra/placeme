@@ -18,6 +18,7 @@ class Comment extends Model {
     public function tracking(){
       return $this->belongsTo(Tracking::class);
     }
+
     public function files(){
       return $this->hasMany(File::class);
     }
