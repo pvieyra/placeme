@@ -58,6 +58,7 @@
         <div class="collapsible-body">
           <ul>
             <li><a href="{{ route('trackings.create') }}">Crear Seguimiento</a></li>
+            <li><a href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
             <li><a href="{{ route('projects.index') }}">Mis Clientes</a></li>
             <li><a href="/contacts">Propiedades</a></li>
           </ul>

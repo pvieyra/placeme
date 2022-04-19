@@ -16,10 +16,13 @@ class TrackingController extends Controller {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index(){
-        //
+        //si el usuario es asesor se muestran solo los trackings del asesor
+        $trackings = auth()->user()->trackings()->paginate(1);
+        // si el usuario es admin, mostrar todos los trackings de todos los asesores.
+        return view('trackings.index', compact('trackings'));
     }
 
     /**
@@ -94,7 +97,6 @@ class TrackingController extends Controller {
             'tracking_date' => Carbon::now(),
           ]);
           DB::commit();
-
           return response()->json([
             'success'=> "El seguimiento ha sido creado",
             'tracking' => $tracking->id
@@ -104,9 +106,7 @@ class TrackingController extends Controller {
           return $exception->getMessage();
         }
       }
-
       return response()->json(['error'=>$validator->errors()->all()]);
-
     }
 
     /**

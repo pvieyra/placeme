@@ -1,1 +1,19 @@
 /* Write your custom CSS here */
+td span.badge {
+    min-width: 3rem;
+    padding: 5px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: inherit;
+    position: relative;
+    color:#f3f3f3;
+    right: 15px;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    td span.badge {
+        margin-left: 10px;
+    }
+}
