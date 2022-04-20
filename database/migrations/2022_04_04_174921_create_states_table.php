@@ -17,6 +17,7 @@ class CreateStatesTable extends Migration
             $table->id();
             $table->string('name',150);
             $table->integer('hierarchy')->unique();
+            $table->string('color', 200);
             $table->timestamps();
         });
     }

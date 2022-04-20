@@ -39,7 +39,7 @@
                   <td>{{ $tracking->customer->name }}</td>
                   <td>{{ $tracking->building->complete_address }}</td>
                   <td>
-                    <span class="badge blue">{{ $tracking->state->name }} </span>
+                    <span class="badge {{ $tracking->state->color }}">{{ $tracking->state->name }} </span>
                   </td>
                   <td>
                     {{ $tracking->created_at->format('d/m/Y') }}

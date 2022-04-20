@@ -3,10 +3,10 @@ td span.badge {
     min-width: 3rem;
     padding: 5px;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: inherit;
     position: relative;
-    color:#f3f3f3;
+    color:#0a001f;
     right: 15px;
     box-sizing: border-box;
     border-radius: 2px;
