@@ -93,13 +93,14 @@ class DatabaseSeeder extends Seeder {
       //Project::factory()->times(40)->create();
       //Contact::factory(40)->create();9
       //Additional::factory()->create();
-      $trackings = Tracking::factory(1000)->create();
+      $trackings = Tracking::factory(29)->create();
       $trackings->each( function ( $tracking){
         Comment::create([
           'tracking_id' => $tracking->id,
           'state_id' => 1,
-          'tracking_date' => Carbon::now(),
+          'tracking_date' => $tracking->created_at,
           'comments' => "Esos son los comentarios de prueba para los comentarios de cada seguimiento",
+          'created_at' => $tracking->created_at
         ]);
       });
       //Tracking::factory(100)->create();

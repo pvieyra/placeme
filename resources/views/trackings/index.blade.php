@@ -15,7 +15,20 @@
             <span class="card-title">Seguimientos<span class="secondary-title">Aqui puedes encontrar los seguimientos de tus clientes.</span></span>
             <div class="divider"></div>
             Buscar seguimientos:
-
+          <form action="{{ route('trackings.index') }}">
+            <input class="col-lg-6" type="text" name="customer_name" value="{{old('customer_name')}}" placeholder="Nombre del cliente">
+            <input class="col-lg-6" type="text" name="address_name" value="{{ old('address_name') }}" placeholder="Direccion de la propiedad">
+            <input class="col-lg-6" type="text" name="suburb_name" value="{{ old('suburb_name') }}" placeholder="Colonia">
+            <input class="col-lg-6" type="date" name="start_date" value="{{ old('start_date') }}" placeholder="Fecha inicial">
+            <input class="col-lg-6" type="date" name="end_date" value="{{ old('end_date') }}" placeholder="Fecha final">
+            <select class="browser-default" name="state">
+              <option value="" disabled="" selected="">Elige un estado del seguimiento</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+            <input type="submit" value="Buscar">
+          </form>
         </div>
       </div>
       <div class="card">
@@ -36,13 +49,13 @@
               @foreach( $trackings as $tracking)
                 <tr>
                   <td>#{{ $tracking->id }}</td>
-                  <td>{{ $tracking->customer->name }}</td>
-                  <td>{{ $tracking->building->complete_address }}</td>
+                  <td>{{ $tracking->cliente }}</td>
+                  <td>{{ $tracking->direccion }}</td>
                   <td>
-                    <span class="badge {{ $tracking->state->color }}">{{ $tracking->state->name }} </span>
+                    <span class="badge {{ $tracking->color }}">{{ $tracking->estado }} </span>
                   </td>
                   <td>
-                    {{ $tracking->created_at->format('d/m/Y') }}
+                    {{ $tracking->creado }}
                   </td>
                   <td>
                      {{ $tracking->comments->last()->created_at->format('d/m/Y') }}
@@ -53,8 +66,10 @@
                 </tr>
               @endforeach
             </tbody>
+
           </table>
           {{ $trackings->links() }}
+          <small class="small"> Mostrando {{ $trackings->count() }} de {{ $trackings->total() }} registros.</small>
         </div>
       </div>
     </div>

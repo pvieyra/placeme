@@ -6,11 +6,14 @@ use App\Models\Comment;
 use App\Models\Customer;
 use App\Models\Tracking;
 use App\Models\Operation;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Http\Requests\TrackingRequest;
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class TrackingController extends Controller {
     /**
@@ -18,9 +21,41 @@ class TrackingController extends Controller {
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index(){
-        //si el usuario es asesor se muestran solo los trackings del asesor
-        $trackings = auth()->user()->trackings()->paginate(10);
+    public function index(Request $request){
+      $customerName = $request['customer_name'];
+      $buildingAddress = $request['address_name'];
+      $buildingSuburb = $request['suburb_name'];
+      $startDate = $request['start_date'];
+      $endDate = $request['end_date'];
+      $endDate = Carbon::createFromFormat('Y-m-d',$endDate)->addDay();
+
+      $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
+        ->join('customers', 'trackings.customer_id', '=', 'customers.id')
+        ->join('buildings', 'trackings.building_id', '=', 'buildings.id')
+        ->join('states', 'trackings.state_id', '=', 'states.id')
+        ->where('trackings.user_id', '=', auth()->user()->id )
+        ->when($customerName, function($query) use($customerName){
+          $query->where('customers.name','like' , '%'. $customerName .'%')
+          ->orWhere('customers.last_name', 'like', '%'. $customerName .'%');
+        })
+        ->when($buildingAddress, function($query) use($buildingAddress){
+          $query->where('buildings.address','like' , '%'.$buildingAddress.'%');
+        })
+        ->where('buildings.suburb','like' , '%'.$buildingSuburb.'%')
+        ->when($startDate && $endDate  ,function($query) use($startDate, $endDate){
+          return $query->whereBetween('trackings.created_at', [ $startDate, $endDate]);
+        })
+        ->when(($startDate && is_null($endDate)) ,function($query) use($startDate){
+          $query->whereDate('trackings.created_at', [ $startDate]);
+        })
+        ->select('trackings.id',
+          DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'),
+          'buildings.address',
+          DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
+          'states.color as color','states.name as estado',DB::raw('DATE_FORMAT(trackings.created_at,"%d/%m/%Y") as creado'))
+        ->orderBy('trackings.created_at', 'asc')
+        ->paginate(10);
+
         // si el usuario es admin, mostrar todos los trackings de todos los asesores.
         return view('trackings.index', compact('trackings'));
     }
