@@ -19,7 +19,54 @@ td span.badge {
     background-color: #ee571f;
 }
 
+.info-tracking {
+    margin-bottom: 1rem;
+}
+.card-customer i {
+    margin-right: 10px;
+}
+.badge-tracking {
+    padding:5px 10px 5px 10px;
+    border-radius: 5px;
+    font-size: .8rem;
+    box-shadow: 0px 1px 7px 1px rgba(89,89,89,0.53);
+    -webkit-box-shadow: 0px 1px 7px 1px rgba(89,89,89,0.53);
+    -moz-box-shadow: 0px 1px 7px 1px rgba(89,89,89,0.53);
+}
 
+.divider-custom {
+    height: 1px;
+    margin: 8px 0;
+    overflow: hidden;
+    background-color: #9a8c98;
+}
+
+.icon-sm{
+    font-size: 1.2rem;
+}
+.comments-dash{
+    padding-bottom: .1rem;
+    margin-bottom: .8rem;
+    border-bottom: 1px dashed rgba(0,0,0,0.2);
+}
+.comments-dash-content {
+    border-bottom: 1px dashed rgba(0,0,0,0.2);
+}
+.textarea-style {
+    min-height: 13rem;
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+.comments p.comments-title{
+    margin: 20px 5px 10px 0px;
+    color: #3d405b;
+}
+.comments-info {
+    padding: 10px;
+    color:#6f707b !important;
+}
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;

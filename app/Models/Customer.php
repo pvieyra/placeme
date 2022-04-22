@@ -17,6 +17,9 @@ class Customer extends Model
     'phone',
   ];
 
+  public function getCompleteNameAttribute(){
+    return $this->name." ".$this->last_name.", ".$this->second_last_name;
+  }
   public function trackings(){
     return $this->hasMany(Tracking::class);
   }

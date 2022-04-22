@@ -11,12 +11,16 @@ class Comment extends Model {
     protected $fillable = [
       'tracking_id',
       'state_id',
+      'subject',
       'comments',
       'tracking_date'
     ];
 
     public function tracking(){
       return $this->belongsTo(Tracking::class);
+    }
+    public function state(){
+      return $this->belongsTo(State::class);
     }
 
     public function files(){

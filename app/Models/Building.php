@@ -10,7 +10,7 @@ class Building extends Model {
 
 
   public function getCompleteAddressAttribute(){
-    return $this->address." ".$this->suburb." ".$this->municipality;
+    return $this->address." ".$this->suburb.", ".$this->municipality;
   }
 
   public function trackings(){

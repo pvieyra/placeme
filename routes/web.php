@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::get('/seguimientos', [TrackingController::class, 'index'])->name('trackings.index');
   Route::get('/seguimiento', [TrackingController::class, 'create'])->name('trackings.create');
   Route::post('/seguimiento',[TrackingController::class, 'store'])->name('trackings.store');
+  Route::get('/seguimiento/{id}', [TrackingController::class,'show'])->name('trackings.show');
   // ## Buildings select2 component ## //
   Route::post('/getBuildings',[BuildingController::class, 'selectBuildings'])->name('buildings.select');
 });

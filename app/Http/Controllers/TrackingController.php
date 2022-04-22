@@ -27,7 +27,9 @@ class TrackingController extends Controller {
       $buildingSuburb = $request['suburb_name'];
       $startDate = $request['start_date'];
       $endDate = $request['end_date'];
-      $endDate = Carbon::createFromFormat('Y-m-d',$endDate)->addDay();
+      if(isset($endDate)){
+        $endDate = Carbon::createFromFormat('Y-m-d',$endDate)->addDay();
+      }
 
       $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
         ->join('customers', 'trackings.customer_id', '=', 'customers.id')
@@ -55,7 +57,6 @@ class TrackingController extends Controller {
           'states.color as color','states.name as estado',DB::raw('DATE_FORMAT(trackings.created_at,"%d/%m/%Y") as creado'))
         ->orderBy('trackings.created_at', 'asc')
         ->paginate(10);
-
         // si el usuario es admin, mostrar todos los trackings de todos los asesores.
         return view('trackings.index', compact('trackings'));
     }
@@ -148,11 +149,11 @@ class TrackingController extends Controller {
      * Display the specified resource.
      *
      * @param  \App\Models\Tracking  $tracking
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show(Tracking $tracking)
-    {
-        //
+    public function show($id){
+      $tracking = Tracking::findOrFail( $id );
+      return view('trackings.show', compact('tracking'));
     }
 
     /**

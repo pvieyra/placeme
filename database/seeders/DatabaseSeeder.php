@@ -99,6 +99,7 @@ class DatabaseSeeder extends Seeder {
           'tracking_id' => $tracking->id,
           'state_id' => 1,
           'tracking_date' => $tracking->created_at,
+          'subject' => 'Primer acercamiento con el cliente',
           'comments' => "Esos son los comentarios de prueba para los comentarios de cada seguimiento",
           'created_at' => $tracking->created_at
         ]);

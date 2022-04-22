@@ -21,12 +21,12 @@
             <input class="col-lg-6" type="text" name="suburb_name" value="{{ old('suburb_name') }}" placeholder="Colonia">
             <input class="col-lg-6" type="date" name="start_date" value="{{ old('start_date') }}" placeholder="Fecha inicial">
             <input class="col-lg-6" type="date" name="end_date" value="{{ old('end_date') }}" placeholder="Fecha final">
-            <select class="browser-default" name="state">
+            {{--<select class="browser-default" name="state">
               <option value="" disabled="" selected="">Elige un estado del seguimiento</option>
               <option value="1">Option 1</option>
               <option value="2">Option 2</option>
               <option value="3">Option 3</option>
-            </select>
+            </select>--}}
             <input type="submit" value="Buscar">
           </form>
         </div>
@@ -61,7 +61,7 @@
                      {{ $tracking->comments->last()->created_at->format('d/m/Y') }}
                   </td>
                   <td>
-                    <a href="#" class="btn">Ver</a>
+                    <a href="{{ route('trackings.show', $tracking->id) }}" class="waves-effect waves-light btn orange m-b-xs">Ver</a>
                   </td>
                 </tr>
               @endforeach

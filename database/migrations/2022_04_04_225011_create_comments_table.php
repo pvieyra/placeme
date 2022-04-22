@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration {
         $table->foreign('tracking_id')->references('id')->on('trackings');
         $table->unsignedBigInteger('state_id');
         $table->foreign('state_id')->references('id')->on('states');
+        $table->string('subject');
         $table->text('comments');
         $table->timestamp('tracking_date');
         $table->timestamps();
