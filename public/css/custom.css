@@ -86,11 +86,29 @@ td span.badge {
 .modal-content .modal-title-confirmation{
     font-size: 1.8rem;
 }
+.error-comments p{
+    padding:5px 10px 5px 10px;
+    color:#f0f0f0;
+}
+.success-comments p{
+    font-size: 1.2rem;
+    padding:5px 10px 5px 10px;
+    color: #f3f3f3;
+}
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;
     }
     .modal-content .modal-title-confirmation{
         font-size: 1.2rem;
+    }
+    .error-comments p{
+        padding:5px 10px 5px 10px;
+        color:#f0f0f0;
+        text-align: center;
+    }
+    .success-comments p{
+        font-size: .9rem;
+        text-align: center;
     }
 }

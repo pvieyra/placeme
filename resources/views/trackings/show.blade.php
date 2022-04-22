@@ -11,6 +11,34 @@
 @section('content')
   <div>
     <div class="row">
+      <div class="card teal lighten-1 success-comments">
+        <p class="thin valign-wrapper">
+          <i class="material-icons">info</i>
+          <i> El comentario ha sido guardado correctamente</i>
+        </p>
+      </div>
+      @if(session('success'))
+        <div class="card green accent-2 error-comments">
+          <p class="thin"><i>{{ session('success')  }}</i></p>
+        </div>
+      @endif
+        @if( session('error') )
+          <div class="card red accent-2 error-comments">
+            <p class="thin"><i>{{ session('error')}}</i></p>
+          </div>
+        @endif
+      @error('subject')
+        <div class="card red accent-2 error-comments">
+          <p class="thin"><i>Debes colocar un asunto para el comentario.</i></p>
+        </div>
+      @enderror
+      @error('comment')
+      <div class="card red accent-2 error-comments">
+        <p class="thin">Debes colocar un comentario.</p>
+      </div>
+      @enderror
+    </div>
+    <div class="row">
       <div class="subtitle-text col s12">
         <h6>Ficha del cliente</h6>
         <small>Seguimiento</small>
@@ -112,12 +140,17 @@
     </div>
     <div class="row m-b-lg">
       <div class="col s12">
-        <form action="">
-          <input class="browser-default" type="text" placeholder="Asunto">
-          <textarea class="textarea-style" name="comment" id="" cols="30" rows="100"></textarea>
-          <input type="file" name="file-comment" multiple>
+        <form action="{{ route('comments.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <input type="hidden" name="tracking_id" value="{{ $tracking->id }}">
+          <input type="hidden" name="state_id" value="{{ $tracking->state->id }}">
+          <input class="browser-default" type="text" name="subject" placeholder="Asunto" value="{{ old('subject') }}">
+          <textarea class="textarea-style"  name="comment" id="" cols="30" rows="100">
+            {{ old('comment') }}
+          </textarea>
+          <input type="file" name="files[]" multiple >
           <p>
-            <input type="submit" class="btn waves-effect waves-light m-t-sm orange" value="Guardar">
+            <input type="submit" class="btn m-t-sm orange" value="Guardar">
           </p>
         </form>
       </div>
