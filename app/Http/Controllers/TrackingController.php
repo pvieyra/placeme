@@ -55,7 +55,7 @@ class TrackingController extends Controller {
           'buildings.address',
           DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
           'states.color as color','states.name as estado',DB::raw('DATE_FORMAT(trackings.created_at,"%d/%m/%Y") as creado'))
-        ->orderBy('trackings.created_at', 'asc')
+        ->orderBy('trackings.created_at', 'desc')
         ->paginate(10);
         // si el usuario es admin, mostrar todos los trackings de todos los asesores.
         return view('trackings.index', compact('trackings'));
@@ -129,6 +129,7 @@ class TrackingController extends Controller {
           $comment = Comment::create([
             'tracking_id' => $tracking->id,
             'state_id'=> 1,
+            'subject' => 'Inicio del seguimiento.',
             'comments'=> $request->comments,
             'tracking_date' => Carbon::now(),
           ]);

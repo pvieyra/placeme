@@ -36,6 +36,25 @@
             <div class="info-tracking personal-customer-building valign-wrapper">
               <i class="material-icons md-24">business</i>  {{ $tracking->building->complete_address }}
             </div>
+            <div class="info-tracking personal-customer-building valign-wrapper">
+              <i class="material-icons md-24">home</i>  {{ $tracking->numero_interior_unidad}}
+            </div>
+            <div class="info-tracking personal-customer-building valign-wrapper">
+              <i class="material-icons md-24">info_outline</i> Tipo de contacto: <span class="txt-orange"> {{ $tracking->contact_type}} </span>
+            </div>
+            @if($tracking->contact_type == 'Otra Inmobiliaria')
+              <div class="info-otra-inmobiliaria">
+                <div class="info-tracking personal-customer-building valign-wrapper">
+                  <i class="material-icons md-24">group</i> <i>Inmobiliaria: </i> <span class="txt-green-1"> {{ $tracking->inmobiliaria_name }}</span>
+                </div>
+                <div class="info-tracking personal-customer-building valign-wrapper">
+                  <i class="material-icons md-24">portrait</i> <i>Asesor: </i>  <span class="txt-green-1">{{ $tracking->nombre_asesor }}</span>
+                </div>
+                <div class="info-tracking personal-customer-building valign-wrapper">
+                  <i class="material-icons md-24">phone_iphone</i> <i>Celular: </i> <span class="txt-green-1"> {{ $tracking->celular_asesor }}</span>
+                </div>
+              </div>
+            @endif
           </div>
           <div class="card-tracking col s12 m6 l4">
             <div class="info-tracking info-status-tracking">
@@ -50,14 +69,19 @@
               <p class="valign-wrapper"><i class="material-icons icon-sm">date_range</i>{{ $tracking->updated_at->format('d/m/Y H:m:s') }}</p>
             </div>
             <div class="info-tracking change-status-tracking col s12">
-              <label for="">Cambiar Estado</label>
-              <select class="browser-default blue-grey lighten-3">
-                <option value="" disabled="" selected="">- selecciona un estado -</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-              <input type="submit" class="btn waves-effect waves-light m-t-sm orange" value="Cambiar">
+              <form action="">
+                @php
+                    $states = $tracking->state->loadStates($tracking->state_id)
+                @endphp
+                <label for="">Cambiar Estado</label>
+                <select class="browser-default blue-grey lighten-3">
+                  <option value="" disabled="" selected="">- selecciona un estado -</option>
+                  @foreach($states as $state)
+                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                  @endforeach
+                </select>
+                <input type="submit" class="btn waves-effect waves-light m-t-sm orange" value="Cambiar">
+              </form>
             </div>
           </div>
         </div>
@@ -107,10 +131,9 @@
                   <i class="material-icons icon-sm">date_range</i>{{$tracking->comments->last()->created_at->format('d/m/Y H:m:s') }}
                 </p>
               </div>
-              <p class="comments-title">Primer acercamiento con el cliente.</p>
-              <p class="comments-info comments-dash">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci aperiam architecto at
-                culpa quia quidem quo repudiandae rerum, sed sint suscipit tempore vitae. Architecto cum doloremque incidunt laudantium temporibus!
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci aperiam architecto at
+              <p class="comments-title">{{ $tracking->comments->last()->subject }}</p>
+              <p class="comments-info comments-dash">
+                {{ $tracking->comments->last()->comments }}
               </p>
             </div>
             <div class="tracking-files m-t-lg">

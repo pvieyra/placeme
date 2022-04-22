@@ -15,6 +15,18 @@ class State extends Model
       'hierarchy',
     ];
 
+    public function loadStates( $idState ){
+      //debe regresar una coleccion con los estados de mayor jerarquia y sin el estado actual.
+      $currentState = State::findOrFail( $idState);
+      $states = State::all();
+      $statesCollection = collect();
+      foreach ($states as $state){
+        if($state->id != $idState && $state->hierarchy > $currentState->hierarchy){
+          $statesCollection->push($state);
+        }
+      }
+      return $statesCollection;
+    }
     public function trackings(): HasMany{
       return $this->hasMany(Tracking::class);
     }

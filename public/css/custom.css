@@ -67,6 +67,12 @@ td span.badge {
     padding: 10px;
     color:#6f707b !important;
 }
+.txt-orange {
+    color: #f65a1d;
+}
+.txt-green-1 {
+    color:#577590;
+}
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;
