@@ -73,8 +73,24 @@ td span.badge {
 .txt-green-1 {
     color:#577590;
 }
+
+.change-status-tracking a{
+    margin-top: 2rem;
+}
+.modal .modal-footer a.modal-close{
+    margin-right: 15px;
+}
+.modal-content h4 {
+    border-bottom: 1px dashed rgba(0,0,0,0.2);
+}
+.modal-content .modal-title-confirmation{
+    font-size: 1.8rem;
+}
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;
+    }
+    .modal-content .modal-title-confirmation{
+        font-size: 1.2rem;
     }
 }

@@ -18,7 +18,7 @@ class Tracking extends Model{
       'contact_type',
       'inmobiliaria_name',
       'nombre_asesor',
-      'celular_asesor'
+      'celular_asesor',
     ];
 
 

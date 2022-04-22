@@ -6,6 +6,7 @@
   <link href="{{ asset('plugins/weather-icons-master/css/weather-icons.min.css')}}" rel="stylesheet" />
   <link href="{{ asset('css/alpha.min.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{ asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
+
 @endsection
 @section('content')
   <div>
@@ -62,25 +63,39 @@
             </div>
             <div class="info-tracking info-date-tracking col s6">
               <small>Fecha de creacion:</small>
-              <p class="valign-wrapper"><i class="material-icons icon-sm">date_range</i>{{ $tracking->created_at->format('d/m/Y H:m:s') }}</p>
+              <p class="valign-wrapper"><i class="material-icons icon-sm">date_range</i>{{ $tracking->created_at->format('d/m/Y H:i:s') }}</p>
             </div>
             <div class="info-tracking info-date-tracking col s6 ">
               <small>Fecha del seguimiento:</small>
-              <p class="valign-wrapper"><i class="material-icons icon-sm">date_range</i>{{ $tracking->updated_at->format('d/m/Y H:m:s') }}</p>
+              <p class="valign-wrapper"><i class="material-icons icon-sm">date_range</i>{{ $tracking->updated_at->format('d/m/Y H:i:s') }}</p>
             </div>
             <div class="info-tracking change-status-tracking col s12">
-              <form action="">
+              <form action="{{ route('tracking.update-state') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="tracking_id" value="{{ $tracking->id }}">
                 @php
                     $states = $tracking->state->loadStates($tracking->state_id)
                 @endphp
                 <label for="">Cambiar Estado</label>
-                <select class="browser-default blue-grey lighten-3">
+                <select class="browser-default blue-grey lighten-3" name="state_id">
                   <option value="" disabled="" selected="">- selecciona un estado -</option>
                   @foreach($states as $state)
                     <option value="{{ $state->id }}">{{ $state->name }}</option>
                   @endforeach
                 </select>
-                <input type="submit" class="btn waves-effect waves-light m-t-sm orange" value="Cambiar">
+                <a class="waves-effect waves-light btn orange modal-trigger" href="#changeState">Cambiar estado</a>
+                <div id="changeState" class="modal">
+                  <div class="modal-content">
+                    <h4>Confirmacion de cambio</h4>
+                    <p class="center-align modal-title-confirmation">¿Estas seguro de cambiar el estado del seguimiento?</p>
+                    <p class="center-align">Una vez cambiado el estado del seguimiento no es posible regresar a uno anterior.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="modal-action btn blue darken-3" value="Aceptar">
+                    <a href="#!" class=" modal-action modal-close  btn red">Cancelar</a>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -128,7 +143,7 @@
               <div class="comments-date">
                 <small>Fecha de creacion:</small>
                 <p class="valign-wrapper">
-                  <i class="material-icons icon-sm">date_range</i>{{$tracking->comments->last()->created_at->format('d/m/Y H:m:s') }}
+                  <i class="material-icons icon-sm">date_range</i>{{$tracking->comments->last()->created_at->format('d/m/Y H:i:s') }}
                 </p>
               </div>
               <p class="comments-title">{{ $tracking->comments->last()->subject }}</p>
@@ -158,6 +173,5 @@
   <script src="{{ asset('js/alpha.min.js')}}"></script>
 @endsection
 @push('scripts')
-  <script>
-  </script>
+
 @endpush

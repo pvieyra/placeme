@@ -163,8 +163,7 @@ class TrackingController extends Controller {
      * @param  \App\Models\Tracking  $tracking
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tracking $tracking)
-    {
+    public function edit(Tracking $tracking){
         //
     }
 
@@ -175,8 +174,7 @@ class TrackingController extends Controller {
      * @param  \App\Models\Tracking  $tracking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tracking $tracking)
-    {
+    public function update(Request $request, Tracking $tracking){
         //
     }
 
@@ -186,8 +184,20 @@ class TrackingController extends Controller {
      * @param  \App\Models\Tracking  $tracking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tracking $tracking)
-    {
+    public function destroy(Tracking $tracking){
         //
+    }
+
+    public function updateState(Request $request){
+      //validar que solo el usuario pueda actualizar.
+      //Validar que el usuario admin no pueda modificar.
+      $tracking = Tracking::findOrFail($request['tracking_id']);
+      $data = $request->validate([
+        'tracking_id' => 'required',
+        'state_id' => 'required|numeric'
+      ]);
+      $tracking->state_id = $request['state_id'];
+      $tracking->save();
+      return redirect()->back();
     }
 }
