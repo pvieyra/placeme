@@ -8,10 +8,13 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Project;
+use App\Models\State;
 use App\Models\Tracking;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Factories\ContactFactory;
+use Faker\Provider\Address;
+use Faker\Provider\DateTime;
 use Illuminate\Database\Seeder;
 
 use Spatie\Permission\Models\Role;
@@ -95,18 +98,21 @@ class DatabaseSeeder extends Seeder {
       //Additional::factory()->create();
       $trackings = Tracking::factory(29)->create();
       $trackings->each( function ( $tracking){
-        Comment::create([
-          'tracking_id' => $tracking->id,
-          'state_id' => 1,
-          'tracking_date' => $tracking->created_at,
-          'subject' => 'Primer acercamiento con el cliente',
-          'comments' => "Esos son los comentarios de prueba para los comentarios de cada seguimiento imply dummy text
+        for ($i = 1; $i <= 10; $i++) {
+          Comment::create([
+            'tracking_id' => $tracking->id,
+            'state_id' => State::inRandomOrder()->first()->id,
+            'tracking_date' => $tracking->created_at,
+            'subject' => $i."acercamiento con el cliente",
+            'comments' => "Esos son los comentarios de prueba para los comentarios de cada seguimiento imply dummy text
            of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
            when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, 
            but also the leap into electronic typesetting, remaining essentially unchanged
           . It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with deskt ",
-          'created_at' => $tracking->created_at
-        ]);
+            'created_at' => DateTime::dateTimeBetween('-3 month','now'),
+          ]);
+        }
+
       });
       //Tracking::factory(100)->create();
       /*$userAdmin = Tracking::create([

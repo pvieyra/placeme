@@ -122,7 +122,8 @@ class Create extends Component{
         ]);
 
         if($this->photo_profile){
-          $photo = $this->photo_profile->store('photo-profile');
+          $photo = $this->photo_profile->store('photo-profile', 'public');
+          //$photo = $this->photo_profile->store('photo-profile');
         }else {
           $photo = "photo-profile/user_profile_a.png";
         }

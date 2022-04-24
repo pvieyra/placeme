@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Manny\Manny;
+use phpDocumentor\Reflection\Types\Boolean;
+use Yajra\DataTables\Html\Editor\Fields\BelongsTo;
 
 class Tracking extends Model{
     use HasFactory;
@@ -25,6 +29,20 @@ class Tracking extends Model{
 //  public function getCompleteAddressAttribute(){
 //    return $this->address." ".$this->suburb." ".$this->municipality;
 //  }
+    public function getPhoneAsesorAttribute(){
+     return Manny::mask($this->celular_asesor, "(11) 1111-1111");
+    }
+
+  /**
+   * @return bool
+   */
+
+
+    public function isDateTrackingActive(){
+      $diffDays = $this->updated_at->diffInDays(Carbon::now());
+      return !(($diffDays >= 60));
+      //return $this->updated_at->diffInDays(Carbon::now());
+    }
     public function state(){
       return $this->belongsTo(State::class);
     }

@@ -10,7 +10,8 @@ class File extends Model {
 
     protected $fillable = [
       'comment_id',
-      'file'
+      'file',
+      'file_path'
     ];
 
     public function comment(){

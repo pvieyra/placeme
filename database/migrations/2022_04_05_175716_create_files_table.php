@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->unsignedBigInteger('comment_id');
             $table->foreign('comment_id')->references('id')->on('comments');
             $table->string('file');
+            $table->string('file_path');
             $table->timestamps();
         });
     }

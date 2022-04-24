@@ -125,6 +125,7 @@ class TrackingController extends Controller {
             'inmobiliaria_name' => $request->inmobiliaria_name,
             'nombre_asesor' => $request->nombre_asesor,
             'celular_asesor' => $request->celular_asesor,
+            'active'=> 1,
           ]);
           $comment = Comment::create([
             'tracking_id' => $tracking->id,
@@ -154,6 +155,12 @@ class TrackingController extends Controller {
      */
     public function show($id){
       $tracking = Tracking::findOrFail( $id );
+      $lastUpdate = $tracking->updated_at;
+      if( $tracking->isDateTrackingActive() === false){
+        $tracking->active = 0;
+        $tracking->updated_at = $lastUpdate;
+        $tracking->save();
+      }
       return view('trackings.show', compact('tracking'));
     }
 

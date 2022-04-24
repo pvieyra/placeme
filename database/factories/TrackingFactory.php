@@ -23,6 +23,7 @@ class TrackingFactory extends Factory
           'operation_id'=> 1,
           'state_id' => State::inRandomOrder()->first()->id,
           'contact_type' => "Directo",
+          'active' => 1,
           'created_at' => $this->faker->dateTimeBetween('-3 month','now'),
           //'updated_at' => $this->faker->dateTimeBetween('-3 month','now'),
         ];

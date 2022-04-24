@@ -3,7 +3,8 @@
     <div class="sidebar-profile">
       <div class="sidebar-profile-image">
         {{--<img src="{{ Auth::user()->additional->photo_profile  }}" alt="">--}}
-        <img src="{{ Auth::user()->additional->photo_profile  }}" class="circle" alt="">
+        {{--<img src="{{ Auth::user()->additional->photo_profile  }}" class="circle" alt="">--}}
+        <img src="{{ Storage::url(Auth::user()->additional->photo_profile) }}" class="circle" alt="">
       </div>
       <div class="sidebar-profile-info">
         <a href="javascript:void(0);" class="account-settings-link">
@@ -14,12 +15,6 @@
     </div>
     <div class="sidebar-account-settings">
       <ul>
-        <li class="no-padding">
-          <a class="waves-effect waves-grey"><i class="material-icons">done</i>Sent Mail</a>
-        </li>
-        <li class="no-padding">
-          <a class="waves-effect waves-grey"><i class="material-icons">history</i>History<span class="new grey lighten-1 badge">3 new</span></a>
-        </li>
         <li class="divider"></li>
         <li class="no-padding">
           <a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -34,15 +29,15 @@
       </ul>
     </div>
     <ul class="sidebar-menu collapsible collapsible-accordion" data-collapsible="accordion">
-      <li class="no-padding active"><a class="waves-effect waves-grey active" href="{{ route('index') }}">
-          <i class="material-icons">settings_input_svideo</i>
+      <li class="no-padding "><a class="waves-effect waves-grey active" href="{{ route('index') }}">
+          <i class="material-icons">home</i>
           Inicio
         </a>
       </li>
       @role('administrador')
-        <li class="no-padding">
+        <li class="no-padding ">
           <a class="collapsible-header waves-effect waves-grey">
-            <i class="material-icons">apps</i>Usuarios<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>
+            <i class="material-icons">people</i>Usuarios<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>
           </a>
           <div class="collapsible-body">
             <ul>
@@ -54,18 +49,22 @@
         </li>
       @endrole
       <li class="no-padding">
-        <a class="collapsible-header waves-effect waves-grey">Seguimientos<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <a class="collapsible-header waves-effect waves-grey active">Seguimientos<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
             <li><a href="{{ route('trackings.create') }}">Crear Seguimiento</a></li>
             <li><a href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
-            <li><a href="{{ route('projects.index') }}">Mis Clientes</a></li>
-            <li><a href="/contacts">Propiedades</a></li>
           </ul>
         </div>
       </li>
       <li class="no-padding">
-        <a class="waves-effect waves-grey" href="charts.html"><i class="material-icons">trending_up</i>Charts</a>
+        <a class="collapsible-header waves-effect waves-grey">Propiedades<i class="material-icons">business</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <div class="collapsible-body">
+          <ul>
+            <li><a href="#">Crear Propiedades</a></li>
+            <li><a href="#">Ver Propiedades</a></li>
+          </ul>
+        </div>
       </li>
     </ul>
     <div class="footer">

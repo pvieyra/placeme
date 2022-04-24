@@ -52,7 +52,9 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::post('/seguimiento',[TrackingController::class, 'store'])->name('trackings.store');
   Route::get('/seguimiento/{id}', [TrackingController::class,'show'])->name('trackings.show');
   Route::put('/cambiar-estado', [TrackingController::class, 'updateState'])->name('tracking.update-state');
+  //comments
   Route::post('/agregar-comentario',[CommentController::class, 'store'])->name('comments.store');
+  Route::get('/comentarios/{tracking}', [CommentController::class, 'index'])->name('comments.index');
   // ## Buildings select2 component ## //
   Route::post('/getBuildings',[BuildingController::class, 'selectBuildings'])->name('buildings.select');
 });
