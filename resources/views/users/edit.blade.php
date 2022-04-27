@@ -9,7 +9,7 @@
 @endsection
 @section('content')
   <div>
-    @livewire('users.index')
+    @livewire('users.edit',['user' => $user])
   </div>
 @endsection
 @section('native-scripts')

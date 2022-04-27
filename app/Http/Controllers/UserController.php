@@ -90,4 +90,9 @@ class UserController extends Controller{
       ->rawColumns(['action'])
       ->make( true );
   }
+
+  public function editUser(User $user){
+    //$user = User::findOrFail($id);
+    return view('users.edit',compact('user'));
+  }
 }

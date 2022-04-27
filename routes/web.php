@@ -37,6 +37,10 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
     //Route::view('ver-usuarios', 'users.index.backup')->name('users.index'); ruta anterior con data table.
     //Usuarios livewire
     Route::view('/usuarios','users.index')->name('users.index');
+    //Route::view('/usuarios/editar/{id}','users.edit')->name('users.edit');
+    Route::get('/usuarios/editar/{user}',[UserController::class,'editUser'])->name('users.edit');
+
+
     Route::get('datatable/users',[ UserController::class, 'datatableUsers'])->name('datatable.users');
     //Generando una ruto tipo resource para el modelo Project.
       Route::resource('projects', ProjectController::class);

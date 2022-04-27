@@ -39,7 +39,7 @@
             <td>{{ $user->roles->first()->name }}</td>
             <td>{{ $user->additional->active_state }}</td>
             <td>
-              <button class="btn blue" href=""> Editar </button>
+              <a class="btn blue" href="{{ route('users.edit',$user) }}"> Editar </a>
             </td>
             <td>
               <button wire:click="changeUserActive({{ $user->id }})" class="btn orange">
