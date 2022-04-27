@@ -1,19 +1,27 @@
+<div>
+  <div class="row">
+    <div class="card valign-wrapper col s4">
+      <div class="card-content">RESET PASSWORD</div>
+      <div class="button-reset right-align">
+        <button class="btn blue" wire:click="resetPassword({{$user_id}})"> Actualizar </button>
+      </div>
+    </div>
+    @if (session()->has('success-change'))
+      <div class="card cyan darken-3 col s12" role="alert">
+        <div class="card-content ">
+          <p class="font-bold">{{ session('success-change') }}</p>
+        </div>
+      </div>
+  @endif
+  </div>
 <div class="row">
     <div>
-      @if (session()->has('message'))
-        <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
-          <div class="flex">
-            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
-            <div>
-              <p class="font-bold">{{ session('message') }}</p>
-            </div>
-          </div>
-        </div>
-      @endif
     </div>
     <div class="card hoverable">
       <div class="card-content">
-        <span class="card-title">Edicion de usuario</span><br>
+        <div class="user-rol valign-wrapper">
+          <h5>Editar usuario: <i>{{ $rol }}</i> </h5>
+        </div>
         <div class="row">
           <form wire:submit.prevent="submit">
             <div class="row">
@@ -45,26 +53,69 @@
                 @enderror
               </div>
             </div>
-            <div class="row">
-              <div class="col s12 m6">
-                <p class="p-v-xs">
-                  <span class="badge-tracking orange">{{ $rol }}</span>
-                </p>
+            <div class="col s12">
+              @if ($photo_profile)
+                @php
+                  try {
+                     $url = $photo_profile->temporaryUrl();
+                     $photoStatus = true;
+                  }catch (RuntimeException $exception){
+                      $photoStatus =  false;
+                  }
+                @endphp
+                @if($photoStatus)
+                  <div class="image-user-edit">
+                    <img class="circle " src="{{ $photo_profile->temporaryUrl() }}" alt="Foto del perfil">
+                    <button class="btn" wire:click="resetImage">Eliminar</button>
+                  </div>
+                @else
+                  <div class="flex flex-col mb-5 items-center">
+                    <label class="error text-red-500">El archivo seleccionado no es valido. Solo puede subir archivos tipo imagen: jpeg, png, gif, jpg</label>
+                    <a class="" wire:click="resetImage">Eliminar</a>
+                  </div>
+                @endif
+              @endif
+              <div class="file-field input-field">
+
+                {{-- @if( $photo_profile )
+                   <div>
+                     <img class="rounded-full mb-5 scale-50" src="{{ $photo_profile->temporaryUrl() }}" alt="Foto del perfil">
+                   </div>
+                 @endif--}}
+                <div class="btn orange lighten-1">
+                  <span>Foto</span>
+                  <input type="file" wire:model="photo_profile">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Imagen de perfil">
+                </div>
+                @error('photo_profile')
+                <label class="error text-red-500">{{ $message }}</label>
+                @enderror
               </div>
             </div>
             <div class="row image-user-edit">
               <label for="">Imagen actual:</label>
-              <img src="{{ Storage::url($currentImage) }}" class="circle" alt="">
+              <img wire:model="currentImage" src="{{ Storage::url($currentImage) }}" class="circle" alt="">
+
             </div>
             <div class="flex mt-15">
               <div>
                 <button type="submit" class="btn m-b-xs orange"><i class="material-icons left">save</i>Editar</button>
-                <button type="submit" class="btn m-b-xs blue"><i class="material-icons left">replay</i>Reset Password</button>
               </div>
             </div>
           </form>
+          @if (session()->has('message'))
+            <div class="card cyan darken-3" role="alert">
+              <div class="card-content ">
+                <p class="font-bold">{{ session('message') }}</p>
+              </div>
+              </div>
+            </div>
+          @endif
         </div>
       </div>
     </div>
   </div>
 
+</div>

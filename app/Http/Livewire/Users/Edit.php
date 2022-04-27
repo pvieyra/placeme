@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Users;
 
+use App\Models\Additional;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -20,9 +22,11 @@ class Edit extends Component{
   public $password;
   public $currentImage;
   public $photo_profile;
+  public $user_id;
 
 
   public function mount($user){
+    $this->user_id = $user->id;
     $this->name = $user->name;
     $this->email = $user->email;
     $this->last_name = $user->additional->last_name;
@@ -39,11 +43,11 @@ class Edit extends Component{
   protected function rules(){
     //se debe condicionar si se esta actualizando una imagen.
     return [
-      'password' => [
+     /* 'password' => [
         'required',
         'string',
         'min:8',
-      ],
+      ],*/
       'phone' => [
         Rule::when($this->phone, ['min:10']),
       ],
@@ -56,13 +60,14 @@ class Edit extends Component{
 
   //mensajes de validacion personalizados.
   protected $messages = [
-    'password.required' => "La contraseña es obligatoria",
-    'password.min' => "La contraseña debe de contener minimo 8 caracteres",
+    /*'password.required' => "La contraseña es obligatoria",
+    'password.min' => "La contraseña debe de contener minimo 8 caracteres",*/
     'phone.min' => "El telefono debe contener 10 digitos",
     'photo_profile.image' => "Solo se permiten subir imagenes",
-    'photo_profile.max' => "El tamaño maximo de la imagen es 2mb",
+    'photo_profile.max' => "El tamaño maximo de la imagen es 1mb",
     'photo_profile.mimes' => "El archivo debe ser de tipo imagen",
   ];
+
   public function updated($propertyName){
     $this->validateOnly($propertyName);
     /* manny mask */
@@ -70,4 +75,39 @@ class Edit extends Component{
       $this->phone = Manny::mask($this->phone, "(11) 1111-1111");
     }
   }
+  public function resetImage(){
+    $this->photo_profile = null;
+  }
+
+
+
+  public function submit(){
+    $this->validate();
+    try {
+      $userDB = User::findOrFail($this->user_id);
+      if($this->photo_profile){
+        Storage::disk('public')->delete($userDB->additional->photo_profile);
+        $photo = $this->photo_profile->store('photo-profile', 'public');
+        //$photo = $this->photo_profile->store('photo-profile');
+      }else {
+        $photo = $this->currentImage;
+      }
+     $userDB->additional->update([
+        'phone' => $this->phone,
+        'photo_profile' => $photo,
+      ]);
+      $this->currentImage = $photo;
+      session()->flash('message', __('Usuario actualizado correctamente.'));
+      $this->resetImage();
+    } catch ( Throwable $exception){
+      dd($exception);
+    }
+
+  }
+
+
+  public function resetPassword(){
+    session()->flash('success-change', __('El password fue actualizado.'));
+  }
+
 }
