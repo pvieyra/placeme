@@ -23,6 +23,7 @@ class Tracking extends Model{
       'inmobiliaria_name',
       'nombre_asesor',
       'celular_asesor',
+      'active'
     ];
 
 
@@ -36,7 +37,6 @@ class Tracking extends Model{
   /**
    * @return bool
    */
-
 
     public function isDateTrackingActive(){
       $diffDays = $this->updated_at->diffInDays(Carbon::now());

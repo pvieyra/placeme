@@ -108,6 +108,55 @@ td span.badge {
 .navigation-basic-list .active a{
     text-decoration: none;
 }
+span.error-form {
+    color: #ef233c;
+    font-size: .9em;
+    height: 3rem;
+    width: 100%;
+    margin-bottom: 2px;
+    font-weight: normal;
+    display: block;
+}
+.custom-pagination {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap:1px;
+    list-style: none;
+
+}
+.custom-pagination li button {
+    background-color: #4895ef;
+    border-color: #4895ef;
+    color: #f0f0f0;
+    vertical-align: top;
+    text-align: center;
+    border-radius: 2px;
+}
+.custom-pagination li.active {
+    background-color: #fe7434;
+    border-color: #fe7434;
+    color: #f0f0f0;
+    padding: .2em;
+    vertical-align: top;
+    text-align: center;
+    border-radius: 2px;
+}
+.disabled-link {
+    color: #4C4C4C;
+    padding: .2em;
+    box-shadow: none;
+    background-color: #adb5bd;
+    cursor: default;
+}
+.flex {
+    display: flex;
+}
+.mar-r-1 {
+    margin-right: 0.25rem;
+}
+
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;

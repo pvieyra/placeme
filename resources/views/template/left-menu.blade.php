@@ -41,7 +41,7 @@
           </a>
           <div class="collapsible-body">
             <ul>
-              <li><a href="{{ route('users.index') }}"> Ver </a></li>
+              <li><a href="{{ route('users.index') }}"> Ver Usuarios</a></li>
               <li><a href="{{ route('users.create') }}"> Crear </a></li>
               <li><a href="/contacts"> Listado </a></li>
             </ul>
@@ -62,7 +62,7 @@
         <div class="collapsible-body">
           <ul>
             <li><a href="#">Crear Propiedades</a></li>
-            <li><a href="#">Ver Propiedades</a></li>
+            <li><a href="{{ route('buildings.index') }}">Ver Propiedades</a></li>
           </ul>
         </div>
       </li>

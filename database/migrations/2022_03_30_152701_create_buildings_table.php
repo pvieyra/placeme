@@ -17,10 +17,11 @@ class CreateBuildingsTable extends Migration {
       $table->string('address');
       $table->string('suburb');
       $table->string('municipality');
-      $table->string('int_number',50);
+      $table->string('int_number',50)->nullable();
       $table->string('zip',50)->nullable();
       $table->string('alias')->nullable();
       $table->text('comments')->nullable();
+      $table->integer('active')->nullable();
       $table->timestamps();
     });
   }

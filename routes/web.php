@@ -34,7 +34,9 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::group(['middleware' => ['role:administrador']],function(){
     /* USERS */
     Route::view('crear-usuarios', 'users.create')->name('users.create');
-    Route::view('ver-usuarios', 'users.index')->name('users.index');
+    //Route::view('ver-usuarios', 'users.index.backup')->name('users.index'); ruta anterior con data table.
+    //Usuarios livewire
+    Route::view('/usuarios','users.index')->name('users.index');
     Route::get('datatable/users',[ UserController::class, 'datatableUsers'])->name('datatable.users');
     //Generando una ruto tipo resource para el modelo Project.
       Route::resource('projects', ProjectController::class);
@@ -52,9 +54,13 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::post('/seguimiento',[TrackingController::class, 'store'])->name('trackings.store');
   Route::get('/seguimiento/{id}', [TrackingController::class,'show'])->name('trackings.show');
   Route::put('/cambiar-estado', [TrackingController::class, 'updateState'])->name('tracking.update-state');
-  //comments
+  //Comentarios de los seguimientos
   Route::post('/agregar-comentario',[CommentController::class, 'store'])->name('comments.store');
   Route::get('/comentarios/{tracking}', [CommentController::class, 'index'])->name('comments.index');
+
+  //Buildings livewire
+  Route::view('/propiedades','buildings.index')->name('buildings.index');
+
   // ## Buildings select2 component ## //
   Route::post('/getBuildings',[BuildingController::class, 'selectBuildings'])->name('buildings.select');
 });

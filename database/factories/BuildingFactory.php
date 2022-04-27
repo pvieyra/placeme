@@ -21,6 +21,7 @@ class BuildingFactory extends Factory
           'zip' => $this->faker->postcode,
           'alias' => $this->faker->text(20),
           'comments' => $this->faker->text(150),
+          'active' => 1
         ];
     }
 }

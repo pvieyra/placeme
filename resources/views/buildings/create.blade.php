@@ -9,7 +9,9 @@
 @endsection
 @section('content')
   <div>
-    @livewire('users.index')
+    <div class="row">
+     @livewire('buildings.building-component')
+    </div>
   </div>
 @endsection
 @section('native-scripts')
