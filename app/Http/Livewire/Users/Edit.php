@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Users;
 
 use App\Models\Additional;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Manny\Manny;
+use Throwable;
 
 class Edit extends Component{
 
@@ -106,8 +108,21 @@ class Edit extends Component{
   }
 
 
-  public function resetPassword(){
-    session()->flash('success-change', __('El password fue actualizado.'));
+  public function resetPassword($id){
+    try{
+      $user = User::findOrFail($id);
+      $user->update([
+        'password' => Hash::make("password"),
+      ]);
+
+      $user->additional->update([
+        'change_password' => 0
+      ]);
+      session()->flash('success-change', __("El password fue actualizado."));
+    }catch(Throwable $exception){
+      dd($exception);
+    }
+
   }
 
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Buildings\BuildingSelect;
+use App\Models\Tracking;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +58,8 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::get('/seguimiento', [TrackingController::class, 'create'])->name('trackings.create');
   Route::post('/seguimiento',[TrackingController::class, 'store'])->name('trackings.store');
   Route::get('/seguimiento/{id}', [TrackingController::class,'show'])->name('trackings.show');
+  //seguimientos duplicados
+  Route::get('/seguimientos/duplicados', [TrackingController::class, 'duplicate'])->name('trackings.duplicate');
   Route::put('/cambiar-estado', [TrackingController::class, 'updateState'])->name('tracking.update-state');
   //Comentarios de los seguimientos
   Route::post('/agregar-comentario',[CommentController::class, 'store'])->name('comments.store');
@@ -74,3 +77,10 @@ Route::get('cambiar-contrasena', [UserController::class, 'changePasswordForm'])-
 //Route::post('cambiar-contrasena', [UserController::class, 'changePassword'])->name('users.change.password');
 Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'])->name('users.change.password');
 Route::get('pruebas',[ UserController::class, 'demo'])->name('datatable.users.demo');
+
+Route::get('/pruebassql', function(){
+  return Tracking::select()
+    ->with('customer')
+    ->groupBy('customer_id')
+    ->get();
+});

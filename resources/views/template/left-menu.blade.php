@@ -53,6 +53,9 @@
           <ul>
             <li><a href="{{ route('trackings.create') }}">Crear Seguimiento</a></li>
             <li><a href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
+            @role('administrador')
+            <li><a href="{{ route('trackings.duplicate') }}">Ver Duplicados</a></li>
+            @endrole
           </ul>
         </div>
       </li>

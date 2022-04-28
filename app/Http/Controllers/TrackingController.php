@@ -54,7 +54,8 @@ class TrackingController extends Controller {
           DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'),
           'buildings.address',
           DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
-          'states.color as color','states.name as estado',DB::raw('DATE_FORMAT(trackings.created_at,"%d/%m/%Y") as creado'))
+          'states.color as color','states.name as estado',
+          DB::raw('DATE_FORMAT(trackings.created_at,"%d/%m/%Y") as creado'))
         ->orderBy('trackings.created_at', 'desc')
         ->paginate(10);
         // si el usuario es admin, mostrar todos los trackings de todos los asesores.
@@ -206,5 +207,9 @@ class TrackingController extends Controller {
       $tracking->state_id = $request['state_id'];
       $tracking->save();
       return redirect()->back();
+    }
+
+    public function duplicate(){
+      return view('trackings.duplicate');
     }
 }

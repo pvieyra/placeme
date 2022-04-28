@@ -16,6 +16,7 @@ class Index extends Component{
   public function render(){
     return view('livewire.users.index');
   }
+
   public function getUsersProperty(){
     return User::query()
       ->when($this->searchEmail, function($query){
@@ -24,6 +25,7 @@ class Index extends Component{
       })
       ->orderBy('id','desc')->paginate(10);
   }
+
   public function changeUserActive($id){
     $user = User::findOrFail($id);
     try {

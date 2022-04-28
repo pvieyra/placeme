@@ -86,17 +86,27 @@ class BuildingController extends Controller {
       if($search == ""){
         $buildings = Building::orderBy('id','desc')
           ->select('id','building_code','address','suburb')
+          ->where('active','=',1)
           ->limit(10)
           ->get();
-
       } else {
-        $buildings = Building::orderBy('id','desc')
+        $buildings = Building::select('id','building_code','address','suburb')
+          ->where('active','=',1)
+          ->where('address', 'like', '%'.$search.'%')
+          ->where('building_code', 'like', '%'.$search.'%')
+          ->where('suburb', 'like', '%'.$search.'%')
+          ->limit(10)
+          ->orderBy('id','desc')
+          ->get();
+
+        /*$buildings = Building::orderBy('id','desc')
           ->select('id','building_code','address','suburb')
+          ->where('active','=',1)
           ->where('address', 'like', '%'.$search.'%')
           ->orWhere('building_code', 'like', '%'.$search.'%')
           ->orWhere('suburb', 'like', '%'.$search.'%')
           ->limit(10)
-          ->get();
+          ->get();*/
       }
       $response = array();
       foreach ($buildings as $building){

@@ -15,6 +15,7 @@ class Additional extends Model{
       'second_lastname',
       'phone',
       'photo_profile',
+      'change_password',
       'active',
     ];
 
