@@ -51,10 +51,15 @@
         <a class="collapsible-header waves-effect waves-grey active">Seguimientos<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
+            @role('asesor')
             <li><a href="{{ route('trackings.create') }}">Crear Seguimiento</a></li>
             <li><a href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
+            @endrole
             @role('administrador')
-            <li><a href="{{ route('trackings.duplicate') }}">Ver Duplicados</a></li>
+            <!-- mostrar otra vista de seguimientos a administradores -->
+            <li><a href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
+            <li><a href="{{ route('trackings.duplicate') }}">Duplicados recientes</a></li>
+            <li><a href="{{ route('trackings.duplicate') }}">Todos los duplicados</a></li>
             @endrole
           </ul>
         </div>

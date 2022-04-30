@@ -1,7 +1,7 @@
 <!-- form para buscar seguimiento duplicados -->
 <div class="card blue-grey lighten-5">
   <div class="card-content">
-    <h5>Seguimientos duplicados</h5>
+    <h5>Seguimientos Duplicados <small><i>recientes</i></small></h5>
     <div class="form-building row">
       <div class="form-group s6">
         <label for="">Cuenta del usuario</label>

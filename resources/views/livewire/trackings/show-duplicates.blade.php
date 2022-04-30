@@ -1,9 +1,11 @@
 <!-- form para buscar seguimiento duplicados -->
-<div class="card blue-grey lighten-5">
+<div class="card grey lighten-5">
   <div class="card-content">
-    <h5>Seguimientos duplicados</h5>
+    <h6>Propiedad:</h6>
     <div class="tracking-content">
-      <div class="tracking-title">Propiedad: <div class="tracking-building-titlte">{{ $tracking->building->complete_address }}</div></div>
+      <div class="tracking-title valign-wrapper">
+         <span class="tracking-building-title">{{ $tracking->building->complete_address }}</span>
+      </div>
       <table class="responsive-table striped">
         <thead>
           <tr>
@@ -21,24 +23,31 @@
         </thead>
         <tbody>
         @foreach($trackingsDuplicates as $tracking)
+          @php
+            if($tracking->activo){ $btnDesactivar = "Desactivar"; $btnColorActive = "red darken-1"; $spanColorActive = "light-green accent-4"; $activo = "Si"; }
+            else{ $btnDesactivar = "Activar"; $btnColorActive = "teal lighten-2"; $spanColorActive = "red darken-1"; $activo = "No";}
+            if($tracking->revisado){ $btnRevisado = "Sin Revisar"; $btnColorCheck = "amber darken-2"; $spanColorCheck = "light-green accent-4"; }
+            else{ $btnRevisado= "Revisar"; $btnColorCheck = "blue-grey lighten-2"; $spanColorCheck = "red darken-1"; }
+          @endphp
           <tr>
             <td>{{ $tracking->tracking_id }}</td>
             <td> {{ $tracking->user_name }}</td>
             <td>{{ $tracking->email }}</td>
             <td>{{ $tracking->customer_name }}</td>
             <td>{{ $tracking->customer_phone }}</td>
-            <td>{{ $tracking->state_name }}</td>
+            <td class="text-center"><span class="badge duplicates {{ $tracking->state_color }}"> {{ $tracking->state_name }} </span>  </td>
             <td>{{ $tracking->creado }}</td>
-            @php  $activo = $tracking->activo ? "Si" : "No";   @endphp
-            <td>{{ $activo }}</td>
+            <td> <span class="badge duplicates {{ $spanColorActive }}">{{ $activo }}</span> </td>
             @php  $revisado = $tracking->revisado ? "Si" : "No";   @endphp
-            <td>{{ $revisado }}</td>
+            <td> <span class="badge duplicates {{ $spanColorCheck }}">{{ $revisado }}</span></td>
             <td>
-              @php  $btnDesactivar = $tracking->activo ? "Desactivar" : "Activar";   @endphp
-              <button> {{ $btnDesactivar }}</button>
-              @php  $btnRevisado = $tracking->revisado ? "Pendiente" : "Revisar";   @endphp
-              <button> {{ $btnRevisado }}</button>
+              <button class="btn {{ $btnColorActive }}" wire:click="toggleActive({{ $tracking->tracking_id }}, {{ $tracking->activo }})"> {{ $btnDesactivar }}</button>
             </td>
+            @if($tracking->activo == 1 && $tracking->revisado == 0)
+              <td>
+                <button class="btn {{ $btnColorCheck }}" wire:click="toggleCheck({{ $tracking->tracking_id }}, {{ $tracking->revisado }})"> {{ $btnRevisado }}</button>
+              </td>
+            @endif
           </tr>
         @endforeach
         </tbody>

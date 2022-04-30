@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Matrix\Exception;
 
 class Duplicate extends Component{
   use WithPagination;
@@ -17,6 +18,7 @@ class Duplicate extends Component{
   public $tracking;
   public $duplicates;
   public $view = 'search-duplicate';
+
 
   protected $_trackings;
   protected $callTrackings = false;
@@ -106,6 +108,38 @@ class Duplicate extends Component{
         HAVING COUNT(*) > 1
       ) ")
       ->where('building_id',"=", $building_id)->get();
+  }
+
+  public function toggleActive($trackingID, $state){
+    if($state){
+      $active = 0;
+      $check = 1;
+    } else {
+      $active = 1;
+      $check = 0;
+    }
+    try{
+      $tracking = Tracking::findOrFail($trackingID);
+      $tracking->timestamps = false;
+      $tracking->active = $active;
+      $tracking->checked = $check;
+      $tracking->save();
+      $this->demo($tracking->id);
+    }catch (Exception $exception){
+      return $exception->getMessage();
+    }
+  }
+  public function toggleCheck($trackingID, $state){
+    $active = $state ? 0 : 1;
+    try{
+      $tracking = Tracking::findOrFail($trackingID);
+      $tracking->timestamps = false;
+      $tracking->checked = $active;
+      $tracking->save();
+      $this->demo($tracking->id);
+    }catch (Exception $exception){
+      return $exception->getMessage();
+    }
   }
 
 }

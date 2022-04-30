@@ -163,6 +163,15 @@ span.error-form {
     height: 80px;
 }
 
+
+/** seguimientos duplicados **/
+.tracking-building-title {
+    font-size: 1.5rem;
+}
+td span.badge.duplicates {
+    margin-left: 15px;
+}
+
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;
