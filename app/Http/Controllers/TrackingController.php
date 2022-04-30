@@ -127,6 +127,7 @@ class TrackingController extends Controller {
             'nombre_asesor' => $request->nombre_asesor,
             'celular_asesor' => $request->celular_asesor,
             'active'=> 1,
+            'checked'=> 0,
           ]);
           $comment = Comment::create([
             'tracking_id' => $tracking->id,

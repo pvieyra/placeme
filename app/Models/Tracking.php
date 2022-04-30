@@ -23,7 +23,8 @@ class Tracking extends Model{
       'inmobiliaria_name',
       'nombre_asesor',
       'celular_asesor',
-      'active'
+      'active',
+      'checked',
     ];
 
 

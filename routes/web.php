@@ -76,11 +76,30 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
 Route::get('cambiar-contrasena', [UserController::class, 'changePasswordForm'])->name('users.change.password.form')->middleware('auth');
 //Route::post('cambiar-contrasena', [UserController::class, 'changePassword'])->name('users.change.password');
 Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'])->name('users.change.password');
-Route::get('pruebas',[ UserController::class, 'demo'])->name('datatable.users.demo');
+Route::get('pruebas',[ UserController::class, 'demo'])->name('datatabl  e.users.demo');
 
 Route::get('/pruebassql', function(){
-  return Tracking::select()
-    ->with('customer')
-    ->groupBy('customer_id')
+  $duplicados = DB::table('trackings as t')
+    ->selectRaw("t.id as tracking_id, u.name as user_name, a.last_name as user_last_name, t.customer_id, c.name as customer_name, c.last_name as customer_last_name,  c.phone as customer_phone, b.id as building_id, b.building_code, b.address, t.created_at as creado")
+    ->join("customers as c","t.customer_id",'=','c.id')
+    ->join("buildings as b","t.building_id","=","b.id")
+    ->join("users as u", "t.user_id","=","u.id")
+    ->join("additionals as a","u.id", "=","a.user_id")
+    ->whereRaw("c.phone IN (
+	        SELECT c.phone FROM trackings as t
+            JOIN customers as c 
+            ON t.customer_id = c.id
+            GROUP BY  c.phone
+            HAVING COUNT(*) > 1
+     ) ")
+    ->whereRaw("t.building_id IN(
+          SELECT trackings.building_id FROM trackings
+        GROUP BY trackings.building_id
+        HAVING COUNT(*) > 1
+      ) ")
+    ->where("t.active","=",1)
+    ->where("t.checked","=", 0)
     ->get();
+
+  return $duplicados;
 });

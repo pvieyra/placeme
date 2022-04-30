@@ -93,8 +93,8 @@ class BuildingController extends Controller {
         $buildings = Building::select('id','building_code','address','suburb')
           ->where('active','=',1)
           ->where('address', 'like', '%'.$search.'%')
-          ->where('building_code', 'like', '%'.$search.'%')
-          ->where('suburb', 'like', '%'.$search.'%')
+          ->Orwhere('building_code', 'like', '%'.$search.'%')
+          ->Orwhere('suburb', 'like', '%'.$search.'%')
           ->limit(10)
           ->orderBy('id','desc')
           ->get();
