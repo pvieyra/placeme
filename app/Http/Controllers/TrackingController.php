@@ -210,7 +210,12 @@ class TrackingController extends Controller {
       return redirect()->back();
     }
 
+    //para trabajo con livewire
     public function duplicate(){
       return view('trackings.duplicate');
     }
+    public function allDuplicates(){
+      return view('trackings.all-duplicates');
+    }
+
 }

@@ -24,9 +24,9 @@
         <tbody>
         @foreach($trackingsDuplicates as $tracking)
           @php
-            if($tracking->activo){ $btnDesactivar = "Desactivar"; $btnColorActive = "red darken-1"; $spanColorActive = "light-green accent-4"; $activo = "Si"; }
+            if($tracking->activo){ $btnDesactivar = "Desactivar"; $btnColorActive = "red darken-1"; $spanColorActive = "teal"; $activo = "Si"; }
             else{ $btnDesactivar = "Activar"; $btnColorActive = "teal lighten-2"; $spanColorActive = "red darken-1"; $activo = "No";}
-            if($tracking->revisado){ $btnRevisado = "Sin Revisar"; $btnColorCheck = "amber darken-2"; $spanColorCheck = "light-green accent-4"; }
+            if($tracking->revisado){ $btnRevisado = "Sin Revisar"; $btnColorCheck = "amber darken-2"; $spanColorCheck = "teal"; }
             else{ $btnRevisado= "Revisar"; $btnColorCheck = "blue-grey lighten-2"; $spanColorCheck = "red darken-1"; }
           @endphp
           <tr>

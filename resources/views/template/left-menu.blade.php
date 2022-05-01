@@ -48,7 +48,8 @@
         </li>
       @endrole
       <li class="no-padding">
-        <a class="collapsible-header waves-effect waves-grey active">Seguimientos<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <!-- agregar clase active-->
+        <a class="collapsible-header waves-effect waves-grey">Seguimientos<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
             @role('asesor')
@@ -58,8 +59,8 @@
             @role('administrador')
             <!-- mostrar otra vista de seguimientos a administradores -->
             <li><a href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
-            <li><a href="{{ route('trackings.duplicate') }}">Duplicados recientes</a></li>
-            <li><a href="{{ route('trackings.duplicate') }}">Todos los duplicados</a></li>
+            <li><a  class="active-page" href="{{ route('trackings.duplicate') }}">Duplicados recientes</a></li>
+            <li><a href="{{ route('tracking.all-duplicates') }}">Todos los duplicados</a></li>
             @endrole
           </ul>
         </div>

@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::get('/seguimiento/{id}', [TrackingController::class,'show'])->name('trackings.show');
   //seguimientos duplicados
   Route::get('/seguimientos/duplicados', [TrackingController::class, 'duplicate'])->name('trackings.duplicate');
+  Route::get('/seguimientos/todos-duplicados', [TrackingController::class, 'allDuplicates'])->name('tracking.all-duplicates');
   Route::put('/cambiar-estado', [TrackingController::class, 'updateState'])->name('tracking.update-state');
   //Comentarios de los seguimientos
   Route::post('/agregar-comentario',[CommentController::class, 'store'])->name('comments.store');
@@ -78,6 +79,9 @@ Route::get('cambiar-contrasena', [UserController::class, 'changePasswordForm'])-
 Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'])->name('users.change.password');
 Route::get('pruebas',[ UserController::class, 'demo'])->name('datatabl  e.users.demo');
 
+
+
+////para pruebas de sql
 Route::get('/pruebassql', function(){
   $duplicados = DB::table('trackings as t')
     ->selectRaw("t.id as tracking_id, u.name as user_name, a.last_name as user_last_name, t.customer_id, c.name as customer_name, c.last_name as customer_last_name,  c.phone as customer_phone, b.id as building_id, b.building_code, b.address, t.created_at as creado")
