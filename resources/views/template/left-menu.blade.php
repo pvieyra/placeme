@@ -2,9 +2,7 @@
   <div class="side-nav-wrapper">
     <div class="sidebar-profile">
       <div class="sidebar-profile-image">
-        {{--<img src="{{ Auth::user()->additional->photo_profile  }}" alt="">--}}
-        {{--<img src="{{ Auth::user()->additional->photo_profile  }}" class="circle" alt="">--}}
-        <img src="{{ Storage::url(Auth::user()->additional->photo_profile) }}" class="circle" alt="">
+        <img src="{{ Storage::url(Auth::user()->additional->photo_profile) }}" class="circle" alt="user photo profile">
       </div>
       <div class="sidebar-profile-info">
         <a href="javascript:void(0);" class="account-settings-link">
@@ -29,49 +27,59 @@
       </ul>
     </div>
     <ul class="sidebar-menu collapsible collapsible-accordion" data-collapsible="accordion">
-      <li class="no-padding "><a class="waves-effect waves-grey active" href="{{ route('index') }}">
+      <li class="no-padding {{ ! Route::is('index')?:'active' }}">
+        <a class="waves-effect waves-grey" href="{{ route('index') }}">
           <i class="material-icons">home</i>
           Inicio
         </a>
       </li>
       @role('administrador')
         <li class="no-padding ">
-          <a class="collapsible-header waves-effect waves-grey">
+          <a class="collapsible-header waves-effect waves-grey {{ (request()->is('usuario*')) ? 'active' : '' }}">
             <i class="material-icons">people</i>Usuarios<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>
           </a>
           <div class="collapsible-body">
             <ul>
-              <li><a href="{{ route('users.index') }}"> Ver Usuarios</a></li>
-              <li><a href="{{ route('users.create') }}"> Crear Usuarios </a></li>
+              <li><a class="{{ ! Route::is('users.index')?:'active-page' }}" href="{{ route('users.index') }}"> Ver Usuarios</a></li>
+              <li><a class="{{ ! Route::is('users.create')?:'active-page' }}" href="{{ route('users.create') }}"> Crear Usuarios </a></li>
             </ul>
           </div>
         </li>
       @endrole
       <li class="no-padding">
         <!-- agregar clase active-->
-        <a class="collapsible-header waves-effect waves-grey">Seguimientos<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <a class="collapsible-header waves-effect waves-grey {{ (request()->is('seguimiento*')) ? 'active' : '' }} ">Seguimientos<i class="material-icons">apps</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
             @role('asesor')
-            <li><a href="{{ route('trackings.create') }}">Crear Seguimiento</a></li>
-            <li><a href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
+            <li><a class="{{ ! Route::is('trackings.create')?:'active-page' }}" href="{{ route('trackings.create') }}">Crear Seguimiento</a></li>
+            <li><a class="{{ ! Route::is('trackings.index')?:'active-page' }}" href="{{ route('trackings.index') }}">Ver Seguimientos</a></li>
             @endrole
             @role('administrador')
             <!-- mostrar otra vista de seguimientos a administradores -->
-            <li><a href="{{ route('trackings.index-admin') }}">Ver Seguimientos</a></li>
-            <li><a  class="active-page" href="{{ route('trackings.duplicate') }}">Duplicados recientes</a></li>
-            <li><a href="{{ route('tracking.all-duplicates') }}">Todos los duplicados</a></li>
+            <li><a class="{{ ! Route::is('trackings.index-admin')?:'active-page' }}" href="{{ route('trackings.index-admin') }}">Ver Seguimientos</a></li>
+            <li><a class="{{ ! Route::is('trackings.duplicate')?:'active-page' }}" href="{{ route('trackings.duplicate') }}">Duplicados recientes</a></li>
+            <li><a class="{{ ! Route::is('tracking.all-duplicates')?:'active-page' }}"  href="{{ route('tracking.all-duplicates') }}">Todos los duplicados</a></li>
             @endrole
           </ul>
         </div>
       </li>
       @role('administrador')
       <li class="no-padding">
-        <a class="collapsible-header waves-effect waves-grey">Propiedades<i class="material-icons">business</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <a class="collapsible-header waves-effect waves-grey {{ (request()->is('propiedad*')) ? 'active' : '' }}">Propiedades<i class="material-icons">business</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
-            <li><a href="#">Crear Propiedades</a></li>
-            <li><a href="{{ route('buildings.index') }}">Ver Propiedades</a></li>
+            <li><a class="{{ ! Route::is('buildings.index')?:'active-page' }}" href="{{ route('buildings.index') }}">Ver Propiedades</a></li>
+          </ul>
+        </div>
+      </li>
+      @endrole
+      @role('administrador')
+      <li class="no-padding">
+        <a class="collapsible-header waves-effect waves-grey {{ (request()->is('propiedad*')) ? 'active' : '' }}">Reportes<i class="material-icons">assessment</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <div class="collapsible-body">
+          <ul>
+            <li><a class="{{ ! Route::is('buildings.index')?:'active-page' }}" href="{{ route('buildings.index') }}">Crear Reporte</a></li>
           </ul>
         </div>
       </li>

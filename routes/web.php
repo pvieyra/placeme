@@ -26,9 +26,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/alpha', function(){
-  return view('alpha');
-});
 
 Auth::routes();
 Route::group(['middleware' => ['auth','password.changed']],function(){
@@ -36,11 +33,11 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
   Route::group(['middleware' => ['role:administrador']],function(){
     /* USERS */
     Route::view('/usuarios','users.index')->name('users.index');
-    Route::view('crear-usuarios', 'users.create')->name('users.create');
+    Route::view('/usuarios/crear', 'users.create')->name('users.create');
     Route::get('/usuarios/editar/{user}',[UserController::class,'editUser'])->name('users.edit');
 
     /* TRACKINGS*/
-    Route::get('/admin/seguimientos', [TrackingController::class, 'indexAdminTrackings'])->name('trackings.index-admin');
+    Route::get('/seguimientos/admin', [TrackingController::class, 'indexAdminTrackings'])->name('trackings.index-admin');
     //Duplicates Trackings
     Route::get('/seguimientos/duplicados', [TrackingController::class, 'duplicate'])->name('trackings.duplicate');
     Route::get('/seguimientos/todos-duplicados', [TrackingController::class, 'allDuplicates'])->name('tracking.all-duplicates');
