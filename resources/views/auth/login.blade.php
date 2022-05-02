@@ -121,6 +121,5 @@
 		<script src="{{ asset('plugins/material-preloader/js/materialPreloader.min.js')}}"></script>
 		<script src="{{ asset('plugins/jquery-blockui/jquery.blockui.js')}}"></script>
 		<script src="{{ asset('js/alpha.min.js')}}"></script>
-
 	</body>
 </html>

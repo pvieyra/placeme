@@ -255,14 +255,15 @@ class TrackingController extends Controller {
     }
 
     public function updateState(Request $request){
-      //validar que solo el usuario pueda actualizar.
-      //Validar que el usuario admin no pueda modificar.
       $tracking = Tracking::findOrFail($request['tracking_id']);
       $data = $request->validate([
         'tracking_id' => 'required',
         'state_id' => 'required|numeric'
       ]);
       $tracking->state_id = $request['state_id'];
+      //verificar si la jerarquia es mayor a y menor a para desactivar la propiedad y que nadie mas la pueda seleccionar.
+      //Siempre y cuando el estado del seguimiento cambie de apartado a entregado
+      //si el seguimiento cambia a No interesado volver a activar la propiedad
       $tracking->save();
       return redirect()->back();
     }
