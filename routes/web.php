@@ -103,3 +103,7 @@ Route::get('/pruebassql', function(){
 
   return $duplicados;
 });
+
+
+
+Route::get('users/export', [UserController::class,'export']);

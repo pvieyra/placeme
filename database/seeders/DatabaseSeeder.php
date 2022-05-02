@@ -83,18 +83,18 @@ class DatabaseSeeder extends Seeder {
         'change_password' => 1
       ]);
       $userAdvisor->assignRole( $role2 );
-      User::factory()->count(12)->hasAdditional()->create()->each( function ( $user ){
+      User::factory()->count(25)->hasAdditional()->create()->each( function ( $user ){
         $user->assignRole('asesor');
       });
       $this->call([
         OperationsTableSeeder::class,
         StateTableSeeder::class,
       ]);
-      Building::factory(50)->create();
+      Building::factory(1550)->create();
 
-     /* Customer::factory(  10)->create();
+     Customer::factory(  1000)->create();
 
-      $trackings = Tracking::factory(29)->create();
+      $trackings = Tracking::factory(150)->create();
       $trackings->each( function ( $tracking){
         for ($i = 1; $i <= 10; $i++) {
           Comment::create([
@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder {
           ]);
         }
 
-      });*/
+      });
       //Tracking::factory(100)->create();
       /*$userAdmin = Tracking::create([
         'user_id' => 2,
