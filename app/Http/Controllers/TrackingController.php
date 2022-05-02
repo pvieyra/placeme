@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Customer;
+use App\Models\State;
 use App\Models\Tracking;
 use App\Models\Operation;
 use App\Models\User;
@@ -25,11 +26,14 @@ class TrackingController extends Controller {
       $customerName = $request['customer_name'];
       $buildingAddress = $request['address_name'];
       $buildingSuburb = $request['suburb_name'];
+      $state = $request['state'];
       $startDate = $request['start_date'];
       $endDate = $request['end_date'];
       if(isset($endDate)){
         $endDate = Carbon::createFromFormat('Y-m-d',$endDate)->addDay();
       }
+
+      $states = State::all();
 
       $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
         ->join('customers', 'trackings.customer_id', '=', 'customers.id')
@@ -50,16 +54,69 @@ class TrackingController extends Controller {
         ->when(($startDate && is_null($endDate)) ,function($query) use($startDate){
           $query->whereDate('trackings.created_at', [ $startDate]);
         })
+        ->when($state, function($query) use($state){
+          $query->where('states.id','=' , $state);
+        })
         ->select('trackings.id',
           DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'),
           'buildings.address',
           DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
           'states.color as color','states.name as estado',
-          DB::raw('DATE_FORMAT(trackings.created_at,"%d/%m/%Y") as creado'))
+          DB::raw('trackings.created_at as creado'),'trackings.updated_at as actualizado')
         ->orderBy('trackings.created_at', 'desc')
         ->paginate(10);
         // si el usuario es admin, mostrar todos los trackings de todos los asesores.
-        return view('trackings.index', compact('trackings'));
+        return view('trackings.index', compact('trackings', 'states'));
+    }
+
+
+    /** all trackings for Admin user */
+    public function indexAdminTrackings(Request $request){
+      $customerName = $request['customer_name'];
+      $asesorAccount = $request['asesor_account'];
+      $buildingAddress = $request['address_name'];
+      $buildingSuburb = $request['suburb_name'];
+      $state = $request['state'];
+      $startDate = $request['start_date'];
+      $endDate = $request['end_date'];
+      if(isset($endDate)){
+        $endDate = Carbon::createFromFormat('Y-m-d',$endDate)->addDay();
+      }
+      $states = State::all();
+      $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
+        ->join('customers', 'trackings.customer_id', '=', 'customers.id')
+        ->join('buildings', 'trackings.building_id', '=', 'buildings.id')
+        ->join('states', 'trackings.state_id', '=', 'states.id')
+        ->when($customerName, function($query) use($customerName){
+          $query->where('customers.name','like' , '%'. $customerName .'%')
+            ->orWhere('customers.last_name', 'like', '%'. $customerName .'%');
+        })
+        ->when($asesorAccount, function($query) use($asesorAccount){
+          $query->where('users.email','like' , '%'. $asesorAccount .'%');
+        })
+        ->when($buildingAddress, function($query) use($buildingAddress){
+          $query->where('buildings.address','like' , '%'.$buildingAddress.'%');
+        })
+        ->where('buildings.suburb','like' , '%'.$buildingSuburb.'%')
+        ->when($startDate && $endDate  ,function($query) use($startDate, $endDate){
+          return $query->whereBetween('trackings.created_at', [ $startDate, $endDate]);
+        })
+        ->when(($startDate && is_null($endDate)) ,function($query) use($startDate){
+          $query->whereDate('trackings.created_at', [ $startDate]);
+        })
+        ->when($state, function($query) use($state){
+          $query->where('states.id','=' , $state);
+        })
+        ->select('trackings.id','users.email as user_email',
+          DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'),
+          'buildings.address',
+          DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
+          'states.color as color','states.name as estado',
+          DB::raw('trackings.created_at as creado'),'trackings.updated_at as actualizado')
+        ->orderBy('trackings.created_at', 'desc')
+        ->paginate(5);
+      // si el usuario es admin, mostrar todos los trackings de todos los asesores.
+      return view('trackings.index-admin', compact('trackings', 'states'));
     }
 
     /**

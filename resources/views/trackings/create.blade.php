@@ -10,7 +10,7 @@
 @section('content')
   <div>
     <div class="row">
-      <div class="card hoverable">
+      <div class="card">
         <div class="card-content">
           <div class="row">
             <form id="tracking-form" method="POST" action="{{ route('trackings.store') }}">

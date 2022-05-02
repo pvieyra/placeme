@@ -10,7 +10,6 @@
 @endsection
 @section('content')
   <div>
-
     <div class="row">
       @if( $tracking->active === 0)
         <div class="card red lighten-1 success-comments">
@@ -88,19 +87,19 @@
             <div class="info-tracking personal-customer-building valign-wrapper">
               <i class="material-icons md-24">home</i>  {{ $tracking->numero_interior_unidad}}
             </div>
-              <div class="info-tracking personal-customer-building valign-wrapper col s12 l5">
-                <i class="material-icons md-24">info_outline</i> Tipo de operacion: <span class="txt-blue-1"> {{ $tracking->operation->name}} </span>
-              </div>
-              <div class="info-tracking personal-customer-building valign-wrapper  col s12 l7">
-                <i class="material-icons md-24">supervisor_account</i> Tipo de contacto: <span class="txt-orange"> {{ $tracking->contact_type}} </span>
-              </div>
+            <div class="info-tracking personal-customer-building valign-wrapper">
+              <i class="material-icons md-24">assignment_late</i> Tipo de operacion: <span class="txt-blue-1"> {{ $tracking->operation->name}} </span>
+            </div>
+            <div class="info-tracking personal-customer-building valign-wrapper">
+              <i class="material-icons md-24">supervisor_account</i> Tipo de contacto: <span class="txt-orange"> {{ $tracking->contact_type}} </span>
+            </div>
             @if($tracking->contact_type == 'Otra Inmobiliaria')
               <div class="info-otra-inmobiliaria">
                 <div class="info-tracking personal-customer-building valign-wrapper">
-                  <i class="material-icons md-24">group</i> <i>Inmobiliaria: </i> <span class="txt-green-1"> {{ $tracking->inmobiliaria_name }}</span>
+                  <i class="material-icons md-24">label</i> <i>Inmobiliaria: </i> <span class="txt-green-1"> {{ $tracking->inmobiliaria_name }}</span>
                 </div>
                 <div class="info-tracking personal-customer-building valign-wrapper">
-                  <i class="material-icons md-24">portrait</i> <i>Asesor: </i>  <span class="txt-green-1">{{ $tracking->nombre_asesor }}</span>
+                  <i class="material-icons md-24">portrait</i> <i>Asesor: </i>  <span class="txt-green-1"> {{ $tracking->nombre_asesor }}</span>
                 </div>
                 <div class="info-tracking personal-customer-building valign-wrapper">
                   <i class="material-icons md-24">phone_iphone</i> <i>Celular: </i> <span class="txt-green-1"> {{ $tracking->phone_asesor }}</span>
@@ -122,7 +121,8 @@
             </div>
             @if($tracking->active)
               <div class="info-tracking change-status-tracking col s12">
-              <form action="{{ route('tracking.update-state') }}" method="POST">
+                @role('asesor')
+                  <form action="{{ route('tracking.update-state') }}" method="POST">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="tracking_id" value="{{ $tracking->id }}">
@@ -149,6 +149,7 @@
                   </div>
                 </div>
               </form>
+                @endrole
             </div>
             @else
               <div class="info-tracking">
@@ -160,6 +161,7 @@
       </div>
       <!-- /. Ficha del cliente -->
     </div>
+    @role('asesor')
     <div class="row">
       <div class="subtitle-text col s12">
         <h6>Agregar comentarios</h6>
@@ -170,6 +172,7 @@
     @if($tracking->active)
       <div class="row m-b-lg">
         <div class="col s12">
+
           <form action="{{ route('comments.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="tracking_id" value="{{ $tracking->id }}">
@@ -183,6 +186,7 @@
               <input type="submit" class="btn m-t-sm orange" value="Guardar">
             </p>
           </form>
+
         </div>
       </div>
     @else
@@ -193,6 +197,7 @@
         </p>
       </div>
     @endif
+    @endrole
 
     <div class="row">
       <div class="subtitle-text col s12">

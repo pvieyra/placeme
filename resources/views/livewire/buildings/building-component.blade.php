@@ -16,6 +16,7 @@
           <th>CP</th>
           <th>Activo</th>
           <th colspan="2">&nbsp;</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -27,7 +28,8 @@
             <td>{{ $building->suburb }}</td>
             <td>{{ $building->municipality }}</td>
             <td>{{ $building->zip }}</td>
-            <td>{{ $building->active }}</td>
+            @php  $activo = $building->active ? "Si": "No" @endphp
+            <td>{{ $activo}}</td>
             <td>
               <button wire:click="edit({{ $building->id }})" class="btn blue" href=""> Editar </button>
             </td>
@@ -35,6 +37,9 @@
               <button class="btn orange" wire:click="changeBuildingActive({{ $building->id }})">
                 {{ $building->active ? 'Desactivar' : 'Activar' }}
               </button>
+            </td>
+            <td>
+              <button class="btn teal">Ver</button>
             </td>
           </tr>
         @endforeach

@@ -139,14 +139,20 @@ $(document).ready(function () {
                success: function( data ){
                  if($.isEmptyObject( data.error )){
                      console.log(data.tracking);
+                     idTracking = data.tracking;
+                     rutaTracking = "seguimiento/"+idTracking;
+                     function route(){
+                         window.location.replace("/seguimiento/"+idTracking);
+                     }
+                     console.log( rutaTracking );
                      document.getElementById('tracking-form').reset();
                      $('.info-validation').fadeOut(500, 'linear');
                      $('.actions-tracking').remove();
-                     $('.message-success-tracking').append('<div class="card-panel teal lighten-2">Se ha creado correctamente el seguimiento. Ahora lo puedes encontrar en el menu de tus seguimientos. Da click <a href="seguimiento/">aqui</a> para ir. <p>En 10 segundos se cargara la nueva pagina</p></div>');
+                     $('.message-success-tracking').append('<div class="card-panel teal lighten-2">Se ha creado correctamente el seguimiento. Ahora lo puedes encontrar en el menu de tus seguimientos. Da click <a href='+"seguimiento/"+idTracking+'>aqui</a> para ir. <p>En 10 segundos se cargara la nueva pagina</p></div>');
                      let $toastContent = $('<span class="">El seguimiento ha sido creado correctamente.</span>');
                      Materialize.toast($toastContent, 7000,'teal lighten-2');
-                     //ir a este seguimiento
-                     setTimeout( "location.href='/seguimiento/'", 10000);
+                     setTimeout( route, 8000);
+                     //setTimeout( "location.href='/seguimientos/'", 10000);
                  }else {
                      const card = $('.card-validation');
                      let errorHtml = '';

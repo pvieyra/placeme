@@ -71,26 +71,6 @@ class UserController extends Controller{
       ->make( true );
   }
 
-  public function demo(){
-    $query = User::with('additional','roles')->select('users.*');
-    return DataTables()->eloquent($query)
-      ->addColumn('action', function(User $user){
-        $acciones = '<a href="home"> <i class="material-icons">create</i></a>';
-        return $acciones;
-      })
-      ->addColumn('role', function(User $user){
-        return $user->getRoleNames()->first();
-      })
-      ->editColumn('additional.active',function(User $user){
-        return DB::table('additionals')
-          ->addSelect('active')
-          ->selectRaw("IF (active = 0 ,REPLACE(active, 0,'Inactivo') ,REPLACE(active, 1,'Activo') )")
-          ->where('user_id','=',$user->id)->get();
-      })
-      ->rawColumns(['action'])
-      ->make( true );
-  }
-
   public function editUser(User $user){
     //$user = User::findOrFail($id);
     return view('users.edit',compact('user'));

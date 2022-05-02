@@ -17,15 +17,31 @@
         </p>
       </div>
     @endif
-    <div class="row">
-      <div class="navigation-basic">
-        <ol class="navigation-basic-list">
-          <li><a href="{{ route('trackings.index') }}"><i>Ver seguimientos /</i></a></li>
-          <li><a href="{{ route('trackings.show', $tracking->id) }}"><i>Seguimiento /</i> </a></li>
-          <li class="active"><i>Comentarios</i></li>
-        </ol>
+
+    @role('asesor')
+      <div class="row">
+        <div class="navigation-basic">
+          <ol class="navigation-basic-list">
+            <li><a href="{{ route('trackings.index') }}"><i>Ver seguimientos /</i></a></li>
+            <li><a href="{{ route('trackings.show', $tracking->id) }}"><i>Seguimiento /</i> </a></li>
+            <li class="active"><i>Comentarios</i></li>
+          </ol>
+        </div>
       </div>
-    </div>
+      @endrole
+
+      @role('administrador')
+      <div class="row">
+        <div class="navigation-basic">
+          <ol class="navigation-basic-list">
+            <li><a href="{{ route('trackings.index-admin') }}"><i>Ver seguimientos /</i></a></li>
+            <li><a href="{{ route('trackings.show', $tracking->id) }}"><i>Seguimiento /</i> </a></li>
+            <li class="active"><i>Comentarios</i></li>
+          </ol>
+        </div>
+      </div>
+      @endrole
+
     <div class="row">
       <!-- Ficha del cliente -->
       <div class="card blue-grey lighten-5">

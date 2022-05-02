@@ -12,11 +12,12 @@
     <div class="row">
       <div class="card">
         <div class="card-content">
-            <span class="card-title">Seguimientos<span class="secondary-title">Aqui puedes encontrar los seguimientos de tus clientes.</span></span>
+            <span class="card-title">Seguimientos<span class="secondary-title">Se muestran los seguimientos de los asesores.</span></span>
             <div class="divider"></div>
             Buscar seguimientos:
-          <form action="{{ route('trackings.index') }}">
+          <form action="{{ route('trackings.index-admin') }}">
             <input class="col-lg-6" type="text" name="customer_name" value="{{old('customer_name')}}" placeholder="Nombre del cliente">
+            <input class="col-lg-6" type="text" name="asesor_account" value="{{ old('asesor_account') }}"  placeholder="Cuenta del asesor o nombre">
             <input class="col-lg-6" type="text" name="address_name" value="{{ old('address_name') }}" placeholder="Direccion de la propiedad">
             <input class="col-lg-6" type="text" name="suburb_name" value="{{ old('suburb_name') }}" placeholder="Colonia">
             <input class="col-lg-6" type="date" name="start_date" value="{{ old('start_date') }}" placeholder="Fecha inicial">
@@ -28,7 +29,7 @@
               @endforeach
             </select>
             <br>
-            <input class="btn blue " type="submit" value="Buscar">
+            <input class="btn blue" type="submit" value="Buscar">
           </form>
         </div>
       </div>
@@ -38,6 +39,7 @@
             <thead>
             <tr>
               <th>ID</th>
+              <th>Asesor</th>
               <th>Cliente</th>
               <th>Propiedad</th>
               <th>Estado</th>
@@ -50,6 +52,7 @@
               @foreach( $trackings as $tracking)
                 <tr>
                   <td>#{{ $tracking->id }}</td>
+                  <td>{{ $tracking->user_email }}</td>
                   <td>{{ $tracking->cliente }}</td>
                   <td>{{ $tracking->direccion }}</td>
                   <td>

@@ -32,56 +32,55 @@ Route::get('/alpha', function(){
 
 Auth::routes();
 Route::group(['middleware' => ['auth','password.changed']],function(){
+  /*ADMIN ROUTES*/
   Route::group(['middleware' => ['role:administrador']],function(){
     /* USERS */
-    Route::view('crear-usuarios', 'users.create')->name('users.create');
-    //Route::view('ver-usuarios', 'users.index.backup')->name('users.index'); ruta anterior con data table.
-    //Usuarios livewire
     Route::view('/usuarios','users.index')->name('users.index');
-    //Route::view('/usuarios/editar/{id}','users.edit')->name('users.edit');
+    Route::view('crear-usuarios', 'users.create')->name('users.create');
     Route::get('/usuarios/editar/{user}',[UserController::class,'editUser'])->name('users.edit');
 
+    /* TRACKINGS*/
+    Route::get('/admin/seguimientos', [TrackingController::class, 'indexAdminTrackings'])->name('trackings.index-admin');
+    //Duplicates Trackings
+    Route::get('/seguimientos/duplicados', [TrackingController::class, 'duplicate'])->name('trackings.duplicate');
+    Route::get('/seguimientos/todos-duplicados', [TrackingController::class, 'allDuplicates'])->name('tracking.all-duplicates');
 
+    /* BUILDINGS */
+    Route::view('/propiedades','buildings.index')->name('buildings.index');
+
+    //RUTAS PARA PRUEBAS
     Route::get('datatable/users',[ UserController::class, 'datatableUsers'])->name('datatable.users');
     //Generando una ruto tipo resource para el modelo Project.
       Route::resource('projects', ProjectController::class);
       /* ruta para uso de livewire */
       Route::view('contacts','users.contacts');
     });
-  //ruta para verificar los permisos de las cuentas.
-  //Route::get('/crear-usuario-roles', [UserController::class, 'crearRoles'])->name('roles');
+  /* ./ ADMIN ROUTES*/
+
+  /* {{ ASESOR ROUTES }} */
   Route::get('/home', [HomeController::class, 'index'])->name('index');
 
-  // ### Seguimientos ###
-  //Route::view('crear-seguimiento', 'trackings.create')->name('trackings.create');
+  /* ASESOR TRACKINGS */
   Route::get('/seguimientos', [TrackingController::class, 'index'])->name('trackings.index');
   Route::get('/seguimiento', [TrackingController::class, 'create'])->name('trackings.create');
   Route::post('/seguimiento',[TrackingController::class, 'store'])->name('trackings.store');
   Route::get('/seguimiento/{id}', [TrackingController::class,'show'])->name('trackings.show');
-  //seguimientos duplicados
-  Route::get('/seguimientos/duplicados', [TrackingController::class, 'duplicate'])->name('trackings.duplicate');
-  Route::get('/seguimientos/todos-duplicados', [TrackingController::class, 'allDuplicates'])->name('tracking.all-duplicates');
   Route::put('/cambiar-estado', [TrackingController::class, 'updateState'])->name('tracking.update-state');
-  //Comentarios de los seguimientos
+  //Comment Trackings
   Route::post('/agregar-comentario',[CommentController::class, 'store'])->name('comments.store');
   Route::get('/comentarios/{tracking}', [CommentController::class, 'index'])->name('comments.index');
 
-  //Buildings livewire
-  Route::view('/propiedades','buildings.index')->name('buildings.index');
-
-  // ## Buildings select2 component ## //
+  /* ASESOR BUILDINGS */
   Route::post('/getBuildings',[BuildingController::class, 'selectBuildings'])->name('buildings.select');
 });
 
-//ruta para verificar el cambio de contraseña.
+/* CHANGE PASSWORD*/
 Route::get('cambiar-contrasena', [UserController::class, 'changePasswordForm'])->name('users.change.password.form')->middleware('auth');
-//Route::post('cambiar-contrasena', [UserController::class, 'changePassword'])->name('users.change.password');
 Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'])->name('users.change.password');
-Route::get('pruebas',[ UserController::class, 'demo'])->name('datatabl  e.users.demo');
 
 
 
-////para pruebas de sql
+////ROUTE TEST
 Route::get('/pruebassql', function(){
   $duplicados = DB::table('trackings as t')
     ->selectRaw("t.id as tracking_id, u.name as user_name, a.last_name as user_last_name, t.customer_id, c.name as customer_name, c.last_name as customer_last_name,  c.phone as customer_phone, b.id as building_id, b.building_code, b.address, t.created_at as creado")
