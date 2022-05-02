@@ -10,11 +10,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Throwable;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\DataTables;
+
+use App\Exports\UsersExport;
+
 
 class UserController extends Controller{
   /**
@@ -41,25 +45,6 @@ class UserController extends Controller{
     }
   }
 
-//  public function datatableUsers(){
-//    $users = User::select('id','name','email')->with('additional:user_id,last_name,change_password,active','roles:name');
-//    return  DataTable()->eloquent($users)
-//      ->addColumn('change_password',function (User $user){
-//        return ($user->additional->change_password)? '<div> <span class="text-red-500"> Cambio </span> </div>': '<div> <span class="text-green-500"> Cambio</span></div>';
-//      })
-//      ->addColumn('action',function(User $user ){
-//        $acciones = '<a href="#edit-'. $user->id .'"> <i class="material-icons">create</i></a>';
-//        return $acciones;
-//      })
-//      ->addColumn('last_name', function(User $user){
-//        return $user->additional->last_name;
-//      })
-//      ->addColumn('role', function(User $user){
-//        return $user->getRoleNames()->first();
-//      })
-//      ->rawColumns(['change_password','action'])
-//      ->make(true);
-//  }
   public function datatableUsers(){
     $query = User::with('additional','roles')->select('users.*');
     return DataTables()->eloquent($query)
@@ -74,5 +59,10 @@ class UserController extends Controller{
   public function editUser(User $user){
     //$user = User::findOrFail($id);
     return view('users.edit',compact('user'));
+  }
+
+  /* Export Excel */
+  public function export(){
+    return Excel::download( new UsersExport, 'users.xlsx');
   }
 }
