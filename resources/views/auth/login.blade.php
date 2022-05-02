@@ -103,7 +103,7 @@
 										@enderror
 									</div>
 									<div class="col s12 right-align m-t-sm">
-										<button type="submit"  class="waves-effect waves-light btn teal">Iniciar sesión</button>
+										<button type="submit"  class="waves-effect waves-light btn deep-orange">Iniciar sesión</button>
 									</div>
 								</form>
 							</div>
