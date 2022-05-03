@@ -43,6 +43,9 @@
               <a class="btn blue" href="{{ route('users.edit',$user) }}"> Editar </a>
             </td>
             <td>
+              <a class="btn teal" href="{{ route('users.show',$user) }}"> Ver</a>
+            </td>
+            <td>
               <button wire:click="changeUserActive({{ $user->id }})" class="btn orange">
                 {{ $user->additional->active ? 'Suspender' : 'Activar' }}
               </button>

@@ -65,6 +65,15 @@ class TrackingController extends Controller {
           DB::raw('trackings.created_at as creado'),'trackings.updated_at as actualizado')
         ->orderBy('trackings.created_at', 'desc')
         ->paginate(10);
+
+        $trackings->appends([
+          'customer_name'=> $customerName,
+          'address_name' => $buildingAddress,
+          'suburb_name' => $buildingSuburb,
+          'state' => $state,
+          'start_date' => $startDate,
+          'end_date' => $endDate,
+        ]);
         // si el usuario es admin, mostrar todos los trackings de todos los asesores.
         return view('trackings.index', compact('trackings', 'states'));
     }
@@ -115,6 +124,16 @@ class TrackingController extends Controller {
           DB::raw('trackings.created_at as creado'),'trackings.updated_at as actualizado')
         ->orderBy('trackings.created_at', 'desc')
         ->paginate(5);
+
+      $trackings->appends([
+        'asesor_account' => $asesorAccount,
+        'customer_name'=> $customerName,
+        'address_name' => $buildingAddress,
+        'suburb_name' => $buildingSuburb,
+        'state' => $state,
+        'start_date' => $startDate,
+        'end_date' => $endDate,
+      ]);
       // si el usuario es admin, mostrar todos los trackings de todos los asesores.
       return view('trackings.index-admin', compact('trackings', 'states'));
     }

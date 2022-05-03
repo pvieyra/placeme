@@ -16,7 +16,6 @@ class SearchDuplicatesTrackings extends Component{
     return view('livewire.trackings.search-duplicates-trackings');
   }
 
-
   public function hideSearch(){
     $this->show = FALSE;
   }
@@ -31,6 +30,6 @@ class SearchDuplicatesTrackings extends Component{
     $this->search = $search;
     session()->put('search', $search);
     session()->save();
-    $this->emit('searchDuplicatesTrackings');
+    $this->emit('searchDuplicatesTrackingsA');
   }
 }
