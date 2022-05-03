@@ -41,7 +41,12 @@ class CommentController extends Controller {
           $query->whereDate('created_at', [ $searchStartDate]);
         })
         ->orderBy('created_at','desc')
-        ->paginate(10);
+        ->paginate(2);
+      $comments->appends([
+        'state_id' => $searchState,
+        'start_date' => $searchStartDate,
+        'end_date' => $searchEndDate,
+      ]);
       return view('comments.index', compact('comments', 'tracking','states'));
     }
 

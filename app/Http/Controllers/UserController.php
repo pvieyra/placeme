@@ -61,6 +61,10 @@ class UserController extends Controller{
     return view('users.edit',compact('user'));
   }
 
+  public function show(User $user){
+    return view('users.show',compact('user'));
+  }
+
   /* Export Excel */
   public function export(){
     return Excel::download( new UsersExport, 'users.xlsx');

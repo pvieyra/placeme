@@ -15,9 +15,14 @@
             <span class="card-title">Seguimientos<span class="secondary-title">Aqui puedes encontrar los seguimientos de tus clientes.</span></span>
             <div class="divider"></div>
             Buscar seguimientos:
-          <form action="{{ route('trackings.index') }}">
-            <input class="col-lg-6" type="text" name="customer_name" value="{{old('customer_name')}}" placeholder="Nombre del cliente">
-            <input class="col-lg-6" type="text" name="address_name" value="{{ old('address_name') }}" placeholder="Direccion de la propiedad">
+          <form action="{{ route('trackings.index') }}" method="GET">
+            <div class="input-field">
+              <input id="customer_name" class="browser-default col-lg-6" type="text" name="customer_name"  placeholder="Nombre del cliente">
+            </div>
+            @php
+                $da = Request::old("customer_name")
+            @endphp
+            <input class="col-lg-6" type="text" name="address_name" value="{{ $da }}" placeholder="Direccion de la propiedad">
             <input class="col-lg-6" type="text" name="suburb_name" value="{{ old('suburb_name') }}" placeholder="Colonia">
             <input class="col-lg-6" type="date" name="start_date" value="{{ old('start_date') }}" placeholder="Fecha inicial">
             <input class="col-lg-6" type="date" name="end_date" value="{{ old('end_date') }}" placeholder="Fecha final">
@@ -28,7 +33,7 @@
               @endforeach
             </select>
             <br>
-            <input class="btn blue " type="submit" value="Buscar">
+            <input class="btn blue" type="submit" value="Buscar">
           </form>
         </div>
       </div>
@@ -83,7 +88,7 @@
   <script src="{{ asset('plugins/jquery/jquery-2.2.0.min.js')}}"></script>
   <script src="{{ asset('plugins/materialize/js/materialize.min.js')}}"></script>
   <script src="{{ asset('plugins/material-preloader/js/materialPreloader.min.js')}}"></script>
-  <script src="{{ asset('plugins/jquery-blockui/jquery.blockui.js')}}"></script>
+  {{--<script src="{{ asset('plugins/jquery-blockui/jquery.blockui.js')}}"></script>--}}
   <script src="{{ asset('js/alpha.min.js')}}"></script>
 @endsection
 @push('scripts')

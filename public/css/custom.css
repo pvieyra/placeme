@@ -172,6 +172,15 @@ td span.badge.duplicates {
     margin-left: 15px;
 }
 
+/* show users */
+.list-users .info-item-user{
+    margin-top: 10px;
+}
+.info-item-user span ,
+.info-item-user a{
+    margin-left: 10px;
+}
+
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;

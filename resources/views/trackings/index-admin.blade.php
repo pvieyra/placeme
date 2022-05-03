@@ -15,9 +15,9 @@
             <span class="card-title">Seguimientos<span class="secondary-title">Se muestran los seguimientos de los asesores.</span></span>
             <div class="divider"></div>
             Buscar seguimientos:
-          <form action="{{ route('trackings.index-admin') }}">
-            <input class="col-lg-6" type="text" name="customer_name" value="{{old('customer_name')}}" placeholder="Nombre del cliente">
-            <input class="col-lg-6" type="text" name="asesor_account" value="{{ old('asesor_account') }}"  placeholder="Cuenta del asesor o nombre">
+          <form action="{{ route('trackings.index-admin') }}" method="GET">
+            <input class="col-lg-6 browser-default" type="text" name="customer_name" value="{{ old("customer_name") }}" placeholder="Nombre del cliente">
+            <input class="col-lg-6" type="text" name="asesor_account" value=""  placeholder="Cuenta del asesor o nombre">
             <input class="col-lg-6" type="text" name="address_name" value="{{ old('address_name') }}" placeholder="Direccion de la propiedad">
             <input class="col-lg-6" type="text" name="suburb_name" value="{{ old('suburb_name') }}" placeholder="Colonia">
             <input class="col-lg-6" type="date" name="start_date" value="{{ old('start_date') }}" placeholder="Fecha inicial">

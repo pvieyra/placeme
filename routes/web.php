@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
     /* USERS */
     Route::view('/usuarios','users.index')->name('users.index');
     Route::view('/usuarios/crear', 'users.create')->name('users.create');
+    Route::get('/usuario/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/usuarios/editar/{user}',[UserController::class,'editUser'])->name('users.edit');
 
     /* TRACKINGS*/

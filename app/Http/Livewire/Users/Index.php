@@ -18,12 +18,21 @@ class Index extends Component{
   }
 
   public function getUsersProperty(){
-    return User::query()
+
+    $user = User::query()
       ->when($this->searchEmail, function($query){
         return $query->where('email','like',"%{$this->searchEmail}%")
           ->orWhere('name','like',"%{$this->searchEmail}%");
       })
       ->orderBy('id','desc')->paginate(10);
+    if($this->searchEmail){
+      $perPage = 10;
+      $columns = ["*"];
+      $queryPage = "page";
+      $pageNumber = 1;
+      User::paginate($perPage, $columns, $queryPage, $pageNumber);
+    }
+    return $user;
   }
 
   public function changeUserActive($id){

@@ -19,7 +19,6 @@ class Duplicate extends Component{
   public $duplicates;
   public $view = 'search-duplicate';
 
-
   protected $_trackings;
   protected $callTrackings = false;
 
@@ -28,7 +27,7 @@ class Duplicate extends Component{
   public function filteredTrackings($tracking_id) {
     $this->view = 'show-duplicates';
     $this->tracking = Tracking::findOrFail($tracking_id,["id","building_id"]);
-    $this->_trackings =  $this->getDuplicates(28);
+    $this->_trackings =  $this->getDuplicates($this->tracking->building_id);
     $this->callTrackings = true;
   }
 
