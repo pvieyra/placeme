@@ -15,7 +15,7 @@
           <div class="card-content center-align">
             <img src="{{ Storage::url($user->additional->photo_profile) }}" class="responsive-img circle" width="110px" alt="">
             <p class="m-t-lg flow-text">{{ $user->all_name }}</p>
-            <div class="chip m-t-sm orange white-text">Asesor</div>
+            <div class="chip m-t-sm deep-orange white-text">Asesor</div>
           </div>
         </div>
         <div class="card">
@@ -33,11 +33,23 @@
             </ul>
           </div>
         </div>
+        <!-- componente -->
         <div class="card">
           <div class="card-content">
-            <div class="card-title">Atajos</div>
+            <div class="card-title">Cuenta</div>
+            <div class="chip m-t-sm green white-text">Activo</div>
+            <button class="btn red">Desactivar</button>
           </div>
         </div>
+        <!-- componente -->
+        <!-- componente -->
+        <div class="card">
+          <div class="card-content">
+            <div class="card-title">Password</div>
+            <button class="btn blue">Reset Password</button>
+          </div>
+        </div>
+        <!-- componente -->
       </div>
     </div>
   </div>
