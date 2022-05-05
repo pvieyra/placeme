@@ -28,9 +28,9 @@ Route::get('/', function () {
 
 
 Auth::routes();
-Route::group(['middleware' => ['auth','password.changed']],function(){
+Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],function(){
   /*ADMIN ROUTES*/
-  Route::group(['middleware' => ['role:administrador']],function(){
+  Route::group(["middleware" => ["role:administrador"]],function(){
     /* USERS */
     Route::view('/usuarios','users.index')->name('users.index');
     Route::view('/usuarios/crear', 'users.create')->name('users.create');
@@ -75,6 +75,9 @@ Route::group(['middleware' => ['auth','password.changed']],function(){
 /* CHANGE PASSWORD*/
 Route::get('cambiar-contrasena', [UserController::class, 'changePasswordForm'])->name('users.change.password.form')->middleware('auth');
 Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'])->name('users.change.password');
+
+// Is not active
+Route::view("/cuenta-suspendida", "extras.user-is-not-active")->name("inactive.account");
 
 
 

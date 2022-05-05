@@ -28,4 +28,9 @@ class Additional extends Model{
   public function getFormatPhoneAttribute(){
     return Manny::mask($this->phone, "(11) 1111-1111");
   }
+
+  public function changed(){
+    return $this->change_password;
+  }
+
 }

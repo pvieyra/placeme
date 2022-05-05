@@ -28,30 +28,40 @@
                 <i class="material-icons">phone</i><span>{{ $user->additional->phone }}</span>
               </li>
               <li class="info-item-user valign-wrapper">
-                <i class="material-icons">person_pin</i><span>ID: {{ $user->id }}</span>
+                <i class="material-icons">person_pin</i><span>ID User: <b>{{ $user->id }}</b></span>
               </li>
             </ul>
           </div>
         </div>
         <!-- componente -->
         <div class="card">
-          <div class="card-content">
-            <div class="card-title">Cuenta</div>
-            <div class="chip m-t-sm green white-text">Activo</div>
-            <button class="btn red">Desactivar</button>
-          </div>
+         <livewire:users.change-active :user="$user" />
         </div>
         <!-- componente -->
         <!-- componente -->
         <div class="card">
-          <div class="card-content">
-            <div class="card-title">Password</div>
-            <button class="btn blue">Reset Password</button>
-          </div>
+          <livewire:users.reset-password :user="$user" />
         </div>
         <!-- componente -->
       </div>
+
+
+      <div class="col s12 l9">
+        <div class="card">
+          <div class="card-content">
+            Buscador de seguimientos
+            <input class="browser-default" type="text" placeholder="buscador">
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-content">
+            Lista de Raul
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 @endsection
 @section('native-scripts')

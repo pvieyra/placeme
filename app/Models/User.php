@@ -54,4 +54,6 @@ class User extends Authenticatable {
   public function trackings(): HasMany{
     return $this->hasMany(Tracking::class);
   }
+
+  /// utlizar $this->save() para guardar la informacion desde el modelo a la BD
 }
