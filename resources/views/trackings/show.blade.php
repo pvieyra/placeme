@@ -10,14 +10,13 @@
 @endsection
 @section('content')
   <div>
+    @role("administrador")
     <div class="row">
-      <div class="card blue-grey lighten-5">
-        <div class="card-content">
-          contenido de la carta
-        </div>
+      <div class="card blue-grey lighten-5 col  s12">
+        <livewire:trackings.change-active :tracking="$tracking"/>
       </div>
     </div>
-
+    @endrole
     <div class="row">
       @if( $tracking->active === 0)
         <div class="card red lighten-1 success-comments">

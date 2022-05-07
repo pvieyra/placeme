@@ -54,6 +54,10 @@ class Tracking extends Model{
     public function operation(){
       return $this->belongsTo(Operation::class);
     }
+
+  public function user(){
+    return $this->belongsTo(User::class);
+  }
     public function customer(){
       return $this->belongsTo(Customer::class);
     }
