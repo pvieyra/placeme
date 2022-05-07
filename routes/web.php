@@ -27,7 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Auth::routes();
 Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],function(){
   /*ADMIN ROUTES*/
@@ -41,11 +40,12 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
     /* TRACKINGS*/
     Route::get('/seguimientos/admin', [TrackingController::class, 'indexAdminTrackings'])->name('trackings.index-admin');
     //Duplicates Trackings
-    Route::get('/seguimientos/duplicados', [TrackingController::class, 'duplicate'])->name('trackings.duplicate');
-    Route::get('/seguimientos/todos-duplicados', [TrackingController::class, 'allDuplicates'])->name('tracking.all-duplicates');
+    Route::get("/seguimientos/duplicados", [TrackingController::class, "duplicate"])->name("trackings.duplicate");
+    Route::get("/seguimientos/todos-duplicados", [TrackingController::class, "allDuplicates"])->name("tracking.all-duplicates");
 
     /* BUILDINGS */
-    Route::view('/propiedades','buildings.index')->name('buildings.index');
+    Route::view("/propiedades","buildings.index")->name("buildings.index");
+    Route::get("/propiedad/{building}", [BuildingController::class, 'show'])->name("buildings.show");
 
     //RUTAS PARA PRUEBAS
     Route::get('datatable/users',[ UserController::class, 'datatableUsers'])->name('datatable.users');

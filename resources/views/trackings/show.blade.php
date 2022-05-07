@@ -11,6 +11,14 @@
 @section('content')
   <div>
     <div class="row">
+      <div class="card blue-grey lighten-5">
+        <div class="card-content">
+          contenido de la carta
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
       @if( $tracking->active === 0)
         <div class="card red lighten-1 success-comments">
           <p class="thin valign-wrapper">

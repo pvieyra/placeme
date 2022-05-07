@@ -24,7 +24,7 @@ class UserTrackings extends Component{
       $this->getUserTrackings();
     }
     return view('livewire.tracking-user.user-trackings',[
-      'trackings' => $this->trackings
+      "trackings" => $this->trackings
     ]);
   }
 

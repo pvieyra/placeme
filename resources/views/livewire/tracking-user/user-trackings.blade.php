@@ -24,7 +24,7 @@
             </td>
             <td> {{ $tracking->creado }}</td>
             <td>
-              <a class="btn blue" href="{{ route("trackings.show", $tracking->id ) }}">Ver</a>
+              <a class="btn blue" href="{{ route("trackings.show", $tracking->tracking_id ) }}">Ver</a>
             </td>
           </tr>
       @endforeach

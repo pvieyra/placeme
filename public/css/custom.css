@@ -181,6 +181,13 @@ td span.badge.duplicates {
     margin-left: 10px;
 }
 
+/* show buildings */
+.building-name {
+    font-size: 1.3rem;
+}
+span.building-id {
+    color: #fb5607;
+}
 img.responsive-img.profile-user{
     height: 110px;
     width: 110px;

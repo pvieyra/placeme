@@ -28,4 +28,8 @@ class Building extends Model {
     return $this->hasMany(Tracking::class);
   }
 
+  public function tracking(){
+    return $this->belongsTo(Tracking::class);
+  }
+
 }

@@ -39,7 +39,7 @@
               </button>
             </td>
             <td>
-              <button class="btn teal">Ver</button>
+              <a class="btn teal" href="{{ route("buildings.show", $building) }}">Ver</a>
             </td>
           </tr>
         @endforeach
