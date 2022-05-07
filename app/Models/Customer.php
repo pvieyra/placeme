@@ -19,7 +19,7 @@ class Customer extends Model
   ];
 
   public function getCompleteNameAttribute(){
-    return $this->name." ".$this->last_name.", ".$this->second_last_name;
+    return $this->name." ".$this->last_name."  ".$this->second_last_name;
   }
   public function getPhoneCustomerAttribute(){
     return Manny::mask($this->phone, "(11) 1111-1111");

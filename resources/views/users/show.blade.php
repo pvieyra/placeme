@@ -13,7 +13,7 @@
       <div class="col s12 m4 l3">
         <div class="card">
           <div class="card-content center-align">
-            <img src="{{ Storage::url($user->additional->photo_profile) }}" class="responsive-img circle" width="110px" alt="">
+            <img src="{{ Storage::url($user->additional->photo_profile) }}" class="responsive-img profile-user circle" width="110px" height="110px" alt="">
             <p class="m-t-lg flow-text">{{ $user->all_name }}</p>
             <div class="chip m-t-sm deep-orange white-text">Asesor</div>
           </div>
@@ -45,21 +45,16 @@
         <!-- componente -->
       </div>
 
-
       <div class="col s12 l9">
         <div class="card">
-          <div class="card-content">
-            Buscador de seguimientos
-            <input class="browser-default" type="text" placeholder="buscador">
-          </div>
+         <livewire:tracking-user.search-trackings/>
         </div>
-
         <div class="card">
-          <div class="card-content">
-            Lista de Raul
-          </div>
+          <livewire:tracking-user.user-trackings :user="$user"/>
         </div>
       </div>
+
+
     </div>
 
   </div>

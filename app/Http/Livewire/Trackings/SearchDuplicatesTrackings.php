@@ -7,6 +7,7 @@ use Livewire\Component;
 class SearchDuplicatesTrackings extends Component{
   public $search = "";
   public $show = TRUE;
+
   protected $listeners = [
     'hideSearchDuplicates' => 'hideSearch',
     'showSearchDuplicates' => 'showSearch',

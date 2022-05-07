@@ -10,6 +10,7 @@ use Matrix\Exception;
 class ShowDuplicateTracking extends Component{
 
   public $trackings;
+
   public $show = FALSE;
 
   protected $listeners = [
