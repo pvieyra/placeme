@@ -113,6 +113,7 @@
                 </div>
               </div>
             @endif
+            <a class="btn blue" href="{{ route("customer.edit", $tracking->customer) }}">Editar Cliente</a>
           </div>
           <div class="card-tracking col s12 m6 l4">
             <div class="info-tracking info-status-tracking">
@@ -179,7 +180,6 @@
     @if($tracking->active)
       <div class="row m-b-lg">
         <div class="col s12">
-
           <form action="{{ route('comments.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="tracking_id" value="{{ $tracking->id }}">
@@ -193,7 +193,6 @@
               <input type="submit" class="btn m-t-sm orange" value="Guardar">
             </p>
           </form>
-
         </div>
       </div>
     @else

@@ -142,8 +142,6 @@ class Create extends Component{
     } catch (Throwable $exception){
       dd($exception);
     }
-
-
     session()->flash('message', __('Usuario guardado correctamente.'));
     $this->reset();
   }

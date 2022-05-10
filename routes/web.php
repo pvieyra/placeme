@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TrackingController;
@@ -65,6 +66,8 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
   Route::post('/seguimiento',[TrackingController::class, 'store'])->name('trackings.store');
   Route::get('/seguimiento/{id}', [TrackingController::class,'show'])->name('trackings.show');
   Route::put('/cambiar-estado', [TrackingController::class, 'updateState'])->name('tracking.update-state');
+  //*ASESOR Customer */
+  Route::get('/cliente/{customer}', [CustomerController::class, "edit"])->name("customer.edit");
   //Comment Trackings
   Route::post('/agregar-comentario',[CommentController::class, 'store'])->name('comments.store');
   Route::get('/comentarios/{tracking}', [CommentController::class, 'index'])->name('comments.index');
@@ -95,8 +98,6 @@ Route::get('/pruebassql', function(){
       $q->where("s.name", "LIKE", session("search"));
     })
     ->get();
-
-
 });
 
 

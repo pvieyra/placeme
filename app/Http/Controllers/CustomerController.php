@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
-{
+class CustomerController extends Controller {
     /**
      * Display a listing of the resource.
      *
@@ -44,8 +43,7 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
-    {
+    public function show(Customer $customer){
         //
     }
 
@@ -53,11 +51,10 @@ class CustomerController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
-    {
-        //
+    public function edit(Customer $customer){
+      return view("customers.edit", compact( "customer" ));
     }
 
     /**
