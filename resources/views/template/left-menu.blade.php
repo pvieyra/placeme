@@ -86,7 +86,7 @@
       @endrole
     </ul>
     <div class="footer">
-      <p class="copyright">giganube ©</p>
+      <img src="{{ asset("images/logo.jpeg") }}" alt="Place Me! Portal" width="110" height="60">
     </div>
   </div>
 </aside>
