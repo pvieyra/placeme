@@ -20,6 +20,10 @@ class CommentController extends Controller {
      */
     public function index(Tracking $tracking, Request $request){
       //user esta en la sesion de login. Policy()
+      if(auth()->user()->hasRole("asesor")){
+        $this->authorize("view", $tracking);
+      }
+
       $searchState = $request['state_id'];
       $searchStartDate = $request['start_date'];
       $searchEndDate = $request['end_date'];

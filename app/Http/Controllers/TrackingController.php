@@ -225,14 +225,19 @@ class TrackingController extends Controller {
       return response()->json(['error'=>$validator->errors()->all()]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tracking  $tracking
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-     */
+  /**
+   * Display the specified resource.
+   *
+   * @param \App\Models\Tracking $tracking
+   * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+   * @throws \Illuminate\Auth\Access\AuthorizationException
+   */
     public function show($id){
       $tracking = Tracking::findOrFail( $id );
+      if(auth()->user()->hasRole("asesor")){
+        $this->authorize("view", $tracking);
+      }
+
       $lastUpdate = $tracking->updated_at;
       if( $tracking->isDateTrackingActive() === false){
         $tracking->active = 0;
