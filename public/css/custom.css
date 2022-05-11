@@ -209,4 +209,9 @@ img.responsive-img.profile-user{
         font-size: .9rem;
         text-align: center;
     }
+
+    .select2-container {
+        width:300px;
+    }
+
 }

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
+use App\Policies\TrackingPolicy;
 use App\Http\Requests\TrackingRequest;
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;

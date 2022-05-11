@@ -76,6 +76,17 @@
       @endrole
       @role('administrador')
       <li class="no-padding">
+        <a class="collapsible-header waves-effect waves-grey {{ (request()->is('enlace*')) ? 'active' : '' }}">Enlaces<i class="material-icons">link</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
+        <div class="collapsible-body">
+          <ul>
+            <li><a class="{{ ! Route::is('link.index')?:'active-page' }}" href="{{ route('link.index') }}">Ver Enlaces</a></li>
+          </ul>
+        </div>
+      </li>
+      @endrole
+
+      @role('administrador')
+      <li class="no-padding">
         <a class="collapsible-header waves-effect waves-grey {{ (request()->is('propiedad*')) ? 'active' : '' }}">Reportes<i class="material-icons">assessment</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>

@@ -57,7 +57,7 @@
                           <div>
                             <div class="input-field col m12 s12 m-b-md">
                               <label for="building_code">Propiedad</label>
-                              <select class="js-states browser-default required" tabindex="-1" style="width: 100%" id="buildings-data" name="building_id" >
+                              <select class="js-states browser-default required auto-select" tabindex="-1" style="width: 100%" id="buildings-data" name="building_id" >
 
                               </select>
                             </div>
