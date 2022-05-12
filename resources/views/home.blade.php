@@ -16,20 +16,13 @@
 @section('content')
   <main class="sm:container sm:mx-auto sm:mt-10">
     <div class="w-full sm:px-6">
-
       @if (session('status'))
         <div class="text-sm border border-t-8 rounded text-green-700 border-green-600 bg-green-100 px-3 py-4 mb-4"
              role="alert">
           {{ session('status') }}
         </div>
       @endif
-
-     <div class="card">
-       <div class="card-content">
-         <p>Inicio de sesion</p>
-       </div>
-     </div>
-
+      <livewire:links.index />
     </div>
   </main>
 @endsection
@@ -38,8 +31,5 @@
   <script src="{{ asset('plugins/jquery/jquery-2.2.0.min.js')}}"></script>
     <script src="{{ asset('plugins/materialize/js/materialize.min.js')}}"></script>
     <script src="{{ asset('plugins/material-preloader/js/materialPreloader.min.js')}}"></script>
-    <script src="{{ asset('plugins/jquery-blockui/jquery.blockui.js')}}"></script>
-    <script src="{{ asset('plugins/waypoints/jquery.waypoints.min.js')}}"></script>
-    <script src="{{ asset('plugins/counter-up-master/jquery.counterup.min.js')}}"></script>
     <script src="{{ asset('js/alpha.min.js')}}"></script>
 @endsection

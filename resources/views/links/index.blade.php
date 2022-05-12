@@ -9,7 +9,9 @@
 @endsection
 @section('content')
   <div>
+    <livewire:links.index />
 
+    <livewire:links.create />
   </div>
 @endsection
 @section('native-scripts')

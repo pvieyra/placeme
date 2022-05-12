@@ -109,7 +109,7 @@
                       <span>Foto</span>
                       <input type="file" wire:model="photo_profile">
                     </div>
-                    <div class="file-path-wrapper">
+                    <div clas s="file-path-wrapper">
                       <input class="file-path validate" type="text" placeholder="Imagen de perfil">
                     </div>
                   </div>
