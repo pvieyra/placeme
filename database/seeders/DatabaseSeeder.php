@@ -57,12 +57,12 @@ class DatabaseSeeder extends Seeder {
 
       // Crear los usuarios y asignarles sus Roles
       $userAdmin = User::create([
-        'name' => "John",
+        'name' => "Admin",
         'email' => "dev@dev.com",
         'password' => bcrypt("password"),
       ]);
       $userAdmin->additional()->create([
-        'last_name' => 'Bonachon',
+        'last_name' => 'Dev',
         'second_lastname' => "Smith",
         'phone' => "3318548115",
         'photo_profile' => "photo-profile/user_profile_a.png",
@@ -83,18 +83,18 @@ class DatabaseSeeder extends Seeder {
         'change_password' => 1
       ]);
       $userAdvisor->assignRole( $role2 );
-      User::factory()->count(25)->hasAdditional()->create()->each( function ( $user ){
+      User::factory()->count(10)->hasAdditional()->create()->each( function ( $user ){
         $user->assignRole('asesor');
       });
       $this->call([
         OperationsTableSeeder::class,
         StateTableSeeder::class,
       ]);
-      Building::factory(1550)->create();
+      Building::factory(1000)->create();
 
-     Customer::factory(  1000)->create();
+     Customer::factory(  1500)->create();
 
-      $trackings = Tracking::factory(150)->create();
+     $trackings = Tracking::factory(150)->create();
       $trackings->each( function ( $tracking){
         for ($i = 1; $i <= 10; $i++) {
           Comment::create([

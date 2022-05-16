@@ -88,8 +88,11 @@
                     @endphp
                     @if($photoStatus)
                       <div class="flex flex-col mb-5 items-center md:flex-row lg:flex-row">
-                        <img class="rounded-full mb-5 scale-50 basis-1/2" src="{{ $photo_profile->temporaryUrl() }}" alt="Foto del perfil">
-                        <button class="btn h-10 w-10 basis-1/2 bg-red-500 hover:bg-red-400" wire:click="resetImage">Eliminar</button>
+                        <img class="rounded-full mb-5 scale-50 basis-1/2" src="{{ $photo_profile->temporaryUrl() }}" alt="Foto del perfil" width="100" height="100">
+                        <p>
+                          <button class="btn h-10 w-10 basis-1/2 bg-red-500 hover:bg-red-400" wire:click="resetImage">X</button>
+                        </p>
+
                       </div>
                     @else
                       <div class="flex flex-col mb-5 items-center">
