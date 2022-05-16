@@ -96,13 +96,16 @@ class TrackingController extends Controller {
       $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
         ->join('customers', 'trackings.customer_id', '=', 'customers.id')
         ->join('buildings', 'trackings.building_id', '=', 'buildings.id')
+        ->join('additionals', 'additionals.id', '=', 'users.id')
         ->join('states', 'trackings.state_id', '=', 'states.id')
         ->when($customerName, function($query) use($customerName){
           $query->where('customers.name','like' , '%'. $customerName .'%')
             ->orWhere('customers.last_name', 'like', '%'. $customerName .'%');
         })
         ->when($asesorAccount, function($query) use($asesorAccount){
-          $query->where('users.email','like' , '%'. $asesorAccount .'%');
+          $query->where('users.email','like' , '%'. $asesorAccount .'%')
+            ->orWhere('users.name', 'like', '%'. $asesorAccount .'%')
+            ->orWhere('additionals.last_name', 'like', '%'.$asesorAccount.'%');
         })
         ->when($buildingAddress, function($query) use($buildingAddress){
           $query->where('buildings.address','like' , '%'.$buildingAddress.'%');
@@ -118,6 +121,7 @@ class TrackingController extends Controller {
           $query->where('states.id','=' , $state);
         })
         ->select('trackings.id','users.email as user_email',
+          DB::raw('CONCAT(users.name, " ", additionals.last_name) as user_name'),
           DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'),
           'buildings.address',
           DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),

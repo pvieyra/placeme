@@ -52,7 +52,7 @@
               @foreach( $trackings as $tracking)
                 <tr>
                   <td>#{{ $tracking->id }}</td>
-                  <td>{{ $tracking->user_email }}</td>
+                  <td>{{ $tracking->user_name }}</td>
                   <td>{{ $tracking->cliente }}</td>
                   <td>{{ $tracking->direccion }}</td>
                   <td>

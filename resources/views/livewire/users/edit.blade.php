@@ -27,15 +27,18 @@
             <div class="row">
               <div class="col s12 m6 l4">
                 <label for="name">Nombre(s)</label>
-                <input  id="name" wire:model="name" value="{{ $name }}" type="text" class="browser-default" disabled>
+                <input  id="name" wire:model="name" value="{{ $name }}" type="text" class="browser-default">
+                @error("name")
+                  <label class="error text-red-500">{{ $message }}</label>
+                @enderror
               </div>
               <div class="col s12 m6 l4">
                 <label for="last_name">Apellido Paterno</label>
-                <input id="last_name" wire:model="last_name" value="{{ $last_name }}" type="text"  disabled >
+                <input id="last_name" wire:model="last_name" value="{{ $last_name }}" type="text">
               </div>
               <div class="col s12 m12 l4">
                 <label for="second_lastname">Apellido Materno</label>
-                <input id="second_lastname" wire:model="second_lastname" value="{{ $second_lastname }}" type="text" disabled >
+                <input id="second_lastname" wire:model="second_lastname" value="{{ $second_lastname }}" type="text">
               </div>
             </div>
             <div class="row">

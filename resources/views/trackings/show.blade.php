@@ -113,7 +113,9 @@
                 </div>
               </div>
             @endif
+            @role("asesor")
             <a class="btn blue" href="{{ route("customer.edit", $tracking->customer) }}">Editar Cliente</a>
+            @endrole
           </div>
           <div class="card-tracking col s12 m6 l4">
             <div class="info-tracking info-status-tracking">

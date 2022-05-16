@@ -59,7 +59,6 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
       /* ruta para uso de livewire */
     Route::view('contacts','users.contacts');
 
-
   });
   /* ./ ADMIN ROUTES*/
 

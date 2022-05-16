@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.validator.addMethod('domainEmailEqualTo', function(value){
-        return !/@place.mx/.test(value)
-    },"No puedes utilizar un correo con dominio place.mx");
+        return !/@placeme.mx/.test(value)
+    },"No puedes utilizar un correo con dominio placeme.mx");
 
     let form = $("#tracking-form");
     form.validate({

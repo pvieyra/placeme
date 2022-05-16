@@ -50,6 +50,12 @@ class Edit extends Component{
         'string',
         'min:8',
       ],*/
+      'name' => [
+        'required'
+      ],
+      'last_name' => [
+        'required'
+      ],
       'phone' => [
         Rule::when($this->phone, ['min:10']),
       ],
@@ -62,8 +68,8 @@ class Edit extends Component{
 
   //mensajes de validacion personalizados.
   protected $messages = [
-    /*'password.required' => "La contraseña es obligatoria",
-    'password.min' => "La contraseña debe de contener minimo 8 caracteres",*/
+    'name.required' => "El campo nombre es obligatorio",
+    'last_name.required' => "El campo apellido paterno es obligatorio",
     'phone.min' => "El telefono debe contener 10 digitos",
     'photo_profile.image' => "Solo se permiten subir imagenes",
     'photo_profile.max' => "El tamaño maximo de la imagen es 1mb",
@@ -94,7 +100,12 @@ class Edit extends Component{
       }else {
         $photo = $this->currentImage;
       }
+      $userDB->update([
+        'name' => $this->name,
+      ]);
      $userDB->additional->update([
+        'last_name' => $this->last_name,
+        'second_lastname' => $this->second_lastname,
         'phone' => $this->phone,
         'photo_profile' => $photo,
       ]);
