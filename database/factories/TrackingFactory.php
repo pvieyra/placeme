@@ -4,7 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Building;
 use App\Models\Customer;
+use App\Models\Operation;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TrackingFactory extends Factory
@@ -17,10 +19,10 @@ class TrackingFactory extends Factory
     public function definition()
     {
         return [
-          'user_id' => 2,
+          'user_id' => User::all()->random()->id,
           'customer_id' => Customer::inRandomOrder()->first()->id,
           'building_id' => Building::inRandomOrder()->first()->id,
-          'operation_id'=> 1,
+          'operation_id'=> Operation::all()->random()->id,
           'state_id' => State::inRandomOrder()->first()->id,
           'contact_type' => "Directo",
           'active' => 1,

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ExcelReports;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProjectController;
@@ -51,6 +52,13 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
 
     /* ENLACES */
     Route::get("/enlaces", [LinkController::class, "index"])->name("link.index");
+
+    /* REPORTES */
+    Route::get('/reportes/usuarios', [ ExcelReports::class, 'usersReport'])->name('users-report.index');
+    Route::get('/reportes/seguimientos', [ ExcelReports::class, 'trackingsReport'])->name('trackings-report.index');
+    Route::get('/excel/seguimientos', [ ExcelReports::class, 'exportReportTrackings'])->name('export-report-trackings');
+
+    Route::get('/excel/usuarios', [ ExcelReports::class, 'export'])->name('export');
 
     //RUTAS PARA PRUEBAS
     Route::get('datatable/users',[ UserController::class, 'datatableUsers'])->name('datatable.users');
@@ -106,5 +114,70 @@ Route::get('/pruebassql', function(){
 });
 
 
+Route::get('/duplica', function(){
+  return DB::table('trackings as t')
+    ->selectRaw("t.id as tracking_id,b.building_code, CONCAT(u.name, ' ',a.last_name) as user_name, u.email, t.customer_id, CONCAT(c.name,' ',c.last_name) as customer_name,  c.phone as customer_phone, b.id as building_id, b.building_code, b.address, s.name as state_name, s.color as state_color, t.created_at as creado")
+    ->join("customers as c","t.customer_id",'=','c.id')
+    ->join("buildings as b","t.building_id","=","b.id")
+    ->join("users as u", "t.user_id","=","u.id")
+    ->join("additionals as a","u.id", "=","a.user_id")
+    ->join("states as s","t.state_id", "=", "s.id")
+    ->whereRaw("c.phone IN (
+	        SELECT c.phone FROM trackings as t
+            JOIN customers as c 
+            ON t.customer_id = c.id
+            GROUP BY  c.phone
+            HAVING COUNT(*) > 1
+     ) ")
+   /* ->whereRaw("t.building_id IN(
+          SELECT trackings.building_id FROM trackings
+        GROUP BY trackings.building_id
+        HAVING COUNT(*) > 1
+      ) ")*/
+    ->where("t.active","=",1)
+    ->where("t.checked","=", 0)
+    /*->when($this->userEmail, function($query){
+      return $query->where('u.email','like',"%{$this->userEmail}%");
+    })
+    ->when($this->buildingCode, function($query){
+      return $query->where('b.building_code','like',"%{$this->buildingCode}%");
+    })*/
+    ->paginate(10);
+});
 
-Route::get('users/export', [UserController::class,'export']);
+Route::get('reporte-ejemplo', function (){
+ return  $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
+    ->join('customers', 'trackings.customer_id', '=', 'customers.id')
+    ->join('buildings', 'trackings.building_id', '=', 'buildings.id')
+    ->join('states', 'trackings.state_id', '=', 'states.id')
+   ->join('operations', 'trackings.operation_id', '=', 'operations.id')
+   ->join('additionals', 'additionals.id', '=', 'users.id')
+ /*   ->where('trackings.user_id', '=', auth()->user()->id )*/
+   /* ->when($customerName, function($query) use($customerName){
+      $query->where('customers.name','like' , '%'. $customerName .'%')
+        ->orWhere('customers.last_name', 'like', '%'. $customerName .'%');
+    })
+    ->when($buildingAddress, function($query) use($buildingAddress){
+      $query->where('buildings.address','like' , '%'.$buildingAddress.'%');
+    })
+    ->where('buildings.suburb','like' , '%'.$buildingSuburb.'%')
+    ->when($startDate && $endDate  ,function($query) use($startDate, $endDate){
+      return $query->whereBetween('trackings.created_at', [ $startDate, $endDate]);
+    })
+    ->when(($startDate && is_null($endDate)) ,function($query) use($startDate){
+      $query->whereDate('trackings.created_at', [ $startDate]);
+    })
+    ->when($state, function($query) use($state){
+      $query->where('states.id','=' , $state);
+    })*/
+    ->select('trackings.id','users.email',
+      DB::raw('CONCAT( users.name , " ", additionals.last_name) as user_name'),
+      DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'), 'customers.phone',
+      'buildings.address', 'trackings.contact_type',
+      DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
+      'states.color as color','states.name as estado',
+      DB::raw('trackings.created_at as creado'),
+      'trackings.updated_at as actualizado', 'operations.name as operation_name', 'operations.id as operation_id')
+    ->orderBy('trackings.created_at', 'desc')
+    ->get();
+});

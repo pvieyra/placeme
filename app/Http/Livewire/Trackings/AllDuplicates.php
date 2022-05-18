@@ -70,11 +70,11 @@ class AllDuplicates extends Component{
             GROUP BY  c.phone
             HAVING COUNT(*) > 1
      ) ")
-      ->whereRaw("t.building_id IN(
+     /* ->whereRaw("t.building_id IN(
           SELECT trackings.building_id FROM trackings
         GROUP BY trackings.building_id
         HAVING COUNT(*) > 1
-      ) ")
+      ) ")*/
      // ->where('b.building_code', 'LIKE', '%' . session('search') . '%')
       ->when(session('search') ,function($query){
         $query->where('b.building_code', 'LIKE', '%' . session('search') . '%')
@@ -105,15 +105,16 @@ class AllDuplicates extends Component{
             GROUP BY  c.phone
             HAVING COUNT(*) > 1
      ) ")
-      ->whereRaw("t.building_id IN(
+      /*->whereRaw("t.building_id IN(
           SELECT trackings.building_id FROM trackings
         GROUP BY trackings.building_id
         HAVING COUNT(*) > 1
-      ) ")
+      ) ")*/
       // ->where('b.building_code', 'LIKE', '%' . session('search') . '%')
       ->when(session('search') ,function($query){
         $query->where('b.building_code', 'LIKE', '%' . session('search') . '%')
-          ->orWhere('b.address','LIKE', '%'. session('search') . '%');
+          ->orWhere('b.address','LIKE', '%'. session('search') . '%')
+          ->orWhere('u.name', 'LIKE', '%'.session('search').'%');
       })
       ->paginate($perPage, $columns, $queryPage, $pageNumber);
 

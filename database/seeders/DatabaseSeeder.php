@@ -90,11 +90,11 @@ class DatabaseSeeder extends Seeder {
         OperationsTableSeeder::class,
         StateTableSeeder::class,
       ]);
-      Building::factory(10)->create();
+      Building::factory(100)->create();
 
-     Customer::factory(  15)->create();
+     Customer::factory(  150)->create();
 
-    /* $trackings = Tracking::factory(150)->create();
+     $trackings = Tracking::factory(6000)->create();
       $trackings->each( function ( $tracking){
         for ($i = 1; $i <= 10; $i++) {
           Comment::create([
@@ -110,8 +110,7 @@ class DatabaseSeeder extends Seeder {
             'created_at' => DateTime::dateTimeBetween('-3 month','now'),
           ]);
         }
-
-      });*/
+      });
       //Tracking::factory(100)->create();
       /*$userAdmin = Tracking::create([
         'user_id' => 2,

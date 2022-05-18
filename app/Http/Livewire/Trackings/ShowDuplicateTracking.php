@@ -95,11 +95,13 @@ class ShowDuplicateTracking extends Component{
             GROUP BY  c.phone
             HAVING COUNT(*) > 1
      ) ")
-      ->whereRaw("t.building_id IN(
+      /*->whereRaw("t.building_id IN(
           SELECT trackings.building_id FROM trackings
         GROUP BY trackings.building_id
         HAVING COUNT(*) > 1
-      ) ")
+      ) ")*/
       ->where('building_id',"=", $building_id)->get();
   }
+
+
 }
