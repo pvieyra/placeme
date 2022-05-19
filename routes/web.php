@@ -9,22 +9,8 @@ use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\UserController;
-use App\Http\Livewire\Buildings\BuildingSelect;
-use App\Models\Tracking;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
+//use App\Http\Livewire\Buildings\BuildingSelect;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
   return view('auth.login');
@@ -56,10 +42,14 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
     /* REPORTES */
     Route::get('/reportes/usuarios', [ ExcelReports::class, 'usersReport'])->name('users-report.index');
     Route::get('/reportes/seguimientos', [ ExcelReports::class, 'trackingsReport'])->name('trackings-report.index');
-    Route::get('/reportes/asesores', [ ExcelReports::class, 'usersTrackingReport'])->name('users-trackings-report.index');
+    Route::get('/reportes/asesor', [ ExcelReports::class, 'usersTrackingReport'])->name('users-trackings-report.index');
+    Route::get('/reportes/propiedad', [ ExcelReports::class, 'buildingTrackingReport'])->name('building-trackings-report.index');
+
+
 
     Route::get('/excel/seguimientos', [ ExcelReports::class, 'exportReportTrackings'])->name('export-report-trackings');
     Route::get('/excel/por/usuario', [ ExcelReports::class, 'exportReportUserTrackings'])->name('export-report-user-trackings');
+    Route::get('/excel/por/propiedad', [ ExcelReports::class, 'exportReportBuildingTrackings'])->name('export-report-building-trackings');
 
     Route::get('/excel/usuarios', [ ExcelReports::class, 'export'])->name('export');
 
@@ -72,7 +62,7 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
 
     /** para seleccionar usuarios  en reportes */
     Route::post('/getUsersReports',[UserController::class, 'selectUsers'])->name('users.select');
-    //Route::post('/getBuildingsReports',[BuildingController::class, 'selectUsers'])->name('bui.select');
+    Route::post('/getBuildingsReports',[BuildingController::class, 'selectBuildingsReports'])->name('building-reports.select');
 
 
   });
@@ -104,57 +94,6 @@ Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'
 // Is not active
 Route::view("/cuenta-suspendida", "extras.user-is-not-active")->name("inactive.account");
 
-////ROUTE TEST
-Route::get('/pruebassql', function(){
-  return DB::table('trackings as t')
-    ->selectRaw("t.id as tracking_id,b.building_code, CONCAT(u.name, ' ',a.last_name) as user_name, u.email, t.customer_id, CONCAT(c.name,' ',c.last_name) as customer_name,  c.phone as customer_phone, b.id as building_id, b.building_code, b.address, s.name as state_name, s.color as state_color, t.created_at as creado")
-    ->join("customers as c","t.customer_id",'=','c.id')
-    ->join("buildings as b","t.building_id","=","b.id")
-    ->join("users as u", "t.user_id","=","u.id")
-    ->join("additionals as a","u.id", "=","a.user_id")
-    ->join("states as s","t.state_id", "=", "s.id")
-    ->when( session("search"), function( $q ){
-      $q->where("s.name", "LIKE", session("search"));
-    })
-    ->get();
-});
 
-Route::get('/duplica', function(){
-  return DB::table('trackings as t')
-    ->selectRaw("t.id as tracking_id,b.building_code, CONCAT(u.name, ' ',a.last_name) as user_name, u.email, t.customer_id, CONCAT(c.name,' ',c.last_name) as customer_name,  c.phone as customer_phone, b.id as building_id, b.building_code, b.address, s.name as state_name, s.color as state_color, t.created_at as creado")
-    ->join("customers as c","t.customer_id",'=','c.id')
-    ->join("buildings as b","t.building_id","=","b.id")
-    ->join("users as u", "t.user_id","=","u.id")
-    ->join("additionals as a","u.id", "=","a.user_id")
-    ->join("states as s","t.state_id", "=", "s.id")
-    ->whereRaw("c.phone IN (
-	        SELECT c.phone FROM trackings as t
-            JOIN customers as c 
-            ON t.customer_id = c.id
-            GROUP BY  c.phone
-            HAVING COUNT(*) > 1
-     ) ")
-    ->where("t.active","=",1)
-    ->where("t.checked","=", 0)
-    ->paginate(10);
-});
 
-Route::get('reporte-ejemplo', function (){
- return  $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
-    ->join('customers', 'trackings.customer_id', '=', 'customers.id')
-    ->join('buildings', 'trackings.building_id', '=', 'buildings.id')
-    ->join('states', 'trackings.state_id', '=', 'states.id')
-   ->join('operations', 'trackings.operation_id', '=', 'operations.id')
-   ->join('additionals', 'additionals.id', '=', 'users.id')
-    ->select('trackings.id','users.email',
-      DB::raw('CONCAT( users.name , " ", additionals.last_name) as user_name'),
-      DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'), 'customers.phone',
-      'buildings.address', 'trackings.contact_type',
-      DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
-      'states.color as color','states.name as estado',
-      DB::raw('trackings.created_at as creado'),
-      'trackings.updated_at as actualizado', 'operations.name as operation_name', 'operations.id as operation_id')
-    ->orderBy('trackings.created_at', 'desc')
-    ->get();
-});
 

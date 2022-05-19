@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BuildingTrackingsExport;
 use App\Exports\TrackingsExport;
 use App\Exports\UsersExport;
 use App\Exports\UserTrackingsExport;
@@ -28,6 +29,12 @@ class ExcelReports extends Controller {
     $states = State::all();
     $operations = Operation::all();
     return view('reports.create-user-trackings', compact('states', 'operations'));
+  }
+
+  public function buildingTrackingReport(){
+    $states = State::all();
+    $operations = Operation::all();
+    return view('reports.create-building-trackings', compact('states', 'operations'));
   }
 
   public function exportReportTrackings( Request $request){
@@ -59,6 +66,20 @@ class ExcelReports extends Controller {
     return Excel::download( new UserTrackingsExport, 'user-trackings.xlsx');
   }
 
+  public function exportReportBuildingTrackings( Request $request){
+    session()->put( "building_id", $request->building_id);
+    session()->put( "state_tracking", $request->state_tracking);
+    session()->put( "operation_tracking", $request->operation_tracking);
+    session()->put( "start_date", $request->start_date);
+    session()->put( "end_date", $request->end_date);
+    session()->put("active_tracking", $request->active_tracking);
+    if(session('end_date')){
+      $endDate = Carbon::parse(session('end_date'))->endOfDay();
+      session()->put("end_date", $endDate);
+    }
+    session()->save();
+    return Excel::download( new BuildingTrackingsExport, 'building-trackings.xlsx');
+  }
 
 
   public function export(Request $request){

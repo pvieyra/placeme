@@ -110,4 +110,32 @@ class BuildingController extends Controller {
       }
       return response()->json($response);
     }
+
+    public function selectBuildingsReports(Request $request){
+      $search = $request->search;
+      if($search == ""){
+        $buildings = Building::orderBy('id','desc')
+          ->select('id','building_code','address','suburb')
+          ->limit(10)
+          ->get();
+      } else {
+        $buildings = Building::select('id','building_code','address','suburb')
+          ->where('address', 'like', '%'.$search.'%')
+          ->Orwhere('building_code', 'like', '%'.$search.'%')
+          ->Orwhere('suburb', 'like', '%'.$search.'%')
+          ->limit(10)
+          ->orderBy('id','desc')
+          ->get();
+      }
+      $response = array();
+      foreach ($buildings as $building){
+        $response[] = array(
+          'id' => $building->id,
+          'building_code' => $building->building_code,
+          'address' => $building->address,
+          'suburb' => $building->suburb,
+        );
+      }
+      return response()->json($response);
+    }
 }
