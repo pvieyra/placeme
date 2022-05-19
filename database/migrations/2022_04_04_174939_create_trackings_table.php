@@ -26,6 +26,7 @@ class CreateTrackingsTable extends Migration {
         $table->string('numero_interior_unidad')->nullable();
         $table->string('contact_type');
         $table->string('inmobiliaria_name')->nullable();
+        $table->string('address_inmobiliaria')->nullable();
         $table->string('nombre_asesor')->nullable();
         $table->string('celular_asesor')->nullable();
         $table->integer('active');

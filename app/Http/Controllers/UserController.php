@@ -69,4 +69,39 @@ class UserController extends Controller{
   public function export(){
     return Excel::download( new UsersExport, 'users.xlsx');
   }
+
+  /*Select 2*/
+  public function selectUsers(Request $request){
+    $search = $request->search;
+    if($search == ""){
+      $users = User::orderBy('users.id','desc')
+        ->join('additionals', 'additionals.id', '=', 'users.id')
+        ->select('users.id as user_id','users.email',
+          DB::raw('CONCAT(users.name, " ", additionals.last_name) as user_name')
+        )
+        ->limit(10)
+        ->get();
+    } else {
+      $users = User::orderBy('users.id','desc')
+        ->join('additionals', 'additionals.id', '=', 'users.id')
+        ->select('users.id as user_id','users.email',
+          DB::raw('CONCAT(users.name, " ", additionals.last_name) as user_name')
+        )
+        ->where('users.email', 'like', '%'.$search.'%')
+        ->Orwhere('users.name', 'like', '%'.$search.'%')
+        ->Orwhere('additionals.last_name', 'like', '%'.$search.'%')
+        ->limit(10)
+        ->get();
+    }
+    $response = array();
+    foreach ($users as $user){
+      $response[] = array(
+        'id' => $user->user_id,
+        'email' => $user->email,
+        'user_name' => $user->user_name,
+      );
+    }
+    return response()->json($response);
+  }
+
 }

@@ -90,9 +90,8 @@
         <a class="collapsible-header waves-effect waves-grey {{ (request()->is('reporte*')) ? 'active' : '' }}">Reportes<i class="material-icons">assessment</i><i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
         <div class="collapsible-body">
           <ul>
-            <li><a class="{{ ! Route::is('users-report.index')?:'active-page' }}" href="{{ route('users-report.index') }}">Crear Reporte</a></li>
-            <li><a class="{{ ! Route::is('users-report.index')?:'active-page' }}" href="{{ route('users-report.index') }}">Seguimientos por asesor</a></li>
-            <li><a class="{{ ! Route::is('trackings-report.index')?:'active-page' }}" href="{{ route('trackings-report.index') }}">Por propiedades</a></li>
+            <li><a class="{{ ! Route::is('users-trackings-report.index')?:'active-page' }}" href="{{ route('users-trackings-report.index') }}">Por asesor </a></li>
+            <li><a class="{{ ! Route::is('trackings-report.index')?:'active-page' }}" href="{{ route('trackings-report.index') }}">Por seguimientos </a></li>
           </ul>
         </div>
       </li>

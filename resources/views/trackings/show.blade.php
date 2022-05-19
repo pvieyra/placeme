@@ -2,7 +2,7 @@
 
 @section('native-styles')
   <link type="text/css" rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.min.css') }}" />
-  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="{{ asset('plugins/weather-icons-master/css/weather-icons.min.css')}}" rel="stylesheet" />
   <link href="{{ asset('css/alpha.min.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{ asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
@@ -10,6 +10,16 @@
 @endsection
 @section('content')
   <div>
+    @role('asesor')
+    <div class="row">
+      <div class="navigation-basic">
+        <ol class="navigation-basic-list">
+          <li><a href="{{ route('trackings.index') }}"><i>Ver seguimientos /</i></a></li>
+          <li class="active"><i>Seguimiento</i></li>
+        </ol>
+      </div>
+    </div>
+    @endrole
     @role("administrador")
     <div class="row">
       <div class="card blue-grey lighten-5 col  s12">
@@ -104,6 +114,9 @@
               <div class="info-otra-inmobiliaria">
                 <div class="info-tracking personal-customer-building valign-wrapper">
                   <i class="material-icons md-24">label</i> <i>Inmobiliaria: </i> <span class="txt-green-1"> {{ $tracking->inmobiliaria_name }}</span>
+                </div>
+                <div class="info-tracking personal-customer-building valign-wrapper">
+                  <i class="material-icons md-24">home</i> <i>Direccion: </i> <span class="txt-green-1"> {{ $tracking->address_inmobiliaria }}</span>
                 </div>
                 <div class="info-tracking personal-customer-building valign-wrapper">
                   <i class="material-icons md-24">portrait</i> <i>Asesor: </i>  <span class="txt-green-1"> {{ $tracking->nombre_asesor }}</span>

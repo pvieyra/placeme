@@ -13,7 +13,7 @@
 
   <!-- Styles -->
   <link type="text/css" rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.min.css') }}"/>
-  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{{ asset('plugins/metrojs/MetroJs.min.css') }}" rel="stylesheet">
   <link href="{{ asset('plugins/weather-icons-master/css/weather-icons.min.css')}}" rel="stylesheet">
 

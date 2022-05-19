@@ -112,6 +112,7 @@ $(document).ready(function () {
             const operation_id = $("#operation_id").val();
             const contact_type = $("input[name*='contact_type']:checked").val();
             const inmobiliaria_name = $("#inmobiliaria_name").val();
+            const address_inmobiliaria = $("#address_inmobiliaria").val();
             const nombre_asesor = $("#nombre_asesor").val();
             const celular_asesor = $("#celular_asesor").val();
             const comments = $("#comments").val();
@@ -132,6 +133,7 @@ $(document).ready(function () {
                    operation_id: operation_id,
                    contact_type: contact_type,
                    inmobiliaria_name: inmobiliaria_name,
+                   address_inmobiliaria: address_inmobiliaria,
                    nombre_asesor: nombre_asesor,
                    celular_asesor: celular_asesor,
                    comments: comments
@@ -196,11 +198,13 @@ $(document).ready(function () {
 
 function fieldsDisabled( value ){
     $('#inmobiliaria_name').prop('disabled', value);
+    $('#address_inmobiliaria').prop('disabled', value);
     $('#nombre_asesor').prop('disabled', value);
     $('#celular_asesor').prop('disabled', value);
 }
 function msgInputDisabled(){
     $('#inmobiliaria_name').val('');
+    $('#address_inmobiliaria').val('');
     $('#nombre_asesor').val('');
     $('#celular_asesor').val('');
 }

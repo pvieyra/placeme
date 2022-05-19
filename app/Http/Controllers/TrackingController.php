@@ -205,6 +205,7 @@ class TrackingController extends Controller {
             'numero_interior_unidad' => $request->numero_interior_unidad,
             'contact_type' => $request->contact_type,
             'inmobiliaria_name' => $request->inmobiliaria_name,
+            'address_inmobiliaria' => $request->address_inmobiliaria,
             'nombre_asesor' => $request->nombre_asesor,
             'celular_asesor' => $request->celular_asesor,
             'active'=> 1,

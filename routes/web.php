@@ -56,7 +56,10 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
     /* REPORTES */
     Route::get('/reportes/usuarios', [ ExcelReports::class, 'usersReport'])->name('users-report.index');
     Route::get('/reportes/seguimientos', [ ExcelReports::class, 'trackingsReport'])->name('trackings-report.index');
+    Route::get('/reportes/asesores', [ ExcelReports::class, 'usersTrackingReport'])->name('users-trackings-report.index');
+
     Route::get('/excel/seguimientos', [ ExcelReports::class, 'exportReportTrackings'])->name('export-report-trackings');
+    Route::get('/excel/por/usuario', [ ExcelReports::class, 'exportReportUserTrackings'])->name('export-report-user-trackings');
 
     Route::get('/excel/usuarios', [ ExcelReports::class, 'export'])->name('export');
 
@@ -66,6 +69,11 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
     Route::resource('projects', ProjectController::class);
       /* ruta para uso de livewire */
     Route::view('contacts','users.contacts');
+
+    /** para seleccionar usuarios  en reportes */
+    Route::post('/getUsersReports',[UserController::class, 'selectUsers'])->name('users.select');
+    //Route::post('/getBuildingsReports',[BuildingController::class, 'selectUsers'])->name('bui.select');
+
 
   });
   /* ./ ADMIN ROUTES*/
@@ -96,8 +104,6 @@ Route::put('/cambiar-contrasena/{user}',[UserController::class, 'changePassword'
 // Is not active
 Route::view("/cuenta-suspendida", "extras.user-is-not-active")->name("inactive.account");
 
-
-
 ////ROUTE TEST
 Route::get('/pruebassql', function(){
   return DB::table('trackings as t')
@@ -112,7 +118,6 @@ Route::get('/pruebassql', function(){
     })
     ->get();
 });
-
 
 Route::get('/duplica', function(){
   return DB::table('trackings as t')
@@ -129,19 +134,8 @@ Route::get('/duplica', function(){
             GROUP BY  c.phone
             HAVING COUNT(*) > 1
      ) ")
-   /* ->whereRaw("t.building_id IN(
-          SELECT trackings.building_id FROM trackings
-        GROUP BY trackings.building_id
-        HAVING COUNT(*) > 1
-      ) ")*/
     ->where("t.active","=",1)
     ->where("t.checked","=", 0)
-    /*->when($this->userEmail, function($query){
-      return $query->where('u.email','like',"%{$this->userEmail}%");
-    })
-    ->when($this->buildingCode, function($query){
-      return $query->where('b.building_code','like',"%{$this->buildingCode}%");
-    })*/
     ->paginate(10);
 });
 
@@ -152,24 +146,6 @@ Route::get('reporte-ejemplo', function (){
     ->join('states', 'trackings.state_id', '=', 'states.id')
    ->join('operations', 'trackings.operation_id', '=', 'operations.id')
    ->join('additionals', 'additionals.id', '=', 'users.id')
- /*   ->where('trackings.user_id', '=', auth()->user()->id )*/
-   /* ->when($customerName, function($query) use($customerName){
-      $query->where('customers.name','like' , '%'. $customerName .'%')
-        ->orWhere('customers.last_name', 'like', '%'. $customerName .'%');
-    })
-    ->when($buildingAddress, function($query) use($buildingAddress){
-      $query->where('buildings.address','like' , '%'.$buildingAddress.'%');
-    })
-    ->where('buildings.suburb','like' , '%'.$buildingSuburb.'%')
-    ->when($startDate && $endDate  ,function($query) use($startDate, $endDate){
-      return $query->whereBetween('trackings.created_at', [ $startDate, $endDate]);
-    })
-    ->when(($startDate && is_null($endDate)) ,function($query) use($startDate){
-      $query->whereDate('trackings.created_at', [ $startDate]);
-    })
-    ->when($state, function($query) use($state){
-      $query->where('states.id','=' , $state);
-    })*/
     ->select('trackings.id','users.email',
       DB::raw('CONCAT( users.name , " ", additionals.last_name) as user_name'),
       DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'), 'customers.phone',
@@ -181,3 +157,4 @@ Route::get('reporte-ejemplo', function (){
     ->orderBy('trackings.created_at', 'desc')
     ->get();
 });
+

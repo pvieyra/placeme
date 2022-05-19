@@ -2,7 +2,7 @@
 
 @section('native-styles')
   <link type="text/css" rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.min.css') }}" />
-  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="{{ asset('plugins/weather-icons-master/css/weather-icons.min.css')}}" rel="stylesheet" />
   <link href="{{ asset('css/alpha.min.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{ asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
@@ -106,6 +106,10 @@
                             <div class="input-field col m12 s12">
                               <label for="inmobiliaria_name">Nombre de la inmobiliaria</label>
                               <input id="inmobiliaria_name" name="inmobiliaria_name" type="text" disabled>
+                            </div>
+                            <div class="input-field col m12 s12">
+                              <label for="address_inmobiliaria">Direccion de la propiedad</label>
+                              <input id="address_inmobiliaria" name="address_inmobiliaria" type="text" disabled>
                             </div>
                             <div class="input-field col m12 s12">
                               <label for="nombre_asesor">Nombre del asesor</label>
