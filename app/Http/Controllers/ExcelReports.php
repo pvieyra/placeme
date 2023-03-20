@@ -48,7 +48,7 @@ class ExcelReports extends Controller {
       session()->put("end_date", $endDate);
     }
     session()->save();
-    return Excel::download( new TrackingsExport, 'trackings.xlsx');
+    return Excel::download( new TrackingsExport, "trackings-".Carbon::now().".xlsx");
   }
 
   public function exportReportUserTrackings( Request $request){
@@ -63,7 +63,7 @@ class ExcelReports extends Controller {
       session()->put("end_date", $endDate);
     }
     session()->save();
-    return Excel::download( new UserTrackingsExport, 'user-trackings.xlsx');
+    return Excel::download( new UserTrackingsExport, "user-trackings".Carbon::now().".xlsx");
   }
 
   public function exportReportBuildingTrackings( Request $request){
@@ -78,7 +78,7 @@ class ExcelReports extends Controller {
       session()->put("end_date", $endDate);
     }
     session()->save();
-    return Excel::download( new BuildingTrackingsExport, 'building-trackings.xlsx');
+    return Excel::download( new BuildingTrackingsExport, "building-trackings".Carbon::now().".xlsx");
   }
 
 

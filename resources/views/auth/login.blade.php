@@ -8,6 +8,8 @@
 		<meta name="description" content="Responsive Admin Place Me"/>
 		<meta name="keywords" content="admin,dashboard"/>
 		<meta name="author" content="giganube"/>
+		<link href="{{ asset('images/icons/iphone-favicon-200x200.png') }}" rel="apple-touch-icon" sizes="200x200"/>
+		<link href="{{ asset('images/icons/favicon-200x200.png') }}" rel="icon" sizes="200x200" />
 
 		<!-- Styles -->
 		<link type="text/css" rel="stylesheet" href="{{ asset('plugins/materialize/css/materialize.min.css') }}"/>

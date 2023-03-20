@@ -80,7 +80,7 @@ class TrackingController extends Controller {
     }
 
 
-    /** all trackings for Admin user */
+    /** all tracking for Admin user */
     public function indexAdminTrackings(Request $request){
       $customerName = $request['customer_name'];
       $asesorAccount = $request['asesor_account'];
@@ -93,10 +93,11 @@ class TrackingController extends Controller {
         $endDate = Carbon::createFromFormat('Y-m-d',$endDate)->addDay();
       }
       $states = State::all();
+
       $trackings =  Tracking::join('users', 'trackings.user_id', '=', 'users.id')
         ->join('customers', 'trackings.customer_id', '=', 'customers.id')
         ->join('buildings', 'trackings.building_id', '=', 'buildings.id')
-        ->join('additionals', 'additionals.id', '=', 'users.id')
+        ->join('additionals', 'additionals.user_id', '=', 'users.id')
         ->join('states', 'trackings.state_id', '=', 'states.id')
         ->when($customerName, function($query) use($customerName){
           $query->where('customers.name','like' , '%'. $customerName .'%')
@@ -128,7 +129,7 @@ class TrackingController extends Controller {
           'states.color as color','states.name as estado',
           DB::raw('trackings.created_at as creado'),'trackings.updated_at as actualizado')
         ->orderBy('trackings.created_at', 'desc')
-        ->paginate(5);
+        ->paginate(20);
 
       $trackings->appends([
         'asesor_account' => $asesorAccount,
@@ -139,6 +140,10 @@ class TrackingController extends Controller {
         'start_date' => $startDate,
         'end_date' => $endDate,
       ]);
+
+
+      //return $trackings;
+
       // si el usuario es admin, mostrar todos los trackings de todos los asesores.
       return view('trackings.index-admin', compact('trackings', 'states'));
     }

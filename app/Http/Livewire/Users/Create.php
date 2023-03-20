@@ -95,7 +95,7 @@ class Create extends Component{
     if($propertyName == 'phone' ){
       $this->phone = Manny::mask($this->phone, "(11) 1111-1111");
     }
-    if($propertyName == 'name'){
+    /*if($propertyName == 'name'){
       $this->name = Manny::stripper($this->name,['alpha']);
     }
     if($propertyName == 'last_name'){
@@ -103,7 +103,7 @@ class Create extends Component{
     }
     if($propertyName == 'second_lastname'){
       $this->second_lastname = Manny::stripper($this->second_lastname,['alpha']);
-    }
+    }*/
   }
 
   public function resetImage(){

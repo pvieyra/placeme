@@ -22,21 +22,6 @@ class TrackingsExport implements FromView {
       ->join('states', 'trackings.state_id', '=', 'states.id')
       ->join('operations', 'trackings.operation_id', '=', 'operations.id')
       ->join('additionals', 'additionals.id', '=', 'users.id')
-      /*   ->where('trackings.user_id', '=', auth()->user()->id )*/
-      /* ->when($customerName, function($query) use($customerName){
-         $query->where('customers.name','like' , '%'. $customerName .'%')
-           ->orWhere('customers.last_name', 'like', '%'. $customerName .'%');
-       })
-       ->when($buildingAddress, function($query) use($buildingAddress){
-         $query->where('buildings.address','like' , '%'.$buildingAddress.'%');
-       })
-       ->where('buildings.suburb','like' , '%'.$buildingSuburb.'%')
-       ->when($startDate && $endDate  ,function($query) use($startDate, $endDate){
-         return $query->whereBetween('trackings.created_at', [ $startDate, $endDate]);
-       })
-       ->when(($startDate && is_null($endDate)) ,function($query) use($startDate){
-         $query->whereDate('trackings.created_at', [ $startDate]);
-       })*/
       ->when(session('active_tracking'), function($query) use($active){
         $query->where('trackings.active','=' , $active);
       })
@@ -52,15 +37,10 @@ class TrackingsExport implements FromView {
       ->when(session('operation_tracking'), function($query){
         $query->where('operations.id','=' , session('operation_tracking'));
       })
-
-      /*->when(session('active_tracking'), function($query){
-        $query->where('activo','=' , session('active_tracking'));
-      })
-      ->where('trackings.active', '=', 0)*/
       ->select('trackings.id','users.email',
         DB::raw('CONCAT( users.name , " ", additionals.last_name) as user_name'),
-        DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'), 'customers.phone',
-        'buildings.address', 'trackings.contact_type',
+        DB::raw('CONCAT(customers.name, " ", customers.last_name) as cliente'), 'customers.phone','customers.email as customer_email',
+        'buildings.address', 'trackings.contact_type','buildings.building_code',
         DB::raw('CONCAT(buildings.address, " ", buildings.suburb) as direccion'),
         'states.color as color','states.name as estado',
         DB::raw('trackings.created_at as creado'),'trackings.active as activo',

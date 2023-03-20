@@ -58,24 +58,27 @@ class DatabaseSeeder extends Seeder {
       // Crear los usuarios y asignarles sus Roles
       $userAdmin = User::create([
         'name' => "Admin",
-        'email' => "dev@placeme.mx",
+        'email' => "admin@placeme.mx",
         'password' => bcrypt("password"),
       ]);
       $userAdmin->additional()->create([
         'last_name' => 'Dev',
-        'second_lastname' => "Smith",
-        'phone' => "3318548115",
+        'second_lastname' => "",
+        'phone' => "",
         'photo_profile' => "photo-profile/user_profile_a.png",
         'change_password' => 1
       ]);
       $userAdmin->assignRole( $role1 );
-
-      $userAdvisor = User::create([
+      $this->call([
+        OperationsTableSeeder::class,
+        StateTableSeeder::class,
+      ]);
+     /* $userAdvisor = User::create([
         'name' => "Vincent",
         'email' => "vega@placeme.mx",
         'password' => bcrypt("password"),
-      ]);
-      $userAdvisor->additional()->create([
+      ]);*/
+     /* $userAdvisor->additional()->create([
         'last_name' => 'Vega',
         'second_lastname' => "Luke",
         'phone' => "3336748029",
@@ -89,12 +92,12 @@ class DatabaseSeeder extends Seeder {
       $this->call([
         OperationsTableSeeder::class,
         StateTableSeeder::class,
-      ]);
-      Building::factory(10)->create();
+      ]);*/
+     /* Building::factory(100)->create();
 
-     Customer::factory(  15)->create();
+     Customer::factory(  150)->create();*/
 
- /*    $trackings = Tracking::factory(6000)->create();
+    /* $trackings = Tracking::factory(2000)->create();
       $trackings->each( function ( $tracking){
         for ($i = 1; $i <= 10; $i++) {
           Comment::create([

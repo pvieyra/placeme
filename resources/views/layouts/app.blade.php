@@ -9,6 +9,8 @@
 	<meta name="description" content="Portal operativo para Place Me!" />
 	<meta name="keywords" content="admin,dashboard, place me" />
 	<meta name="author" content="giganube" />
+	<link href="{{ asset('images/icons/iphone-favicon-200x200.png') }}" rel="apple-touch-icon" sizes="200x200"/>
+	<link href="{{ asset('images/icons/favicon-200x200.png') }}" rel="icon" sizes="200x200" />
 
 	@yield('native-styles')
 

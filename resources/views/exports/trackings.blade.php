@@ -6,6 +6,8 @@
     <th>Cuenta del asesor</th>
     <th>Cliente</th>
     <th>Telefono</th>
+    <th>Correo electronico</th>
+    <th>Codigo de la propiedad</th>
     <th>Direccion</th>
     <th>Estado</th>
     <th>Tipo de contacto</th>
@@ -22,6 +24,8 @@
       <td>{{ $tracking->email }}</td>
       <td>{{ $tracking->cliente }}</td>
       <td>{{ $tracking->phone }}</td>
+      <td>{{ $tracking->customer_email }}</td>
+      <td>{{ $tracking->building_code }}</td>
       <td>{{ $tracking->address }}</td>
       <td>{{ $tracking->estado }}</td>
       <td>{{ $tracking->contact_type }}</td>
