@@ -54,10 +54,11 @@ class Duplicate extends Component{
       ->join("states as s","t.state_id", "=", "s.id")
       ->whereRaw("c.phone IN (
 	        SELECT c.phone FROM trackings as t
-            JOIN customers as c 
+            JOIN customers as c
             ON t.customer_id = c.id
             GROUP BY  c.phone
             HAVING COUNT(*) > 1
+            ORDER BY c.phone
      ) ")
       /*->whereRaw("t.building_id IN(
           SELECT trackings.building_id FROM trackings
@@ -96,7 +97,7 @@ class Duplicate extends Component{
       ->join("states as s","t.state_id", "=", "s.id")
       ->whereRaw("c.phone IN (
 	        SELECT c.phone FROM trackings as t
-            JOIN customers as c 
+            JOIN customers as c
             ON t.customer_id = c.id
             GROUP BY  c.phone
             HAVING COUNT(*) > 1
