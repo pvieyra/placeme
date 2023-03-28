@@ -18,33 +18,32 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],function(){
-  /*ADMIN ROUTES*/
-  Route::group(["middleware" => ["role:administrador"]],function(){
-    /* USERS */
+    /* Admin Routes */
+    Route::group(["middleware" => ["role:administrador"]],function(){
+    /* Users */
     Route::view('/usuarios','users.index')->name('users.index');
     Route::view('/usuarios/crear', 'users.create')->name('users.create');
     Route::get('/usuario/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/usuarios/editar/{user}',[UserController::class,'editUser'])->name('users.edit');
 
-    /* TRACKINGS*/
+    /* Trackings */
     Route::get('/seguimientos/admin', [TrackingController::class, 'indexAdminTrackings'])->name('trackings.index-admin');
     //Duplicates Trackings
     Route::get("/seguimientos/duplicados", [TrackingController::class, "duplicate"])->name("trackings.duplicate");
     Route::get("/seguimientos/todos-duplicados", [TrackingController::class, "allDuplicates"])->name("tracking.all-duplicates");
 
-    /* BUILDINGS */
+    /* Buildings */
     Route::view("/propiedades","buildings.index")->name("buildings.index");
     Route::get("/propiedad/{building}", [BuildingController::class, 'show'])->name("buildings.show");
 
-    /* ENLACES */
+    /* Links */
     Route::get("/enlaces", [LinkController::class, "index"])->name("link.index");
 
-    /* REPORTES */
+    /* Reports */
     Route::get('/reportes/usuarios', [ ExcelReports::class, 'usersReport'])->name('users-report.index');
     Route::get('/reportes/seguimientos', [ ExcelReports::class, 'trackingsReport'])->name('trackings-report.index');
     Route::get('/reportes/asesor', [ ExcelReports::class, 'usersTrackingReport'])->name('users-trackings-report.index');
     Route::get('/reportes/propiedad', [ ExcelReports::class, 'buildingTrackingReport'])->name('building-trackings-report.index');
-
 
 
     Route::get('/excel/seguimientos', [ ExcelReports::class, 'exportReportTrackings'])->name('export-report-trackings');
@@ -60,7 +59,7 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
       /* ruta para uso de livewire */
     Route::view('contacts','users.contacts');
 
-    /** para seleccionar usuarios  en reportes */
+    /** Para seleccionar usuarios en reportes */
     Route::post('/getUsersReports',[UserController::class, 'selectUsers'])->name('users.select');
     Route::post('/getBuildingsReports',[BuildingController::class, 'selectBuildingsReports'])->name('building-reports.select');
 
@@ -68,10 +67,14 @@ Route::group(["middleware" => ["auth", "user_is_active", "password.changed"]],fu
   });
   /* ./ ADMIN ROUTES*/
 
-  /* {{ ASESOR ROUTES }} */
+    /* ./Historial de versiones: clientes */
+    Route::get('/cliente/{customer}/historial-versiones', [ CustomerController::class, 'historial'])
+        ->name('customers.historial');
+
+  /* Asesor Routes */
   Route::get('/home', [HomeController::class, 'index'])->name('index');
 
-  /* ASESOR TRACKINGS */
+  /* Asesor Trackings */
   Route::get('/seguimientos', [TrackingController::class, 'index'])->name('trackings.index');
   Route::get('/seguimiento', [TrackingController::class, 'create'])->name('trackings.create');
   Route::post('/seguimiento',[TrackingController::class, 'store'])->name('trackings.store');

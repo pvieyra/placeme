@@ -19,6 +19,7 @@
         <div class="col s6">
           <label for="last_name">Apellido paterno</label>
           <input id="last_name" wire:model="last_name" type="text" class="browser-default"  placeholder="apellido paterno del cliente">
+            @error('last_name') <span class="error-form"> {{ $message }} </span> @enderror
         </div>
       </div>
       <div class="row">
@@ -40,7 +41,12 @@
           <input disabled type="text"  value="{{ $customer->phone }}" class="browser-default">
         </div>
       </div>
-      <button class="btn blue" wire:click="update">Guardar</button>
+      <button class="btn blue" wire:click="update">
+          Guardar
+      </button>
+      <a class="btn orange" href="{{ route( 'customers.historial', $customer ) }}">
+          Historial de cambios
+      </a>
     </div>
   </div>
 </div>

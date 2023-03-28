@@ -26,7 +26,7 @@ class Additional extends Model{
     return ($this->active)? 'Activo':'Suspendido';
   }
   public function getFormatPhoneAttribute(){
-    return Manny::mask( $this->phone , "(11) 1111-1111");
+     return  isset( $this->phone ) ? Manny::mask( $this->phone , "(11) 1111-1111") : "" ;
   }
 
   public function changed(){

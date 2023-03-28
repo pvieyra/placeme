@@ -57,6 +57,10 @@ class CustomerController extends Controller {
       return view("customers.edit", compact( "customer" ));
     }
 
+    public function historial( Customer $customer ){
+        return view( "customers.historial", compact("customer", "customer") );
+    }
+
     /**
      * Update the specified resource in storage.
      *

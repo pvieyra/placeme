@@ -15,6 +15,13 @@ class CreateCustomerHistoriesTable extends Migration
     {
         Schema::create('customer_histories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customer_id')->unsigned();
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->string('name',120);
+            $table->string('last_name',120);
+            $table->string('second_last_name',120)->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone',50);
             $table->timestamps();
         });
     }

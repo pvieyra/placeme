@@ -193,6 +193,8 @@ img.responsive-img.profile-user{
     width: 110px;
 }
 
+
+
 @media (max-width: 768px) {
     td span.badge {
         margin-left: 10px;
@@ -214,4 +216,15 @@ img.responsive-img.profile-user{
         width:300px;
     }
 
+}
+
+/* Estilos tabla historial de versiones */
+.padding-5 {
+    padding: 20px;
+}
+.margin-top-2 {
+    margin-top: 2.5rem;
+}
+.margin-btn {
+    margin-top:20px;
 }

@@ -8,10 +8,11 @@
   <link href="{{ asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
-
-
   <div class="row">
     <div class="card">
+        <span>
+            <a class="btn green" href="{{ route('trackings.show', $customer) }}"> Regresar a seguimiento</a>
+        </span>
       <livewire:customers.edit :customer="$customer" />
     </div>
   </div>

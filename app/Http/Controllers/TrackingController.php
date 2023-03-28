@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Customer;
+use App\Models\CustomerHistory;
 use App\Models\State;
 use App\Models\Tracking;
 use App\Models\Operation;
@@ -191,9 +192,7 @@ class TrackingController extends Controller {
         //Guardar el seguimiento.
         try {
           DB::beginTransaction();
-          //Primero se crea al cliente
-          //Se guarda seguimiento
-          //se guarda commentario
+
           $customer = Customer::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
@@ -201,6 +200,16 @@ class TrackingController extends Controller {
             'email' => $request->email,
             'phone' => $request->phone,
           ]);
+
+          CustomerHistory::create([
+              'customer_id' => $customer->id,
+              'name' => $request->name,
+              'last_name' => $request->last_name,
+              'second_last_name' => $request->second_last_name,
+              'email' => $request->email,
+              'phone' => $request->phone,
+          ]);
+
           $tracking = Tracking::create([
             'user_id' => auth()->user()->id,
             'customer_id' => $customer->id,
